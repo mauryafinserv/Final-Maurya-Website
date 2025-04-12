@@ -11,18 +11,25 @@ export default async function handler(req, res) {
   for (const [key, symbol] of Object.entries(symbols)) {
     try {
       const response = await fetch(
-        `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${apiKey}`
+        `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(symbol)}&token=${apiKey}`,
+        { headers: { "Content-Type": "application/json" } }
       );
+
       const data = await response.json();
 
-      results[key] = {
-        symbol,
-        price: data.c,
-        change: data.d,
-        percent_change: data.dp,
-      };
+      if (data && data.c) {
+        results[key] = {
+          symbol,
+          price: data.c,
+          change: data.d,
+          percent_change: data.dp,
+        };
+      } else {
+        results[key] = { symbol, error: "No data returned from Finnhub" };
+      }
+
     } catch (error) {
-      console.error(`Error fetching ${symbol}:`, error);
+      results[key] = { symbol, error: error.message };
     }
   }
 
