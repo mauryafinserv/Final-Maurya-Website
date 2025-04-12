@@ -5,31 +5,32 @@ export default async function handler(req, res) {
     BANK_NIFTY: "^NSEBANK"
   };
 
-  const apiKey = "cvt81a1r01qhup0ur4ggcvt81a1r01qhup0ur4h0";
   const results = {};
+  const rapidKey = "36eb6069a7msh6d97701d0dae609p1d7553jsn65ea6a382e39"; // 🔑 Paste your key here
 
   for (const [key, symbol] of Object.entries(symbols)) {
     try {
       const response = await fetch(
-        `https://finnhub.io/api/v1/quote?symbol=${encodeURIComponent(symbol)}&token=${apiKey}`,
-        { headers: { "Content-Type": "application/json" } }
+        `https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=${encodeURIComponent(symbol)}&region=IN`,
+        {
+          method: "GET",
+          headers: {
+            "X-RapidAPI-Key": rapidKey,
+            "X-RapidAPI-Host": "apidojo-yahoo-finance-v1.p.rapidapi.com"
+          }
+        }
       );
 
       const data = await response.json();
 
-      if (data && data.c) {
-        results[key] = {
-          symbol,
-          price: data.c,
-          change: data.d,
-          percent_change: data.dp,
-        };
-      } else {
-        results[key] = { symbol, error: "No data returned from Finnhub" };
-      }
-
-    } catch (error) {
-      results[key] = { symbol, error: error.message };
+      results[key] = {
+        symbol,
+        price: data.price?.regularMarketPrice?.raw,
+        change: data.price?.regularMarketChange?.raw,
+        percent_change: data.price?.regularMarketChangePercent?.raw
+      };
+    } catch (err) {
+      results[key] = { symbol, error: "Failed to fetch" };
     }
   }
 
