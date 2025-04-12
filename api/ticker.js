@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   };
 
   const results = {};
-  const rapidKey = "36eb6069a7msh6d97701d0dae609p1d7553jsn65ea6a382e39"; // ⛳ Replace with your key
+  const rapidKey = "36eb6069a7msh6d97701d0dae609p1d7553jsn65ea6a382e39";
 
   for (const [key, symbol] of Object.entries(symbols)) {
     try {
