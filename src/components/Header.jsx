@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react"; // install with: npm install lucide-react
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("menu-open", mobileMenuOpen);
+  }, [mobileMenuOpen]);
 
   return (
     <header className="sticky top-0 bg-white shadow z-50">
@@ -58,8 +62,15 @@ const Header = () => {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50">
-          <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg p-6">
+        <div className="fixed inset-0 z-50 flex">
+          {/* Dark backdrop */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50"
+            onClick={() => setMobileMenuOpen(false)}
+          ></div>
+
+          {/* Slide-in Menu */}
+          <div className="relative ml-auto w-72 max-w-full h-full bg-white shadow-lg p-6 z-50">
             <div className="flex justify-end">
               <button onClick={() => setMobileMenuOpen(false)}>
                 <X className="h-6 w-6 text-gray-600" />
