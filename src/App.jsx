@@ -8,15 +8,18 @@ import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
+
+// Pages
 import MutualFundPage from "./pages/MutualFundPage";
-import PMSPage from "./pages/PMSPage"; // ✅ Added PMS page import
+import PMSPage from "./pages/PMSPage";
 
 function App() {
   return (
     <div className="bg-background text-text min-h-screen font-sans">
       <Header />
+
       <Routes>
-        {/* Homepage route */}
+        {/* ✅ Homepage */}
         <Route
           path="/"
           element={
@@ -31,10 +34,8 @@ function App() {
           }
         />
 
-        {/* Mutual Funds page route */}
+        {/* ✅ Internal Pages */}
         <Route path="/mutual-funds" element={<MutualFundPage />} />
-
-        {/* PMS page route */}
         <Route path="/pms" element={<PMSPage />} />
       </Routes>
     </div>

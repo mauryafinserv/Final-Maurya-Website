@@ -7,13 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#000000',     // Black background
-        text: '#ffffff',           // White text
-        primary: '#FFD700',        // Golden accents
-        darkGold: '#C5A300',       // Slightly darker gold
+        background: '#000000',
+        text: '#ffffff',
+        primary: '#FFE57F',     // ✅ Updated lighter gold
+        darkGold: '#D1AF4A',     // ✅ Softer complementary shade
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], // Optional: modern clean font
+        sans: ['Inter', 'sans-serif'],
       },
     },
   },
