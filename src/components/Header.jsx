@@ -40,7 +40,7 @@ const Header = () => {
             </div>
           </div>
 
-          <a href="#knowledge" className="hover:text-indigo-600">KNOWLEDGE CORNER</a>
+          <Link to="/knowledge-corner" className="hover:text-indigo-600">KNOWLEDGE CORNER</Link>
           <a href="#partner" className="hover:text-indigo-600">PARTNER WITH US</a>
           <a href="#login" className="hover:text-indigo-600">CLIENT LOG IN</a>
         </nav>
@@ -70,7 +70,7 @@ const Header = () => {
                 <p className="font-medium">PRODUCT OFFERING</p>
                 <ul className="mt-2 space-y-2 pl-2">
                   <li><Link to="/mutual-funds" onClick={() => setMobileMenuOpen(false)}>Mutual Fund</Link></li>
-                  <li><Link to="/pms" onClick={() => setMobileMenuOpen(false)}>PMS (Portfolio Management Services)</Link></li>
+                  <li><Link to="/pms" onClick={() => setMobileMenuOpen(false)}>PMS</Link></li>
                   <li><a href="#equity" onClick={() => setMobileMenuOpen(false)}>Equity Broking</a></li>
                   <li><a href="#aif" onClick={() => setMobileMenuOpen(false)}>AIF</a></li>
                   <li><a href="#loan" onClick={() => setMobileMenuOpen(false)}>Loan Against MF</a></li>
@@ -80,7 +80,7 @@ const Header = () => {
                   <li><a href="#insurance" onClick={() => setMobileMenuOpen(false)}>Insurance Advisory</a></li>
                 </ul>
               </div>
-              <a href="#knowledge" onClick={() => setMobileMenuOpen(false)}>KNOWLEDGE CORNER</a>
+              <Link to="/knowledge-corner" onClick={() => setMobileMenuOpen(false)} className="block">KNOWLEDGE CORNER</Link>
               <a href="#partner" onClick={() => setMobileMenuOpen(false)}>PARTNER WITH US</a>
               <a href="#login" onClick={() => setMobileMenuOpen(false)}>CLIENT LOG IN</a>
             </nav>
