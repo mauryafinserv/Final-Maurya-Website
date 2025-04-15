@@ -39,7 +39,7 @@ const Hero = () => {
             Open an Account
           </button>
           <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
-            Talk to an Advisor
+            Connect With Our Team
           </button>
         </div>
       </div>

@@ -5,25 +5,28 @@ const services = [
   "Equity Broking",
   "AIF (Alternative Investment Fund)",
   "PMS (Portfolio Management Services)",
+  "Loan Against Mutual Funds",
+  "NPS",
   "Company Fixed Deposits",
   "Tax Consultation & Planning",
-  "Insurance Advisory",
+  "Insurance Advisory"
 ];
 
 const Services = () => {
   return (
-    <section className="bg-gray-50 py-20 px-6 md:px-12 text-center">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-10">
-          Our Services
+    <section className="bg-background py-20 px-6 md:px-12 text-text">
+      <div className="max-w-6xl mx-auto text-center">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-10">
+          What We Offer
         </h2>
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left text-lg md:text-xl font-light">
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white shadow-md rounded-xl p-6 border border-gray-200 hover:shadow-lg transition"
+              className="flex items-center gap-3 border-l-4 border-darkGold pl-4 hover:bg-darkGold/20 transition duration-200 rounded"
             >
-              <p className="text-lg font-medium text-gray-700">{service}</p>
+              <span className="h-2 w-2 bg-blue-400 rounded-full mt-1" />
+              <span className="leading-snug">{service}</span>
             </div>
           ))}
         </div>

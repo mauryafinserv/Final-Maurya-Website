@@ -1,46 +1,55 @@
 import React from "react";
-import { ShieldCheck, Briefcase, BarChart3, MapPin } from "lucide-react";
+import { ShieldCheck, BarChart3, Handshake } from "lucide-react"; // install with: npm install lucide-react
 
 const features = [
   {
-    title: "30+ Years of Legacy",
-    icon: <ShieldCheck className="w-8 h-8 text-indigo-600" />,
-    desc: "Building wealth for generations with deep expertise in financial planning."
+    icon: <ShieldCheck className="h-8 w-8 text-blue-400 mb-4" />,
+    title: "Legacy & Trust",
+    desc: "30+ years of experience managing ₹300+ Cr in AUM for 2500+ families."
   },
   {
-    title: "Research-Driven Advice",
-    icon: <BarChart3 className="w-8 h-8 text-indigo-600" />,
-    desc: "Our recommendations are backed by insights, analysis, and long-term thinking."
+    icon: <BarChart3 className="h-8 w-8 text-blue-400 mb-4" />,
+    title: "Performance Focused",
+    desc: "Clients have generated alpha over markets with our research-backed approach."
   },
   {
+    icon: <Handshake className="h-8 w-8 text-blue-400 mb-4" />,
     title: "One-Stop Financial Partner",
-    icon: <Briefcase className="w-8 h-8 text-indigo-600" />,
-    desc: "From mutual funds to insurance, everything you need under one roof."
+    desc: "From mutual funds to insurance — everything under one roof."
   },
   {
-    title: "Trusted Across Cities",
-    icon: <MapPin className="w-8 h-8 text-indigo-600" />,
-    desc: "Serving families in Mumbai, Patna, and Kolkata — and expanding soon to Bengaluru and Pune, empowering wealth journeys across India."
+    icon: <ShieldCheck className="h-8 w-8 text-blue-400 mb-4" />,
+    title: "Personalized Planning",
+    desc: "Tailored solutions for every generation and goal — not one-size-fits-all."
+  },
+  {
+    icon: <BarChart3 className="h-8 w-8 text-blue-400 mb-4" />,
+    title: "Goal-Based Portfolios",
+    desc: "We help you build, monitor, and refine long-term portfolios across life stages."
+  },
+  {
+    icon: <Handshake className="h-8 w-8 text-blue-400 mb-4" />,
+    title: "Strong Presence",
+    desc: "Offices in Mumbai, Patna, Kolkata — expanding soon to Bengaluru and Pune."
   }
 ];
 
 const WhyChooseUs = () => {
   return (
-    <section className="bg-white py-16 px-6 md:px-10">
+    <section className="bg-background py-20 px-6 md:px-12 text-text">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-          Why Choose Maurya?
+        <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-12">
+          Why Invest with Maurya?
         </h2>
-        <p className="text-gray-600 mb-12">
-          Experience. Trust. Results. Here's why families across generations choose us to guide their wealth journey.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-          {features.map((item, index) => (
-            <div key={index} className="bg-gray-50 p-6 rounded-2xl shadow hover:shadow-md transition">
-              <div className="flex justify-center mb-4">{item.icon}</div>
-              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-              <p className="text-sm text-gray-600">{item.desc}</p>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="bg-black/40 border border-darkGold rounded-xl p-6 hover:shadow-lg hover:bg-darkGold hover:text-black transition duration-300"
+            >
+              {feature.icon}
+              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-sm">{feature.desc}</p>
             </div>
           ))}
         </div>
