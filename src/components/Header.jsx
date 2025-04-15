@@ -27,14 +27,10 @@ const Header = () => {
             <button className="hover:text-indigo-600 focus:outline-none">PRODUCT OFFERING</button>
             <div className="absolute left-0 top-full mt-2 w-72 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
               <ul className="py-2 text-sm text-gray-700">
-                <li>
-                  <Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">
-                    Mutual Fund
-                  </Link>
-                </li>
+                <li><Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund</Link></li>
+                <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS (Portfolio Management Services)</Link></li>
                 <li><a href="#equity" className="block px-4 py-2 hover:bg-gray-100">Equity Broking</a></li>
                 <li><a href="#aif" className="block px-4 py-2 hover:bg-gray-100">AIF (Alternative Investment Fund)</a></li>
-                <li><a href="#pms" className="block px-4 py-2 hover:bg-gray-100">PMS (Portfolio Management Services)</a></li>
                 <li><a href="#loan" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</a></li>
                 <li><a href="#nps" className="block px-4 py-2 hover:bg-gray-100">NPS</a></li>
                 <li><a href="#fd" className="block px-4 py-2 hover:bg-gray-100">Company Fixed Deposits</a></li>
@@ -51,10 +47,7 @@ const Header = () => {
 
         {/* Mobile Menu Toggle */}
         <div className="md:hidden">
-          <button
-            className="text-gray-700 focus:outline-none"
-            onClick={() => setMobileMenuOpen(true)}
-          >
+          <button className="text-gray-700 focus:outline-none" onClick={() => setMobileMenuOpen(true)}>
             <Menu className="h-6 w-6" />
           </button>
         </div>
@@ -63,13 +56,7 @@ const Header = () => {
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex">
-          {/* Dark backdrop */}
-          <div
-            className="fixed inset-0 bg-black bg-opacity-50"
-            onClick={() => setMobileMenuOpen(false)}
-          ></div>
-
-          {/* Slide-in Menu */}
+          <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)}></div>
           <div className="relative ml-auto w-72 max-w-full h-full bg-white shadow-lg p-6 z-50">
             <div className="flex justify-end">
               <button onClick={() => setMobileMenuOpen(false)}>
@@ -83,9 +70,9 @@ const Header = () => {
                 <p className="font-medium">PRODUCT OFFERING</p>
                 <ul className="mt-2 space-y-2 pl-2">
                   <li><Link to="/mutual-funds" onClick={() => setMobileMenuOpen(false)}>Mutual Fund</Link></li>
+                  <li><Link to="/pms" onClick={() => setMobileMenuOpen(false)}>PMS (Portfolio Management Services)</Link></li>
                   <li><a href="#equity" onClick={() => setMobileMenuOpen(false)}>Equity Broking</a></li>
                   <li><a href="#aif" onClick={() => setMobileMenuOpen(false)}>AIF</a></li>
-                  <li><a href="#pms" onClick={() => setMobileMenuOpen(false)}>PMS</a></li>
                   <li><a href="#loan" onClick={() => setMobileMenuOpen(false)}>Loan Against MF</a></li>
                   <li><a href="#nps" onClick={() => setMobileMenuOpen(false)}>NPS</a></li>
                   <li><a href="#fd" onClick={() => setMobileMenuOpen(false)}>Company FDs</a></li>
