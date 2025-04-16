@@ -9,7 +9,6 @@ const Header = () => {
     login: false,
   });
 
-  /* prevent body scroll on mobile drawer */
   useEffect(() => {
     document.body.classList.toggle("menu-open", mobileMenu.menu);
   }, [mobileMenu.menu]);
@@ -22,12 +21,12 @@ const Header = () => {
           <img src="/logo.png" alt="Maurya Logo" className="h-10 w-auto" />
         </Link>
 
-        {/* =============== DESKTOP NAV =============== */}
+        {/* --------------- DESKTOP NAV --------------- */}
         <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-700 items-center">
           <Link to="/"  className="hover:text-indigo-600">HOME</Link>
           <a  href="#about" className="hover:text-indigo-600">ABOUT US</a>
 
-          {/* PRODUCT OFFERING (hover) */}
+          {/* PRODUCT OFFERING (hover) */}
           <div className="relative group">
             <button className="hover:text-indigo-600">PRODUCT OFFERING</button>
             <div className="absolute left-0 top-full w-72 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition">
@@ -45,75 +44,33 @@ const Header = () => {
           <Link to="/knowledge-corner" className="hover:text-indigo-600">KNOWLEDGE CORNER</Link>
           <a  href="#partner" className="hover:text-indigo-600">PARTNER WITH US</a>
 
-          {/* CLIENT LOG IN (hover) */}
+          {/* CLIENT LOG IN (hover) */}
           <div className="relative group">
             <button className="hover:text-indigo-600">CLIENT LOG IN</button>
             <div className="absolute right-0 top-full w-72 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 invisible group-hover:visible transition">
               <ul className="py-2 text-sm text-gray-700">
-                <li>
-                  <a
-                    href="https://mauryasecurity.wealthmagic.in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Mutual Fund Platform
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.kotaksecurities.com/trade/login"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Stock Investing Platform
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    ICICI Alternate Investments
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    ABSL Alternate Investments
-                  </a>
-                </li>
+                <li><a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund Platform</a></li>
+                <li><a href="https://www.kotaksecurities.com/trade/login" target="_blank" rel="noopener" className="block px-4 py-2 hover:bg-gray-100">Stock Investing Platform</a></li>
+                <li><a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener" className="block px-4 py-2 hover:bg-gray-100">ICICI Alternate Investments</a></li>
+                <li><a href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith" target="_blank" rel="noopener" className="block px-4 py-2 hover:bg-gray-100">ABSL Alternate Investments</a></li>
               </ul>
             </div>
           </div>
         </nav>
 
-        {/* Hamburger (mobile) */}
-        <button
-          className="md:hidden text-gray-700"
-          onClick={() => setMobileMenu(prev => ({ ...prev, menu: true }))}
-        >
+        {/* Hamburger */}
+        <button className="md:hidden text-gray-700" onClick={() => setMobileMenu(p => ({ ...p, menu: true }))}>
           <Menu className="h-6 w-6" />
         </button>
       </div>
 
-      {/* =============== MOBILE DRAWER =============== */}
+      {/* --------------- MOBILE DRAWER --------------- */}
       {mobileMenu.menu && (
         <div className="fixed inset-0 z-50 flex">
-          {/* backdrop */}
           <div
             className="fixed inset-0 bg-black bg-opacity-50"
             onClick={() => setMobileMenu({ menu: false, product: false, login: false })}
           />
-
-          {/* drawer */}
           <div className="relative ml-auto w-72 max-w-full h-full bg-white shadow-lg p-6 z-50">
             <div className="flex justify-end">
               <button onClick={() => setMobileMenu({ menu: false, product: false, login: false })}>
@@ -125,7 +82,7 @@ const Header = () => {
               <Link to="/" onClick={() => setMobileMenu({ menu: false })}>HOME</Link>
               <a href="#about" onClick={() => setMobileMenu({ menu: false })}>ABOUT US</a>
 
-              {/* PRODUCT OFFERING toggle */}
+              {/* PRODUCT OFFERING TOGGLE */}
               <div>
                 <button
                   className="w-full flex justify-between items-center font-medium"
@@ -135,16 +92,16 @@ const Header = () => {
                   {mobileMenu.product ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
                 {mobileMenu.product && (
-                  <ul className="mt-2 space-y-2 pl-4">
-                    <li><Link to="/mutual-funds"   onClick={() => setMobileMenu({ menu: false })}>Mutual Fund</Link></li>
-                    <li><Link to="/pms"            onClick={() => setMobileMenu({ menu: false })}>PMS</Link></li>
-                    <li><Link to="/equity-broking" onClick={() => setMobileMenu({ menu: false })}>Equity Broking</Link></li>
-                    <li><Link to="/aif"            onClick={() => setMobileMenu({ menu: false })}>AIF</Link></li>
+                  <ul className="mt-1 space-y-1">
+                    <li><Link to="/mutual-funds"   className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>Mutual Fund</Link></li>
+                    <li><Link to="/pms"            className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>PMS</Link></li>
+                    <li><Link to="/equity-broking" className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>Equity Broking</Link></li>
+                    <li><Link to="/aif"            className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>AIF</Link></li>
                   </ul>
                 )}
               </div>
 
-              {/* CLIENT LOG IN toggle */}
+              {/* CLIENT LOG IN TOGGLE */}
               <div>
                 <button
                   className="w-full flex justify-between items-center font-medium"
@@ -154,47 +111,11 @@ const Header = () => {
                   {mobileMenu.login ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                 </button>
                 {mobileMenu.login && (
-                  <ul className="mt-2 space-y-2 pl-4">
-                    <li>
-                      <a
-                        href="https://mauryasecurity.wealthmagic.in"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setMobileMenu({ menu: false })}
-                      >
-                        Mutual Fund Platform
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://www.kotaksecurities.com/trade/login"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setMobileMenu({ menu: false })}
-                      >
-                        Stock Investing Platform
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setMobileMenu({ menu: false })}
-                      >
-                        ICICI Alternate Investments
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setMobileMenu({ menu: false })}
-                      >
-                        ABSL Alternate Investments
-                      </a>
-                    </li>
+                  <ul className="mt-1 space-y-1">
+                    <li><a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener" className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>Mutual Fund Platform</a></li>
+                    <li><a href="https://www.kotaksecurities.com/trade/login" target="_blank" rel="noopener" className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>Stock Investing Platform</a></li>
+                    <li><a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener" className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>ICICI Alternate Investments</a></li>
+                    <li><a href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith" target="_blank" rel="noopener" className="block w-full px-2 py-2 rounded hover:bg-gray-100" onClick={() => setMobileMenu({ menu: false })}>ABSL Alternate Investments</a></li>
                   </ul>
                 )}
               </div>
