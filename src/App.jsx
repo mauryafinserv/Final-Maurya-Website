@@ -13,7 +13,8 @@ import ContactBanner from "./components/ContactBanner";
 import MutualFundPage from "./pages/MutualFundPage";
 import PMSPage from "./pages/PMSPage";
 import KnowledgeCorner from "./pages/KnowledgeCorner";
-import EquityBrokingPage from "./pages/EquityBrokingPage"; // ✅ Added here
+import EquityBrokingPage from "./pages/EquityBrokingPage";
+import AIFPage from "./pages/AIFPage"; // ✅ Newly added AIF page
 
 function App() {
   return (
@@ -39,8 +40,9 @@ function App() {
         {/* ✅ Internal Pages */}
         <Route path="/mutual-funds" element={<MutualFundPage />} />
         <Route path="/pms" element={<PMSPage />} />
+        <Route path="/equity-broking" element={<EquityBrokingPage />} />
+        <Route path="/aif" element={<AIFPage />} />
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
-        <Route path="/equity-broking" element={<EquityBrokingPage />} /> {/* ✅ Fixed */}
       </Routes>
     </div>
   );

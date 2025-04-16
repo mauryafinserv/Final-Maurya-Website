@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [productDropdownOpen, setProductDropdownOpen] = useState(false);
 
   useEffect(() => {
     document.body.classList.toggle("menu-open", mobileMenuOpen);
@@ -22,6 +23,7 @@ const Header = () => {
           <Link to="/" className="hover:text-indigo-600">HOME</Link>
           <a href="#about" className="hover:text-indigo-600">ABOUT US</a>
 
+          {/* Desktop PRODUCT OFFERING Dropdown */}
           <div className="relative group">
             <button className="hover:text-indigo-600 focus:outline-none">PRODUCT OFFERING</button>
             <div className="absolute left-0 top-full mt-2 w-72 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
@@ -29,7 +31,7 @@ const Header = () => {
                 <li><Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund</Link></li>
                 <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS</Link></li>
                 <li><Link to="/equity-broking" className="block px-4 py-2 hover:bg-gray-100">Equity Broking</Link></li>
-                <li><a href="#aif" className="block px-4 py-2 hover:bg-gray-100">AIF</a></li>
+                <li><Link to="/aif" className="block px-4 py-2 hover:bg-gray-100">AIF</Link></li>
                 <li><a href="#loan" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</a></li>
                 <li><a href="#nps" className="block px-4 py-2 hover:bg-gray-100">NPS</a></li>
                 <li><a href="#fd" className="block px-4 py-2 hover:bg-gray-100">Company Fixed Deposits</a></li>
@@ -65,20 +67,31 @@ const Header = () => {
             <nav className="mt-6 space-y-4 text-sm text-gray-700">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="block">HOME</Link>
               <a href="#about" onClick={() => setMobileMenuOpen(false)} className="block">ABOUT US</a>
+
+              {/* Toggleable PRODUCT OFFERING */}
               <div>
-                <p className="font-medium">PRODUCT OFFERING</p>
-                <ul className="mt-2 space-y-2 pl-2">
-                  <li><Link to="/mutual-funds" onClick={() => setMobileMenuOpen(false)}>Mutual Fund</Link></li>
-                  <li><Link to="/pms" onClick={() => setMobileMenuOpen(false)}>PMS</Link></li>
-                  <li><Link to="/equity-broking" onClick={() => setMobileMenuOpen(false)}>Equity Broking</Link></li>
-                  <li><a href="#aif" onClick={() => setMobileMenuOpen(false)}>AIF</a></li>
-                  <li><a href="#loan" onClick={() => setMobileMenuOpen(false)}>Loan Against MF</a></li>
-                  <li><a href="#nps" onClick={() => setMobileMenuOpen(false)}>NPS</a></li>
-                  <li><a href="#fd" onClick={() => setMobileMenuOpen(false)}>Company FDs</a></li>
-                  <li><a href="#tax" onClick={() => setMobileMenuOpen(false)}>Tax Consultation</a></li>
-                  <li><a href="#insurance" onClick={() => setMobileMenuOpen(false)}>Insurance Advisory</a></li>
-                </ul>
+                <button
+                  className="font-medium w-full flex justify-between items-center"
+                  onClick={() => setProductDropdownOpen(!productDropdownOpen)}
+                >
+                  PRODUCT OFFERING
+                  {productDropdownOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </button>
+                {productDropdownOpen && (
+                  <ul className="mt-2 space-y-2 pl-2">
+                    <li><Link to="/mutual-funds" onClick={() => setMobileMenuOpen(false)}>Mutual Fund</Link></li>
+                    <li><Link to="/pms" onClick={() => setMobileMenuOpen(false)}>PMS</Link></li>
+                    <li><Link to="/equity-broking" onClick={() => setMobileMenuOpen(false)}>Equity Broking</Link></li>
+                    <li><Link to="/aif" onClick={() => setMobileMenuOpen(false)}>AIF</Link></li>
+                    <li><a href="#loan" onClick={() => setMobileMenuOpen(false)}>Loan Against MF</a></li>
+                    <li><a href="#nps" onClick={() => setMobileMenuOpen(false)}>NPS</a></li>
+                    <li><a href="#fd" onClick={() => setMobileMenuOpen(false)}>Company FDs</a></li>
+                    <li><a href="#tax" onClick={() => setMobileMenuOpen(false)}>Tax Consultation</a></li>
+                    <li><a href="#insurance" onClick={() => setMobileMenuOpen(false)}>Insurance Advisory</a></li>
+                  </ul>
+                )}
               </div>
+
               <Link to="/knowledge-corner" onClick={() => setMobileMenuOpen(false)} className="block">KNOWLEDGE CORNER</Link>
               <a href="#partner" onClick={() => setMobileMenuOpen(false)}>PARTNER WITH US</a>
               <a href="#login" onClick={() => setMobileMenuOpen(false)}>CLIENT LOG IN</a>
