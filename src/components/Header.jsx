@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // install with: npm install lucide-react
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -22,19 +22,18 @@ const Header = () => {
           <Link to="/" className="hover:text-indigo-600">HOME</Link>
           <a href="#about" className="hover:text-indigo-600">ABOUT US</a>
 
-          {/* Dropdown for Product Offering */}
           <div className="relative group">
             <button className="hover:text-indigo-600 focus:outline-none">PRODUCT OFFERING</button>
             <div className="absolute left-0 top-full mt-2 w-72 bg-white shadow-lg rounded-md opacity-0 group-hover:opacity-100 group-hover:visible invisible transition-all duration-200 z-50">
               <ul className="py-2 text-sm text-gray-700">
                 <li><Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund</Link></li>
-                <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS (Portfolio Management Services)</Link></li>
-                <li><a href="#equity" className="block px-4 py-2 hover:bg-gray-100">Equity Broking</a></li>
-                <li><a href="#aif" className="block px-4 py-2 hover:bg-gray-100">AIF (Alternative Investment Fund)</a></li>
+                <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS</Link></li>
+                <li><Link to="/equity-broking" className="block px-4 py-2 hover:bg-gray-100">Equity Broking</Link></li>
+                <li><a href="#aif" className="block px-4 py-2 hover:bg-gray-100">AIF</a></li>
                 <li><a href="#loan" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</a></li>
                 <li><a href="#nps" className="block px-4 py-2 hover:bg-gray-100">NPS</a></li>
                 <li><a href="#fd" className="block px-4 py-2 hover:bg-gray-100">Company Fixed Deposits</a></li>
-                <li><a href="#tax" className="block px-4 py-2 hover:bg-gray-100">Tax Consultation & Planning</a></li>
+                <li><a href="#tax" className="block px-4 py-2 hover:bg-gray-100">Tax Consultation</a></li>
                 <li><a href="#insurance" className="block px-4 py-2 hover:bg-gray-100">Insurance Advisory</a></li>
               </ul>
             </div>
@@ -53,7 +52,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 flex">
           <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)}></div>
@@ -71,7 +70,7 @@ const Header = () => {
                 <ul className="mt-2 space-y-2 pl-2">
                   <li><Link to="/mutual-funds" onClick={() => setMobileMenuOpen(false)}>Mutual Fund</Link></li>
                   <li><Link to="/pms" onClick={() => setMobileMenuOpen(false)}>PMS</Link></li>
-                  <li><a href="#equity" onClick={() => setMobileMenuOpen(false)}>Equity Broking</a></li>
+                  <li><Link to="/equity-broking" onClick={() => setMobileMenuOpen(false)}>Equity Broking</Link></li>
                   <li><a href="#aif" onClick={() => setMobileMenuOpen(false)}>AIF</a></li>
                   <li><a href="#loan" onClick={() => setMobileMenuOpen(false)}>Loan Against MF</a></li>
                   <li><a href="#nps" onClick={() => setMobileMenuOpen(false)}>NPS</a></li>

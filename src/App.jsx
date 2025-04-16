@@ -12,7 +12,8 @@ import ContactBanner from "./components/ContactBanner";
 // Pages
 import MutualFundPage from "./pages/MutualFundPage";
 import PMSPage from "./pages/PMSPage";
-import KnowledgeCorner from "./pages/KnowledgeCorner"; // ✅ Re-enabled
+import KnowledgeCorner from "./pages/KnowledgeCorner";
+import EquityBrokingPage from "./pages/EquityBrokingPage"; // ✅ Added here
 
 function App() {
   return (
@@ -38,7 +39,8 @@ function App() {
         {/* ✅ Internal Pages */}
         <Route path="/mutual-funds" element={<MutualFundPage />} />
         <Route path="/pms" element={<PMSPage />} />
-        <Route path="/knowledge-corner" element={<KnowledgeCorner />} /> {/* ✅ Added back */}
+        <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
+        <Route path="/equity-broking" element={<EquityBrokingPage />} /> {/* ✅ Fixed */}
       </Routes>
     </div>
   );
