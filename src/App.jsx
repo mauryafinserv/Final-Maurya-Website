@@ -14,7 +14,9 @@ import MutualFundPage from "./pages/MutualFundPage";
 import PMSPage from "./pages/PMSPage";
 import KnowledgeCorner from "./pages/KnowledgeCorner";
 import EquityBrokingPage from "./pages/EquityBrokingPage";
-import AIFPage from "./pages/AIFPage"; // ✅ Newly added AIF page
+import AIFPage from "./pages/AIFPage";
+import TaxPlanningPage from "./pages/TaxPlanningPage";           // ✅ Added
+import InsuranceAdvisoryPage from "./pages/InsuranceAdvisoryPage"; // ✅ Added
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
         <Route path="/pms" element={<PMSPage />} />
         <Route path="/equity-broking" element={<EquityBrokingPage />} />
         <Route path="/aif" element={<AIFPage />} />
+        <Route path="/tax-planning" element={<TaxPlanningPage />} />               {/* ✅ New Route */}
+        <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />   {/* ✅ New Route */}
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
       </Routes>
     </div>
