@@ -18,18 +18,18 @@ const ContactBanner = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyTu-kGmDMdfB54LcsZ7NkpEG9U7U3k4pmEWHULKz8CJyYoKzIzQQ4nM2uUP4kFdF6v/exec",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        }
-      );
+      const response = await fetch("https://formspree.io/f/xovezbow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
       const result = await response.json();
 
-      if (result.result === "success") {
+      if (result.ok || result.success || response.status === 200) {
         alert("Thank you! Your details have been submitted.");
         setFormData({ name: "", email: "", mobile: "", message: "" });
         setShowModal(false);
