@@ -1,13 +1,15 @@
+// src/App.jsx
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
-import SmartTicker from "./components/SmartTicker"; // ✅ API-based Ticker
+import SmartTicker from "./components/SmartTicker"; // ✅ Ticker
 import Hero from "./components/Hero";
 import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
+import Footer from "./components/Footer"; // ✅ Footer Component
 
 // Pages
 import MutualFundPage from "./pages/MutualFundPage";
@@ -17,11 +19,11 @@ import EquityBrokingPage from "./pages/EquityBrokingPage";
 import AIFPage from "./pages/AIFPage";
 import TaxPlanningPage from "./pages/TaxPlanningPage";
 import InsuranceAdvisoryPage from "./pages/InsuranceAdvisoryPage";
-import MutualFundBasics from "./pages/MutualFundBasics"; // ✅ Newly Added Page
+import MutualFundBasics from "./pages/MutualFundBasics"; // ✅ Mutual Fund Article Page
 
 function App() {
   return (
-    <div className="bg-background text-text min-h-screen font-sans">
+    <div className="bg-background text-text min-h-screen font-sans flex flex-col">
       <Header />
 
       <Routes>
@@ -48,8 +50,10 @@ function App() {
         <Route path="/tax-planning" element={<TaxPlanningPage />} />
         <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
-        <Route path="/mutual-fund-basics" element={<MutualFundBasics />} /> {/* ✅ Route Added */}
+        <Route path="/mutual-fund-basics" element={<MutualFundBasics />} />
       </Routes>
+
+      <Footer /> {/* ✅ Persistent footer at bottom */}
     </div>
   );
 }
