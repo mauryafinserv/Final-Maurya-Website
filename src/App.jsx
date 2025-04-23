@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
-import SmartTicker from "./components/SmartTicker"; // ✅ Using API-based ticker
+import SmartTicker from "./components/SmartTicker"; // ✅ API-based Ticker
 import Hero from "./components/Hero";
 import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
@@ -17,6 +17,7 @@ import EquityBrokingPage from "./pages/EquityBrokingPage";
 import AIFPage from "./pages/AIFPage";
 import TaxPlanningPage from "./pages/TaxPlanningPage";
 import InsuranceAdvisoryPage from "./pages/InsuranceAdvisoryPage";
+import MutualFundBasics from "./pages/MutualFundBasics"; // ✅ Newly Added Page
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
           path="/"
           element={
             <>
-              <SmartTicker /> {/* ✅ API-powered Ticker */}
+              <SmartTicker />
               <Hero />
               <AboutUs />
               <Services />
@@ -47,6 +48,7 @@ function App() {
         <Route path="/tax-planning" element={<TaxPlanningPage />} />
         <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
+        <Route path="/mutual-fund-basics" element={<MutualFundBasics />} /> {/* ✅ Route Added */}
       </Routes>
     </div>
   );
