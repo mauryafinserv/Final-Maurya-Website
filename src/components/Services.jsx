@@ -1,15 +1,18 @@
+// src/components/Services.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 
 const services = [
-  "Mutual Fund Distributor",
-  "Equity Broking",
-  "AIF (Alternative Investment Fund)",
-  "PMS (Portfolio Management Services)",
-  "Loan Against Mutual Funds",
-  "NPS",
-  "Company Fixed Deposits",
-  "Tax Consultation & Planning",
-  "Insurance Advisory"
+  { name: "Mutual Fund Distributor", link: "/mutual-funds" },
+  { name: "Equity Broking", link: "/equity-broking" },
+  { name: "AIF (Alternative Investment Fund)", link: "/aif" },
+  { name: "PMS (Portfolio Management Services)", link: "/pms" },
+  { name: "Loan Against Mutual Funds", link: "#" },
+  { name: "NPS", link: "#" },
+  { name: "Company Fixed Deposits", link: "#" },
+  { name: "Tax Consultation & Planning", link: "/tax-planning" },
+  { name: "Insurance Advisory", link: "/insurance-advisory" },
+  { name: "NRI Investments", link: "/nri-investments" }, // ✅ Added NRI Investments
 ];
 
 const Services = () => {
@@ -26,7 +29,13 @@ const Services = () => {
               className="flex items-center gap-3 border-l-4 border-darkGold pl-4 hover:bg-darkGold/20 transition duration-200 rounded"
             >
               <span className="h-2 w-2 bg-blue-400 rounded-full mt-1" />
-              <span className="leading-snug">{service}</span>
+              {service.link !== "#" ? (
+                <Link to={service.link} className="leading-snug hover:underline">
+                  {service.name}
+                </Link>
+              ) : (
+                <span className="leading-snug">{service.name}</span>
+              )}
             </div>
           ))}
         </div>
