@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 bg-white shadow z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16">
-        {/* Logo with company name inline */}
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Maurya Logo" className="h-10 w-auto" />
           <span className="text-gray-800 text-sm font-semibold whitespace-nowrap hidden sm:inline-block">
@@ -32,6 +32,9 @@ const Header = () => {
           <Link to="/" className="hover:text-indigo-600">HOME</Link>
           <a href="#about" className="hover:text-indigo-600">ABOUT US</a>
 
+          {/* ✅ NRI Tab */}
+          <Link to="/nri-investments" className="hover:text-indigo-600">NRI</Link>
+
           {/* Product Offering Dropdown */}
           <div className="relative group">
             <button className="hover:text-indigo-600">PRODUCT OFFERING</button>
@@ -43,8 +46,8 @@ const Header = () => {
                 <li><Link to="/aif" className="block px-4 py-2 hover:bg-gray-100">AIF</Link></li>
                 <li><Link to="/tax-planning" className="block px-4 py-2 hover:bg-gray-100">Tax Planning</Link></li>
                 <li><Link to="/insurance-advisory" className="block px-4 py-2 hover:bg-gray-100">Insurance Advisory</Link></li>
-                <li><a href="#loan" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</a></li>
-                <li><a href="#nps" className="block px-4 py-2 hover:bg-gray-100">NPS</a></li>
+                <li><Link to="/loan-against-mf" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</Link></li>
+                <li><Link to="/nps" className="block px-4 py-2 hover:bg-gray-100">NPS</Link></li>
               </ul>
             </div>
           </div>
@@ -85,6 +88,9 @@ const Header = () => {
               <Link to="/" className={blockLink} onClick={closeAll}>HOME</Link>
               <a href="#about" className={blockLink} onClick={closeAll}>ABOUT US</a>
 
+              {/* ✅ NRI Tab Mobile */}
+              <Link to="/nri-investments" className={blockLink} onClick={closeAll}>NRI</Link>
+
               {/* Product Offering - Mobile */}
               <div>
                 <button className="w-full flex justify-between items-center font-medium" onClick={() => setMobileMenu(p => ({ ...p, product: !p.product }))}>
@@ -98,6 +104,8 @@ const Header = () => {
                     <li><Link to="/aif" className={blockLink} onClick={closeAll}>AIF</Link></li>
                     <li><Link to="/tax-planning" className={blockLink} onClick={closeAll}>Tax Planning</Link></li>
                     <li><Link to="/insurance-advisory" className={blockLink} onClick={closeAll}>Insurance Advisory</Link></li>
+                    <li><Link to="/loan-against-mf" className={blockLink} onClick={closeAll}>Loan Against MF</Link></li>
+                    <li><Link to="/nps" className={blockLink} onClick={closeAll}>NPS</Link></li>
                   </ul>
                 )}
               </div>

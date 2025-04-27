@@ -20,7 +20,8 @@ const Hero = () => {
 
       {/* 📝 Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl">
-        <h1 className="text-6xl md:text-8xl font-extrabold text-primary mb-6 leading-tight">
+        {/* ✅ Company Name with 3D Effect */}
+        <h1 className="text-6xl md:text-8xl font-extrabold text-primary mb-6 leading-tight drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
           Maurya Shares & Stock Brokers Pvt Ltd
         </h1>
 
@@ -31,15 +32,10 @@ const Hero = () => {
           for Generations!
         </p>
 
-        <div className="flex flex-wrap justify-center gap-4">
-          <button className="bg-primary text-black px-6 py-3 rounded-full font-semibold hover:bg-darkGold transition">
+        {/* ✅ Single Button */}
+        <div className="flex justify-center">
+          <button className="bg-primary text-black px-8 py-4 rounded-full font-semibold hover:bg-darkGold transition text-lg">
             Start Your Journey
-          </button>
-          <button className="border border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-black transition">
-            Open an Account
-          </button>
-          <button className="bg-white text-black px-6 py-3 rounded-full font-semibold hover:bg-gray-200 transition">
-            Connect With Our Team
           </button>
         </div>
       </div>

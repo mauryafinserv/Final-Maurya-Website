@@ -3,13 +3,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
-import SmartTicker from "./components/SmartTicker"; // ✅ Ticker
+import SmartTicker from "./components/SmartTicker";
 import Hero from "./components/Hero";
 import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
-import Footer from "./components/Footer"; // ✅ Footer Component
+import Footer from "./components/Footer";
 
 // Pages
 import MutualFundPage from "./pages/MutualFundPage";
@@ -19,8 +19,10 @@ import EquityBrokingPage from "./pages/EquityBrokingPage";
 import AIFPage from "./pages/AIFPage";
 import TaxPlanningPage from "./pages/TaxPlanningPage";
 import InsuranceAdvisoryPage from "./pages/InsuranceAdvisoryPage";
-import MutualFundBasics from "./pages/MutualFundBasics"; 
-import NriInvestmentPage from "./pages/NriInvestmentPage"; // ✅ Newly Added NRI Page
+import MutualFundBasics from "./pages/MutualFundBasics";
+import NriInvestmentPage from "./pages/NriInvestmentPage";
+import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
+import NpsPage from "./pages/NpsPage";
 
 function App() {
   return (
@@ -95,10 +97,12 @@ function App() {
         <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
         <Route path="/mutual-fund-basics" element={<MutualFundBasics />} />
-        <Route path="/nri-investments" element={<NriInvestmentPage />} /> {/* ✅ NRI Route Added */}
+        <Route path="/nri-investments" element={<NriInvestmentPage />} />
+        <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
+        <Route path="/nps" element={<NpsPage />} />
       </Routes>
 
-      <Footer /> {/* ✅ Persistent Footer */}
+      <Footer />
     </div>
   );
 }
