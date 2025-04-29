@@ -1,3 +1,4 @@
+// src/components/Header.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
@@ -32,7 +33,6 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full">
       {/* 🔵 Top Black Bar */}
       <div className="bg-black text-gray-300 text-sm py-2 px-4 flex justify-end items-center gap-6 relative">
-        
         {/* CLIENT LOGIN Dropdown */}
         <div className="relative" ref={loginDropdownRef}>
           <button
@@ -98,13 +98,53 @@ const Header = () => {
           </nav>
 
           {/* Mobile Hamburger */}
-          <button className="md:hidden text-gray-700" onClick={() => setMobileMenu(p => ({ ...p, menu: true }))}>
+          <button className="md:hidden text-gray-700 z-50 relative" onClick={() => setMobileMenu((p) => ({ ...p, menu: true }))}>
             <Menu className="h-6 w-6" />
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer - unchanged */}
+      {/* 🟠 Mobile Drawer */}
+      {mobileMenu.menu && (
+        <div className="fixed inset-0 z-50 flex">
+          <div className="fixed inset-0 bg-black/50" onClick={closeAll} />
+          <div className="relative ml-auto w-72 h-full bg-white shadow-lg p-6 overflow-y-auto">
+            <div className="flex justify-end">
+              <button onClick={closeAll}>
+                <X className="h-6 w-6 text-gray-600" />
+              </button>
+            </div>
+
+            <nav className="mt-6 space-y-4 text-sm text-gray-700">
+              <Link to="/" className={blockLink} onClick={closeAll}>HOME</Link>
+              <Link to="/about-us" className={blockLink} onClick={closeAll}>ABOUT US</Link>
+              <Link to="/nri-investments" className={blockLink} onClick={closeAll}>NRI</Link>
+
+              {/* Product Offering Mobile */}
+              <div>
+                <button className="w-full flex justify-between items-center font-medium" onClick={() => setMobileMenu(p => ({ ...p, product: !p.product }))}>
+                  PRODUCT OFFERING {mobileMenu.product ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                </button>
+                {mobileMenu.product && (
+                  <ul className="mt-1 space-y-1">
+                    <li><Link to="/mutual-funds" className={blockLink} onClick={closeAll}>Mutual Fund</Link></li>
+                    <li><Link to="/pms" className={blockLink} onClick={closeAll}>PMS</Link></li>
+                    <li><Link to="/equity-broking" className={blockLink} onClick={closeAll}>Equity Broking</Link></li>
+                    <li><Link to="/aif" className={blockLink} onClick={closeAll}>AIF</Link></li>
+                    <li><Link to="/tax-planning" className={blockLink} onClick={closeAll}>Tax Planning</Link></li>
+                    <li><Link to="/insurance-advisory" className={blockLink} onClick={closeAll}>Insurance Advisory</Link></li>
+                    <li><Link to="/loan-against-mf" className={blockLink} onClick={closeAll}>Loan Against MF</Link></li>
+                    <li><Link to="/nps" className={blockLink} onClick={closeAll}>NPS</Link></li>
+                  </ul>
+                )}
+              </div>
+
+              <Link to="/knowledge-corner" className={blockLink} onClick={closeAll}>KNOWLEDGE CORNER</Link>
+              <a href="#partner" className={blockLink} onClick={closeAll}>PARTNER WITH US</a>
+            </nav>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
