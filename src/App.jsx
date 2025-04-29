@@ -22,7 +22,8 @@ import MutualFundBasics from "./pages/MutualFundBasics";
 import NriInvestmentPage from "./pages/NriInvestmentPage";
 import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
 import NpsPage from "./pages/NpsPage";
-import AboutUsPage from "./pages/AboutUsPage"; // ✅ NEW Import
+import AboutUsPage from "./pages/AboutUsPage"; // ✅
+import ContactUsPage from "./pages/ContactUsPage"; // ✅
 
 function App() {
   return (
@@ -88,7 +89,8 @@ function App() {
         />
 
         {/* ✅ Internal Pages */}
-        <Route path="/about-us" element={<AboutUsPage />} /> {/* ✅ About Us Route */}
+        <Route path="/about-us" element={<AboutUsPage />} />
+        <Route path="/contact-us" element={<ContactUsPage />} />
         <Route path="/mutual-funds" element={<MutualFundPage />} />
         <Route path="/pms" element={<PMSPage />} />
         <Route path="/equity-broking" element={<EquityBrokingPage />} />
