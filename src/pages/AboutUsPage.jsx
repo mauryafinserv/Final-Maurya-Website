@@ -46,10 +46,6 @@ const AboutUsPage = () => {
             NRIs and global investors can now invest into India through GIFT City structures, offering dollar-denominated investments, tax-efficiency, and global portfolio diversification, without the need for a PAN card or Indian bank account.
           </p>
 
-          <p>
-            At Maurya Shares, we do not offer investment advice or portfolio management. Instead, we curate solutions, facilitate execution, and empower clients to build robust, customized portfolios aligned with their aspirations.
-          </p>
-
           <h2 className="text-primary text-2xl font-bold mt-10 mb-4">Our Strengths:</h2>
 
           <ul className="list-disc pl-6 space-y-3">
