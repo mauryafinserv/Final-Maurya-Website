@@ -19,6 +19,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 bg-white shadow z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16">
+        
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Maurya Logo" className="h-10 w-auto" />
@@ -30,7 +31,7 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-700 items-center">
           <Link to="/" className="hover:text-indigo-600">HOME</Link>
-          <a href="#about" className="hover:text-indigo-600">ABOUT US</a>
+          <Link to="/about-us" className="hover:text-indigo-600">ABOUT US</Link>
 
           {/* ✅ NRI Tab */}
           <Link to="/nri-investments" className="hover:text-indigo-600">NRI</Link>
@@ -86,7 +87,7 @@ const Header = () => {
 
             <nav className="mt-6 space-y-4 text-sm text-gray-700">
               <Link to="/" className={blockLink} onClick={closeAll}>HOME</Link>
-              <a href="#about" className={blockLink} onClick={closeAll}>ABOUT US</a>
+              <Link to="/about-us" className={blockLink} onClick={closeAll}>ABOUT US</Link>
 
               {/* ✅ NRI Tab Mobile */}
               <Link to="/nri-investments" className={blockLink} onClick={closeAll}>NRI</Link>

@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SmartTicker from "./components/SmartTicker";
 import Hero from "./components/Hero";
-import AboutUs from "./components/AboutUs";
 import Services from "./components/Services";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
@@ -23,6 +22,7 @@ import MutualFundBasics from "./pages/MutualFundBasics";
 import NriInvestmentPage from "./pages/NriInvestmentPage";
 import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
 import NpsPage from "./pages/NpsPage";
+import AboutUsPage from "./pages/AboutUsPage"; // ✅ NEW Import
 
 function App() {
   return (
@@ -37,7 +37,6 @@ function App() {
             <>
               <SmartTicker />
               <Hero />
-              <AboutUs />
               <Services />
               <WhyChooseUs />
 
@@ -89,6 +88,7 @@ function App() {
         />
 
         {/* ✅ Internal Pages */}
+        <Route path="/about-us" element={<AboutUsPage />} /> {/* ✅ About Us Route */}
         <Route path="/mutual-funds" element={<MutualFundPage />} />
         <Route path="/pms" element={<PMSPage />} />
         <Route path="/equity-broking" element={<EquityBrokingPage />} />
