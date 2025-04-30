@@ -2,6 +2,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
+import ScrollToTop from "./components/ScrollToTop"; // ✅ NEW
 import Header from "./components/Header";
 import SmartTicker from "./components/SmartTicker";
 import Hero from "./components/Hero";
@@ -22,13 +23,14 @@ import MutualFundBasics from "./pages/MutualFundBasics";
 import NriInvestmentPage from "./pages/NriInvestmentPage";
 import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
 import NpsPage from "./pages/NpsPage";
-import AboutUsPage from "./pages/AboutUsPage"; // ✅
-import ContactUsPage from "./pages/ContactUsPage"; // ✅
+import AboutUsPage from "./pages/AboutUsPage";
+import ContactUsPage from "./pages/ContactUsPage";
 
 function App() {
   return (
     <div className="bg-background text-text min-h-screen font-sans flex flex-col">
       <Header />
+      <ScrollToTop /> {/* ✅ Makes every page load from top */}
 
       <Routes>
         {/* ✅ Homepage */}
