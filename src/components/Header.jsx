@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, ChevronUp } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState({
@@ -27,7 +27,6 @@ const Header = () => {
   }, [mobileMenu.menu]);
 
   const closeAll = () => setMobileMenu({ menu: false, product: false, loginTop: false });
-  const blockLink = "block w-full px-2 py-2 rounded hover:bg-gray-100";
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -42,8 +41,10 @@ const Header = () => {
             CLIENT LOG IN
           </button>
           <div
-            className={`absolute top-8 right-2 sm:right-0 bg-white shadow-lg rounded-md w-72 text-gray-700 z-50 transition-all duration-200 ease-in-out ${
-              mobileMenu.loginTop ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+            className={`absolute top-8 right-4 left-auto bg-white shadow-lg rounded-md max-w-xs w-[90vw] text-gray-700 z-50 transition-all duration-200 ease-in-out ${
+              mobileMenu.loginTop
+                ? "opacity-100 visible translate-y-0"
+                : "opacity-0 invisible -translate-y-2"
             }`}
           >
             <ul className="py-2 text-sm">
@@ -144,6 +145,39 @@ const Header = () => {
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu Drawer */}
+      {mobileMenu.menu && (
+        <div className="md:hidden fixed inset-0 bg-white z-40 p-6 overflow-y-auto">
+          <div className="flex justify-between items-center mb-6">
+            <img src="/logo.png" alt="Maurya Logo" className="h-10" />
+            <button onClick={closeAll}>
+              <X className="h-6 w-6 text-gray-700" />
+            </button>
+          </div>
+          <nav className="flex flex-col gap-4 text-gray-800 text-sm font-medium">
+            <Link to="/" onClick={closeAll}>HOME</Link>
+            <Link to="/about-us" onClick={closeAll}>ABOUT US</Link>
+            <Link to="/nri-investments" onClick={closeAll}>NRI</Link>
+            <details className="group">
+              <summary className="cursor-pointer">PRODUCT OFFERING</summary>
+              <ul className="ml-4 mt-2 flex flex-col gap-2 text-sm">
+                <li><Link to="/mutual-funds" onClick={closeAll}>Mutual Fund</Link></li>
+                <li><Link to="/pms" onClick={closeAll}>PMS</Link></li>
+                <li><Link to="/equity-broking" onClick={closeAll}>Equity Broking</Link></li>
+                <li><Link to="/aif" onClick={closeAll}>AIF</Link></li>
+                <li><Link to="/tax-planning" onClick={closeAll}>Tax Planning</Link></li>
+                <li><Link to="/insurance-advisory" onClick={closeAll}>Insurance Advisory</Link></li>
+                <li><Link to="/loan-against-mf" onClick={closeAll}>Loan Against MF</Link></li>
+                <li><Link to="/nps" onClick={closeAll}>NPS</Link></li>
+              </ul>
+            </details>
+            <Link to="/knowledge-corner" onClick={closeAll}>KNOWLEDGE CORNER</Link>
+            <a href="#partner" onClick={closeAll}>PARTNER WITH US</a>
+            <Link to="/contact-us" onClick={closeAll}>CONTACT US</Link>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
