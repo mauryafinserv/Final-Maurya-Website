@@ -41,16 +41,54 @@ const Header = () => {
           >
             CLIENT LOG IN
           </button>
-          {mobileMenu.loginTop && (
-            <div className="absolute right-0 top-8 bg-white shadow-lg rounded-md w-72 text-gray-700">
-              <ul className="py-2 text-sm">
-                <li><a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund Platform</a></li>
-                <li><a href="https://www.kotaksecurities.com/trade/login" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">Stock Investing Platform</a></li>
-                <li><a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">ICICI Alternate Investments</a></li>
-                <li><a href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">ABSL Alternate Investments</a></li>
-              </ul>
-            </div>
-          )}
+          <div
+            className={`absolute top-8 right-2 sm:right-0 bg-white shadow-lg rounded-md w-72 text-gray-700 z-50 transition-all duration-200 ease-in-out ${
+              mobileMenu.loginTop ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+            }`}
+          >
+            <ul className="py-2 text-sm">
+              <li>
+                <a
+                  href="https://mauryasecurity.wealthmagic.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  Mutual Fund Platform
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.kotaksecurities.com/trade/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  Stock Investing Platform
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  ICICI Alternate Investments
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-2 hover:bg-gray-100"
+                >
+                  ABSL Alternate Investments
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Contact Us */}
@@ -59,7 +97,7 @@ const Header = () => {
         </Link>
       </div>
 
-      {/* 🔵 Main White Navigation */}
+      {/* 🔵 Main Navigation */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16">
           {/* Logo */}
@@ -98,53 +136,14 @@ const Header = () => {
           </nav>
 
           {/* Mobile Hamburger */}
-          <button className="md:hidden text-gray-700 z-50 relative" onClick={() => setMobileMenu((p) => ({ ...p, menu: true }))}>
+          <button
+            className="md:hidden text-gray-700 z-50 relative"
+            onClick={() => setMobileMenu((p) => ({ ...p, menu: true }))}
+          >
             <Menu className="h-6 w-6" />
           </button>
         </div>
       </div>
-
-      {/* 🟠 Mobile Drawer */}
-      {mobileMenu.menu && (
-        <div className="fixed inset-0 z-50 flex">
-          <div className="fixed inset-0 bg-black/50" onClick={closeAll} />
-          <div className="relative ml-auto w-72 h-full bg-white shadow-lg p-6 overflow-y-auto">
-            <div className="flex justify-end">
-              <button onClick={closeAll}>
-                <X className="h-6 w-6 text-gray-600" />
-              </button>
-            </div>
-
-            <nav className="mt-6 space-y-4 text-sm text-gray-700">
-              <Link to="/" className={blockLink} onClick={closeAll}>HOME</Link>
-              <Link to="/about-us" className={blockLink} onClick={closeAll}>ABOUT US</Link>
-              <Link to="/nri-investments" className={blockLink} onClick={closeAll}>NRI</Link>
-
-              {/* Product Offering Mobile */}
-              <div>
-                <button className="w-full flex justify-between items-center font-medium" onClick={() => setMobileMenu(p => ({ ...p, product: !p.product }))}>
-                  PRODUCT OFFERING {mobileMenu.product ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-                </button>
-                {mobileMenu.product && (
-                  <ul className="mt-1 space-y-1">
-                    <li><Link to="/mutual-funds" className={blockLink} onClick={closeAll}>Mutual Fund</Link></li>
-                    <li><Link to="/pms" className={blockLink} onClick={closeAll}>PMS</Link></li>
-                    <li><Link to="/equity-broking" className={blockLink} onClick={closeAll}>Equity Broking</Link></li>
-                    <li><Link to="/aif" className={blockLink} onClick={closeAll}>AIF</Link></li>
-                    <li><Link to="/tax-planning" className={blockLink} onClick={closeAll}>Tax Planning</Link></li>
-                    <li><Link to="/insurance-advisory" className={blockLink} onClick={closeAll}>Insurance Advisory</Link></li>
-                    <li><Link to="/loan-against-mf" className={blockLink} onClick={closeAll}>Loan Against MF</Link></li>
-                    <li><Link to="/nps" className={blockLink} onClick={closeAll}>NPS</Link></li>
-                  </ul>
-                )}
-              </div>
-
-              <Link to="/knowledge-corner" className={blockLink} onClick={closeAll}>KNOWLEDGE CORNER</Link>
-              <a href="#partner" className={blockLink} onClick={closeAll}>PARTNER WITH US</a>
-            </nav>
-          </div>
-        </div>
-      )}
     </header>
   );
 };
