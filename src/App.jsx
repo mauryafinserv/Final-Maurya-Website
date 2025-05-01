@@ -9,6 +9,7 @@ import Hero from "./components/Hero";
 import Services from "./components/Services";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
+import Testimonials from "./components/Testimonials"; // ✅ NEW
 import Footer from "./components/Footer";
 
 // Pages
@@ -42,6 +43,7 @@ function App() {
               <Hero />
               <Services />
               <WhyChooseUs />
+              <Testimonials /> {/* ✅ Client Testimonials */}
 
               {/* ✅ GIFT City Investment Section */}
               <section className="bg-background text-text py-20 px-6 md:px-12 border-t border-darkGold">
