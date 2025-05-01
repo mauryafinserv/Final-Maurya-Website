@@ -14,7 +14,12 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (loginDropdownRef.current && !loginDropdownRef.current.contains(event.target)) {
+      // If click is outside dropdown AND not on CLIENT LOG IN button
+      if (
+        loginDropdownRef.current &&
+        !loginDropdownRef.current.contains(event.target) &&
+        !event.target.closest("button")?.innerText?.includes("CLIENT LOG IN")
+      ) {
         setMobileMenu((prev) => ({ ...prev, loginTop: false }));
       }
     };
@@ -32,53 +37,53 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full">
       {/* 🔷 Top Black Bar */}
       <div className="bg-black text-gold-500 text-sm py-2 px-4 flex justify-end items-center gap-6 relative">
-        {/* CLIENT LOGIN */}
-        <div className="relative" ref={loginDropdownRef}>
+        {/* CLIENT LOGIN Dropdown */}
+        <div ref={loginDropdownRef}>
           <button
             onClick={() => setMobileMenu((prev) => ({ ...prev, loginTop: !prev.loginTop }))}
             className="hover:text-yellow-500"
           >
             CLIENT LOG IN
           </button>
-          <div
-            className={`absolute top-8 right-0 bg-white shadow-lg rounded-md w-[90vw] max-w-xs text-gray-700 z-50 transition-all duration-200 ease-in-out ${
-              mobileMenu.loginTop
-                ? "opacity-100 visible translate-y-0"
-                : "opacity-0 invisible -translate-y-2"
-            }`}
-          >
-            <ul className="py-2 text-sm">
-              <li>
-                <a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                  Mutual Fund Platform
-                </a>
-              </li>
-              <li>
-                <a href="https://www.kotaksecurities.com/trade/login" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                  Stock Investing Platform
-                </a>
-              </li>
-              <li>
-                <a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                  ICICI Alternate Investments
-                </a>
-              </li>
-              <li>
-                <a href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                  ABSL Alternate Investments
-                </a>
-              </li>
-            </ul>
-          </div>
         </div>
 
-        {/* Contact */}
+        {/* Fixed Dropdown Positioned to the Right */}
+        <div
+          className={`fixed top-[52px] right-4 bg-white shadow-lg rounded-md w-[90vw] max-w-xs text-gray-700 z-[999] transition-all duration-200 ease-in-out ${
+            mobileMenu.loginTop ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+          }`}
+        >
+          <ul className="py-2 text-sm">
+            <li>
+              <a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+                Mutual Fund Platform
+              </a>
+            </li>
+            <li>
+              <a href="https://www.kotaksecurities.com/trade/login" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+                Stock Investing Platform
+              </a>
+            </li>
+            <li>
+              <a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+                ICICI Alternate Investments
+              </a>
+            </li>
+            <li>
+              <a href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+                ABSL Alternate Investments
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Contact Us */}
         <Link to="/contact-us" className="hover:text-yellow-500">
           CONTACT US
         </Link>
       </div>
 
-      {/* 🔷 Main Nav */}
+      {/* 🔷 Main Navigation */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16">
           {/* Logo */}
@@ -89,13 +94,13 @@ const Header = () => {
             </span>
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Navigation */}
           <nav className="hidden md:flex gap-8 text-sm font-medium text-gray-700 items-center">
             <Link to="/" className="hover:text-indigo-600">HOME</Link>
             <Link to="/about-us" className="hover:text-indigo-600">ABOUT US</Link>
             <Link to="/nri-investments" className="hover:text-indigo-600">NRI</Link>
 
-            {/* Dropdown */}
+            {/* Product Offering Dropdown */}
             <div className="relative group">
               <button className="hover:text-indigo-600">PRODUCT OFFERING</button>
               <div className="absolute left-0 top-full w-72 bg-white shadow-lg rounded-md invisible opacity-0 group-hover:visible group-hover:opacity-100 transition">
@@ -116,14 +121,14 @@ const Header = () => {
             <a href="#partner" className="hover:text-indigo-600">PARTNER WITH US</a>
           </nav>
 
-          {/* Mobile Hamburger */}
+          {/* Hamburger Menu */}
           <button className="md:hidden text-gray-700 z-50 relative" onClick={() => setMobileMenu((p) => ({ ...p, menu: true }))}>
             <Menu className="h-6 w-6" />
           </button>
         </div>
       </div>
 
-      {/* 🔷 Side Drawer Mobile Menu */}
+      {/* 🔷 Side Drawer */}
       {mobileMenu.menu && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-40">
           <div className="fixed top-0 right-0 h-full w-4/5 bg-white shadow-lg p-6 overflow-y-auto">
