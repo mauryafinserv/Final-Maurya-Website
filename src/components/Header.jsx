@@ -14,7 +14,6 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // If click is outside dropdown AND not on CLIENT LOG IN button
       if (
         loginDropdownRef.current &&
         !loginDropdownRef.current.contains(event.target) &&
@@ -47,40 +46,45 @@ const Header = () => {
           </button>
         </div>
 
-        {/* Fixed Dropdown Positioned to the Right */}
-        <div
-          className={`fixed top-[52px] right-4 bg-white shadow-lg rounded-md w-[90vw] max-w-xs text-gray-700 z-[999] transition-all duration-200 ease-in-out ${
-            mobileMenu.loginTop ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
-          }`}
-        >
-          <ul className="py-2 text-sm">
-            <li>
-              <a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                Mutual Fund Platform
-              </a>
-            </li>
-            <li>
-              <a href="https://www.kotaksecurities.com/trade/login" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                Stock Investing Platform
-              </a>
-            </li>
-            <li>
-              <a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                ICICI Alternate Investments
-              </a>
-            </li>
-            <li>
-              <a href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-                ABSL Alternate Investments
-              </a>
-            </li>
-          </ul>
-        </div>
+        {/* DOWNLOADS */}
+        <Link to="/downloads" className="hover:text-yellow-500">
+          DOWNLOADS
+        </Link>
 
-        {/* Contact Us */}
+        {/* CONTACT US */}
         <Link to="/contact-us" className="hover:text-yellow-500">
           CONTACT US
         </Link>
+      </div>
+
+      {/* Dropdown Box */}
+      <div
+        className={`fixed top-[52px] right-4 bg-white shadow-lg rounded-md w-[90vw] max-w-xs text-gray-700 z-[999] transition-all duration-200 ease-in-out ${
+          mobileMenu.loginTop ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+        }`}
+      >
+        <ul className="py-2 text-sm">
+          <li>
+            <a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+              Mutual Fund Platform
+            </a>
+          </li>
+          <li>
+            <a href="https://www.kotaksecurities.com/trade/login" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+              Stock Investing Platform
+            </a>
+          </li>
+          <li>
+            <a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+              ICICI Alternate Investments
+            </a>
+          </li>
+          <li>
+            <a href="https://pms.adityabirlacapital.com/wealthspectrum/app/loginWith" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
+              ABSL Alternate Investments
+            </a>
+          </li>
+        </ul>
       </div>
 
       {/* 🔷 Main Navigation */}
@@ -121,7 +125,7 @@ const Header = () => {
             <a href="#partner" className="hover:text-indigo-600">PARTNER WITH US</a>
           </nav>
 
-          {/* Hamburger Menu */}
+          {/* Mobile Hamburger */}
           <button className="md:hidden text-gray-700 z-50 relative" onClick={() => setMobileMenu((p) => ({ ...p, menu: true }))}>
             <Menu className="h-6 w-6" />
           </button>
@@ -157,6 +161,7 @@ const Header = () => {
               </details>
               <Link to="/knowledge-corner" onClick={closeAll}>KNOWLEDGE CORNER</Link>
               <a href="#partner" onClick={closeAll}>PARTNER WITH US</a>
+              <Link to="/downloads" onClick={closeAll}>DOWNLOADS</Link>
               <Link to="/contact-us" onClick={closeAll}>CONTACT US</Link>
             </nav>
           </div>

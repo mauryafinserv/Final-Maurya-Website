@@ -8,7 +8,7 @@ const services = [
   { name: "AIF (Alternative Investment Fund)", link: "/aif" },
   { name: "PMS (Portfolio Management Services)", link: "/pms" },
   { name: "Loan Against Mutual Funds", link: "#" },
-  { name: "NPS", link: "#" },
+  { name: "NPS", link: "/nps" },
   { name: "Company Fixed Deposits", link: "#" },
   { name: "Tax Consultation & Planning", link: "/tax-planning" },
   { name: "Insurance Advisory", link: "/insurance-advisory" },

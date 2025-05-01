@@ -2,14 +2,14 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-import ScrollToTop from "./components/ScrollToTop"; // ✅ NEW
+import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
 import SmartTicker from "./components/SmartTicker";
 import Hero from "./components/Hero";
 import Services from "./components/Services";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
-import Testimonials from "./components/Testimonials"; // ✅ NEW
+import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
 // Pages
@@ -26,12 +26,13 @@ import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
 import NpsPage from "./pages/NpsPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ContactUsPage from "./pages/ContactUsPage";
+import Downloads from "./pages/Downloads"; // ✅ New import
 
 function App() {
   return (
     <div className="bg-background text-text min-h-screen font-sans flex flex-col">
       <Header />
-      <ScrollToTop /> {/* ✅ Makes every page load from top */}
+      <ScrollToTop />
 
       <Routes>
         {/* ✅ Homepage */}
@@ -43,7 +44,7 @@ function App() {
               <Hero />
               <Services />
               <WhyChooseUs />
-              <Testimonials /> {/* ✅ Client Testimonials */}
+              <Testimonials />
 
               {/* ✅ GIFT City Investment Section */}
               <section className="bg-background text-text py-20 px-6 md:px-12 border-t border-darkGold">
@@ -106,6 +107,7 @@ function App() {
         <Route path="/nri-investments" element={<NriInvestmentPage />} />
         <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
         <Route path="/nps" element={<NpsPage />} />
+        <Route path="/downloads" element={<Downloads />} /> {/* ✅ New Route */}
       </Routes>
 
       <Footer />
