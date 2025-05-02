@@ -63,9 +63,9 @@ const Hero = () => {
       {/* 📝 Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl">
         {/* ✅ Company Name */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary mb-6 leading-tight drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
-          Maurya Shares & Stock Brokers Pvt Ltd
-        </h1>
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary mb-6 leading-tight drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
+  Maurya Shares & Stock Brokers Pvt Ltd
+</h1>
 
         {/* ✅ Tagline */}
         <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 leading-snug">
