@@ -62,8 +62,8 @@ const Hero = () => {
 
       {/* 📝 Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl">
-        {/* ✅ Company Name with 3D Effect */}
-        <h1 className="text-6xl md:text-8xl font-extrabold text-primary mb-6 leading-tight drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
+        {/* ✅ Responsive Company Name */}
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold text-primary mb-6 leading-tight drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
           Maurya Shares & Stock Brokers Pvt Ltd
         </h1>
 
@@ -74,7 +74,7 @@ const Hero = () => {
           for Generations!
         </p>
 
-        {/* ✅ Single Button */}
+        {/* ✅ Call to Action */}
         <div className="flex justify-center">
           <button
             onClick={() => setShowModal(true)}
