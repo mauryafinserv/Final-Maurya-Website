@@ -1,3 +1,4 @@
+// src/pages/KnowledgeCorner.jsx
 import React from "react";
 
 const basics = [
@@ -29,14 +30,14 @@ const basics = [
 
 const latestArticles = [
   {
-    title: "FY 2024-25: A Year of Volatility & Opportunity",
-    link: "https://drive.google.com/file/d/your-file-id/view",
-    date: "April 2025",
+    title: "Invest in India Seamlessly: The GIFT City Advantage for NRIs",
+    link: "https://drive.google.com/file/d/12IYeNvxUEKDncSf6_uTPTUYSOqVRfmsJ/view?usp=share_link",
+    date: "May 2025",
   },
   {
-    title: "Why SIPs Are Still the Best Strategy in 2025",
-    link: "https://drive.google.com/file/d/your-file-id/view",
-    date: "March 2025",
+    title: "Don't Let Noise Cloud Your View — The Outlook is Brighter Than You Think",
+    link: "https://drive.google.com/file/d/1lsvNV9_XVCxhZWcDkmgUtDwdIztnpWe8/view?usp=share_link",
+    date: "May 2025",
   },
 ];
 
@@ -95,9 +96,7 @@ const KnowledgeCorner = () => {
             <div
               key={index}
               className="bg-black/60 p-6 rounded-lg border border-darkGold shadow hover:shadow-lg transform transition-transform duration-300 hover:scale-105 animate-zoom-in"
-              style={{
-                animationDelay: `${index * 0.2}s`,
-              }}
+              style={{ animationDelay: `${index * 0.2}s` }}
             >
               <h4 className="text-xl font-semibold text-primary mb-2">
                 {item.title}
