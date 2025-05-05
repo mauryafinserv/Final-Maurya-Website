@@ -53,13 +53,13 @@ const Footer = () => {
               📞 <a href="tel:7004016074" className="hover:underline">+91 7004016074</a>
             </li>
             <li>
-              ✉️ <a href="mailto:mssbpatna@gmail.com" className="hover:underline">mssbpatna@gmail.com</a>
+              ✉️ <a href="mailto:support@mauryafinserv.com" className="hover:underline">support@mauryafinserv.com</a>
             </li>
           </ul>
           <div className="flex gap-4 mt-4 text-xl text-primary">
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-            <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+            <a href="https://www.instagram.com/mssb_finserv/" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+            <a href="https://www.linkedin.com/company/mssbpvtltd/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+            <a href="https://www.facebook.com/MauryaFinserv/" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
             <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
           </div>
         </div>
