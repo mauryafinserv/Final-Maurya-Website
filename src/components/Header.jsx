@@ -93,8 +93,8 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             <img src="/logo.png" alt="Maurya Logo" className="h-10 w-auto" />
-            <span className="text-gray-800 text-sm font-semibold whitespace-nowrap hidden sm:inline-block">
-              Maurya Shares & Stock Brokers
+            <span className="text-gray-800 text-xs sm:text-sm font-semibold whitespace-nowrap">
+              Maurya Shares & Stock Brokers Pvt. Ltd.
             </span>
           </Link>
 

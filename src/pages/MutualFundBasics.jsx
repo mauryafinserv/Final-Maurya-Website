@@ -1,3 +1,4 @@
+// src/pages/MutualFundBasics.jsx
 import React, { useState } from "react";
 
 const tabContent = [
@@ -91,9 +92,9 @@ const tabContent = [
     title: "Taxation of Mutual Funds",
     content: (
       <div className="space-y-4">
-        <p><strong>Equity Funds:</strong> STCG (15%) if held &lt;1 year, LTCG (10% above ₹1L) if held &gt;1 year.</p>
+        <p><strong>Equity Funds:</strong> STCG (15%) if held &lt;1 year, LTCG (10% above ₹1,00,000) if held &gt;1 year.</p>
         <p><strong>Debt Funds:</strong> Taxed as per slab (STCG) or with indexation (LTCG over 3 years).</p>
-        <p><strong>ELSS:</strong> Offers ₹1.5L deduction under Section 80C with a 3-year lock-in.</p>
+        <p><strong>ELSS:</strong> Offers ₹1,50,000 deduction under Section 80C with a 3-year lock-in.</p>
         <img src="/images/mutual-fund/taxation.jpg" alt="Mutual Fund Taxation" className="rounded-xl w-full max-w-3xl" />
       </div>
     ),
