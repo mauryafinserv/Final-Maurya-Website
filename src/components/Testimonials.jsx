@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 const testimonials = [
   {
-    name: "Abhishek Ranjan",
+    name: "Dr. Abhishek Ranjan",
     message: "Excellent service and behavior",
     rating: 10,
     image: "/testimonials/abhishek.jpg",
@@ -79,7 +79,7 @@ const Testimonials = () => {
     >
       <div className="max-w-7xl mx-auto text-center">
         <h2 className="text-4xl md:text-5xl font-bold text-primary mb-12">
-          Clients' Success Stories
+          Testimonials
         </h2>
 
         {/* Testimonials */}

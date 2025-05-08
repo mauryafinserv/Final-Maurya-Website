@@ -13,7 +13,7 @@ const MutualFundPage = () => {
     if (!r || !n || !fv) return;
 
     const sip = (fv * r) / ((Math.pow(1 + r, n) - 1) * (1 + r));
-    setMonthlySIP(sip.toFixed(2));
+    setMonthlySIP(sip);
   };
 
   const [sipAmount, setSipAmount] = useState("");
@@ -28,7 +28,7 @@ const MutualFundPage = () => {
     if (!r || !n || !p) return;
 
     const fv = p * ((Math.pow(1 + r, n) - 1) * (1 + r)) / r;
-    setSipFutureValue(fv.toFixed(2));
+    setSipFutureValue(fv);
   };
 
   const [lumpAmount, setLumpAmount] = useState("");
@@ -43,7 +43,7 @@ const MutualFundPage = () => {
     if (!r || !n || !p) return;
 
     const fv = p * Math.pow(1 + r, n);
-    setLumpFutureValue(fv.toFixed(2));
+    setLumpFutureValue(fv);
   };
 
   return (
@@ -96,7 +96,7 @@ const MutualFundPage = () => {
               <input type="number" placeholder="Time Horizon (Years)" className="w-full px-4 py-2 border rounded text-black" value={years} onChange={(e) => setYears(e.target.value)} />
               <input type="number" placeholder="Expected Annual Return (%)" className="w-full px-4 py-2 border rounded text-black" value={returnRate} onChange={(e) => setReturnRate(e.target.value)} />
               <button className="bg-primary text-black px-4 py-2 rounded hover:bg-darkGold transition" onClick={calculateSIP}>Calculate SIP</button>
-              {monthlySIP && <div className="mt-4 text-green-400 font-medium">You need to invest ₹{monthlySIP}/month to reach your goal 🎯</div>}
+              {monthlySIP && <div className="mt-4 text-green-400 font-medium">You need to invest ₹{Number(monthlySIP).toLocaleString("en-IN", { maximumFractionDigits: 2 })}/month to reach your goal 🎯</div>}
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ const MutualFundPage = () => {
             <input type="number" placeholder="Expected Annual Return (%)" className="w-full px-4 py-2 border rounded text-black" value={sipRate} onChange={(e) => setSipRate(e.target.value)} />
           </div>
           <button className="mt-4 bg-primary text-black px-4 py-2 rounded hover:bg-darkGold transition" onClick={calculateSIPFuture}>Calculate Future Value</button>
-          {sipFutureValue && <div className="mt-4 text-green-400 font-medium">Future value: ₹{sipFutureValue}</div>}
+          {sipFutureValue && <div className="mt-4 text-green-400 font-medium">Future value: ₹{Number(sipFutureValue).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</div>}
         </div>
 
         {/* 💰 Lumpsum */}
@@ -122,7 +122,7 @@ const MutualFundPage = () => {
             <input type="number" placeholder="Expected Annual Return (%)" className="w-full px-4 py-2 border rounded text-black" value={lumpRate} onChange={(e) => setLumpRate(e.target.value)} />
           </div>
           <button className="mt-4 bg-primary text-black px-4 py-2 rounded hover:bg-darkGold transition" onClick={calculateLumpsum}>Calculate Future Value</button>
-          {lumpFutureValue && <div className="mt-4 text-green-400 font-medium">Future value: ₹{lumpFutureValue}</div>}
+          {lumpFutureValue && <div className="mt-4 text-green-400 font-medium">Future value: ₹{Number(lumpFutureValue).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</div>}
         </div>
       </div>
     </section>
