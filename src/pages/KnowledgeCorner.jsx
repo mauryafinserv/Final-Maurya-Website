@@ -39,6 +39,11 @@ const latestArticles = [
     link: "https://drive.google.com/file/d/1lsvNV9_XVCxhZWcDkmgUtDwdIztnpWe8/view?usp=share_link",
     date: "May 2025",
   },
+  {
+    title: "At 56, He Chose the Classroom Again – A Journey of Learning & Leadership",
+    link: "https://drive.google.com/file/d/1B32hI7hDOkbUrtkk9x6Pj3DgXcSFsds7/view?usp=share_link",
+    date: "May 2025",
+  },
 ];
 
 const KnowledgeCorner = () => {
