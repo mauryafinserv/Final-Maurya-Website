@@ -6,6 +6,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
 import SmartTicker from "./components/SmartTicker";
 import Hero from "./components/Hero";
+import NeedHighlightCarousel from "./components/NeedHighlightCarousel";
 import Services from "./components/Services";
 import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
@@ -80,6 +81,7 @@ function App() {
             <>
               <SmartTicker />
               <Hero />
+              <NeedHighlightCarousel />
               <Services />
               <WhyChooseUs />
               <Testimonials />
