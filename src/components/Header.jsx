@@ -1,4 +1,3 @@
-// src/components/Header.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
@@ -36,6 +35,11 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full">
       {/* 🔷 Top Black Bar */}
       <div className="bg-black text-gold-500 text-sm py-2 px-4 flex justify-end items-center gap-6 relative">
+        {/* FINANCIAL CALCULATORS */}
+        <Link to="/financial-calculators" className="hover:text-yellow-500">
+          FINANCIAL CALCULATORS
+        </Link>
+
         {/* CLIENT LOGIN Dropdown */}
         <div ref={loginDropdownRef}>
           <button
@@ -159,6 +163,7 @@ const Header = () => {
                   <li><Link to="/nps" onClick={closeAll}>NPS</Link></li>
                 </ul>
               </details>
+              <Link to="/financial-calculators" onClick={closeAll}>FINANCIAL CALCULATORS</Link>
               <Link to="/knowledge-corner" onClick={closeAll}>KNOWLEDGE CORNER</Link>
               <a href="#partner" onClick={closeAll}>PARTNER WITH US</a>
               <Link to="/downloads" onClick={closeAll}>DOWNLOADS</Link>
