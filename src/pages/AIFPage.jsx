@@ -47,13 +47,21 @@ const AIFPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
-              Alternative Investment Funds (AIF)
+              AIF Distribution (Alternative Investment Funds)
             </h2>
+
             <p className="text-gray-300 leading-relaxed mb-4">
-              AIFs are privately pooled investment vehicles that offer exposure to unique and high-growth opportunities beyond traditional asset classes. Categorized into Category I, II, and III — each serves a distinct purpose, from early-stage ventures to hedge strategies.
+              Alternative Investment Funds (AIFs) are privately pooled investment vehicles 
+              designed for sophisticated investors looking for opportunities beyond traditional 
+              equity and debt. These include strategies focused on private equity, venture capital, 
+              structured credit, long–short, and multi-asset alternatives.
             </p>
+
             <p className="text-gray-400 leading-relaxed">
-              At <span className="text-primary font-medium">Maurya Shares & Stock Brokers</span>, we provide end-to-end access and support to onboard, track, and stay updated on your AIF investments — all through a seamless and transparent process.
+              At <span className="text-primary font-medium">Maurya Shares & Stock Brokers</span>, 
+              we act as distributors helping investors access curated AIF strategies from leading 
+              SEBI-registered fund managers. We assist in onboarding, documentation, reporting, 
+              and ongoing tracking — ensuring a seamless and fully transparent experience.
             </p>
           </div>
 
@@ -72,21 +80,21 @@ const AIFPage = () => {
         <div className="bg-gray-900 p-8 rounded-lg shadow mb-16">
           <h3 className="text-2xl font-semibold text-primary mb-6">Why Consider AIFs?</h3>
           <ul className="list-disc pl-5 text-gray-300 space-y-3">
-            <li>Access to niche, high-growth investment opportunities</li>
-            <li>Custom strategies with professional fund management</li>
-            <li>Higher risk-adjusted returns potential</li>
-            <li>Minimal correlation with traditional equity or debt markets</li>
-            <li>Transparent structure governed by SEBI</li>
+            <li>Access to niche, high-growth opportunities unavailable in public markets</li>
+            <li>Professional management with high-conviction, research-driven strategies</li>
+            <li>Potential for superior risk-adjusted returns over the long term</li>
+            <li>Lower correlation with equity & debt markets — ideal for diversification</li>
+            <li>Strong regulatory oversight under SEBI’s AIF guidelines</li>
           </ul>
         </div>
 
         {/* CTA */}
         <div className="text-center">
           <h4 className="text-xl md:text-2xl font-semibold text-white mb-4">
-            Interested in Alternative Investments?
+            Interested in Exploring AIF Distribution?
           </h4>
           <p className="text-gray-400 mb-6">
-            Our team is here to help you explore and access the right AIF opportunities tailored to your financial profile.
+            Our team can help identify which AIF strategies align best with your wealth creation goals.
           </p>
           <button
             onClick={() => setShowModal(true)}

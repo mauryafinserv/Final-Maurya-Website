@@ -43,17 +43,26 @@ const PMSPage = () => {
   return (
     <section className="bg-black text-white py-16 px-6 md:px-20 font-sans">
       <div className="max-w-6xl mx-auto">
+
         {/* Intro Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
-              Portfolio Management Services (PMS)
+              PMS Distribution (Portfolio Management Services)
             </h2>
+
             <p className="text-gray-300 leading-relaxed mb-4">
-              PMS is a professional service offered to high-net-worth individuals (HNIs) who seek customized investment solutions and personalized attention in managing their equity portfolios.
+              PMS Distribution allows investors to access professionally managed,
+              high-conviction strategies across leading portfolio management firms.
+              These solutions are suited for HNIs seeking personalized equity portfolio
+              management handled by expert fund managers.
             </p>
+
             <p className="text-gray-400 leading-relaxed">
-              At <span className="text-primary font-medium">Maurya Shares & Stock Brokers</span>, we offer access to top-performing PMS strategies across asset management firms, ensuring transparency, performance tracking, and expert research — all under one roof.
+              At <span className="text-primary font-medium">Maurya Shares & Stock Brokers</span>, 
+              we act as distributors providing seamless access to top-performing PMS strategies 
+              from leading AMCs. Our role ensures guidance, transparency, performance tracking, 
+              and research-backed recommendations — all under one roof.
             </p>
           </div>
 
@@ -69,23 +78,27 @@ const PMSPage = () => {
         {/* Why PMS */}
         <div className="bg-gray-900 p-8 rounded-lg shadow mb-16">
           <h3 className="text-2xl font-semibold text-primary mb-6">
-            Why PMS is a Powerful Addition to an HNI’s Portfolio
+            Why PMS Is a Powerful Addition to an HNI’s Portfolio
           </h3>
+
           <ul className="list-disc pl-5 text-gray-300 space-y-4">
             <li><strong>Personalized Portfolio Construction:</strong> Tailored to your risk profile, return expectations, and long-term goals — unlike one-size-fits-all mutual funds.</li>
-            <li><strong>Direct Ownership of Securities:</strong> All investments are held in your demat account, offering full transparency and control.</li>
+            <li><strong>Direct Ownership of Securities:</strong> Investments are held in your demat account, offering full transparency and control.</li>
             <li><strong>Expert Active Management:</strong> Portfolios are dynamically managed by professionals to capitalize on market opportunities and mitigate risks.</li>
-            <li><strong>Tax Efficiency & Customization:</strong> Strategies optimized for tax savings, with options like loss harvesting and profit staggering.</li>
-            <li><strong>High-Conviction Bets:</strong> PMS allows concentrated investments in high-potential ideas, ideal for HNIs seeking superior returns.</li>
-            <li><strong>Detailed Reporting:</strong> Get full visibility into every transaction with advanced analytics and transparent updates.</li>
-            <li><strong>Legacy & Wealth Structuring:</strong> Align your portfolio with long-term family wealth planning and estate goals.</li>
+            <li><strong>Tax Efficiency & Customization:</strong> Strategies optimized for tax savings through loss harvesting and profit booking.</li>
+
+            {/* ✅ UPDATED LINE */}
+            <li><strong>High-Conviction Bets:</strong> PMS allows concentrated investments in high-potential ideas through focused portfolio strategies.</li>
+
+            <li><strong>Detailed Reporting:</strong> Investors receive advanced analytics and transparent performance updates.</li>
+            <li><strong>Legacy & Wealth Structuring:</strong> Helps align investments with long-term family wealth planning objectives.</li>
           </ul>
         </div>
 
         {/* CTA */}
         <div className="text-center">
           <h4 className="text-xl md:text-2xl font-semibold text-white mb-4">
-            Looking to explore PMS?
+            Looking to explore PMS Distribution?
           </h4>
           <p className="text-gray-400 mb-6">
             Connect with our team to understand which strategies align best with your financial vision.
@@ -109,49 +122,15 @@ const PMSPage = () => {
             >
               ×
             </button>
+
             <h3 className="text-2xl font-bold mb-4 text-center">Book a Call</h3>
+
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-                required
-              />
-              <input
-                type="tel"
-                name="mobile"
-                placeholder="Mobile Number"
-                value={formData.mobile}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-                required
-              />
-              <textarea
-                name="message"
-                placeholder="Message (Optional)"
-                rows={3}
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-              />
-              <button
-                type="submit"
-                className="w-full bg-primary text-black font-semibold py-2 rounded hover:bg-darkGold"
-              >
-                Submit
-              </button>
+              <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
+              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
+              <input type="tel" name="mobile" placeholder="Mobile Number" value={formData.mobile} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
+              <textarea name="message" placeholder="Message (Optional)" rows={3} value={formData.message} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" />
+              <button type="submit" className="w-full bg-primary text-black font-semibold py-2 rounded hover:bg-darkGold">Submit</button>
             </form>
           </div>
         </div>

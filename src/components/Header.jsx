@@ -35,12 +35,10 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full">
       {/* 🔷 Top Black Bar */}
       <div className="bg-black text-gold-500 text-sm py-2 px-4 flex justify-end items-center gap-6 relative">
-        {/* FINANCIAL CALCULATORS */}
         <Link to="/financial-calculators" className="hover:text-yellow-500">
           FINANCIAL CALCULATORS
         </Link>
 
-        {/* CLIENT LOGIN Dropdown */}
         <div ref={loginDropdownRef}>
           <button
             onClick={() => setMobileMenu((prev) => ({ ...prev, loginTop: !prev.loginTop }))}
@@ -50,18 +48,16 @@ const Header = () => {
           </button>
         </div>
 
-        {/* DOWNLOADS */}
         <Link to="/downloads" className="hover:text-yellow-500">
           DOWNLOADS
         </Link>
 
-        {/* CONTACT US */}
         <Link to="/contact-us" className="hover:text-yellow-500">
           CONTACT US
         </Link>
       </div>
 
-      {/* Dropdown Box */}
+      {/* CLIENT LOGIN Dropdown */}
       <div
         className={`fixed top-[52px] right-4 bg-white shadow-lg rounded-md w-[90vw] max-w-xs text-gray-700 z-[999] transition-all duration-200 ease-in-out ${
           mobileMenu.loginTop ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
@@ -111,12 +107,13 @@ const Header = () => {
             {/* Product Offering Dropdown */}
             <div className="relative group">
               <button className="hover:text-indigo-600">PRODUCT OFFERING</button>
+
               <div className="absolute left-0 top-full w-72 bg-white shadow-lg rounded-md invisible opacity-0 group-hover:visible group-hover:opacity-100 transition">
                 <ul className="py-2 text-sm text-gray-700">
                   <li><Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund</Link></li>
-                  <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS</Link></li>
+                  <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS Distribution</Link></li>
                   <li><Link to="/equity-broking" className="block px-4 py-2 hover:bg-gray-100">Equity Broking</Link></li>
-                  <li><Link to="/aif" className="block px-4 py-2 hover:bg-gray-100">AIF</Link></li>
+                  <li><Link to="/aif" className="block px-4 py-2 hover:bg-gray-100">AIF Distribution</Link></li>
                   <li><Link to="/tax-planning" className="block px-4 py-2 hover:bg-gray-100">Tax Planning</Link></li>
                   <li><Link to="/insurance-advisory" className="block px-4 py-2 hover:bg-gray-100">Insurance Advisory</Link></li>
                   <li><Link to="/loan-against-mf" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</Link></li>
@@ -136,7 +133,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 🔷 Side Drawer */}
+      {/* 🔷 Side Drawer (Mobile Menu) */}
       {mobileMenu.menu && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-40">
           <div className="fixed top-0 right-0 h-full w-4/5 bg-white shadow-lg p-6 overflow-y-auto">
@@ -146,23 +143,26 @@ const Header = () => {
                 <X className="h-6 w-6 text-gray-700" />
               </button>
             </div>
+
             <nav className="flex flex-col gap-4 text-gray-800 text-sm font-medium">
               <Link to="/" onClick={closeAll}>HOME</Link>
               <Link to="/about-us" onClick={closeAll}>ABOUT US</Link>
               <Link to="/nri-investments" onClick={closeAll}>NRI</Link>
+
               <details className="group">
                 <summary className="cursor-pointer">PRODUCT OFFERING</summary>
                 <ul className="ml-4 mt-2 flex flex-col gap-2 text-sm">
                   <li><Link to="/mutual-funds" onClick={closeAll}>Mutual Fund</Link></li>
-                  <li><Link to="/pms" onClick={closeAll}>PMS</Link></li>
+                  <li><Link to="/pms" onClick={closeAll}>PMS Distribution</Link></li>
                   <li><Link to="/equity-broking" onClick={closeAll}>Equity Broking</Link></li>
-                  <li><Link to="/aif" onClick={closeAll}>AIF</Link></li>
+                  <li><Link to="/aif" onClick={closeAll}>AIF Distribution</Link></li>
                   <li><Link to="/tax-planning" onClick={closeAll}>Tax Planning</Link></li>
                   <li><Link to="/insurance-advisory" onClick={closeAll}>Insurance Advisory</Link></li>
                   <li><Link to="/loan-against-mf" onClick={closeAll}>Loan Against MF</Link></li>
                   <li><Link to="/nps" onClick={closeAll}>NPS</Link></li>
                 </ul>
               </details>
+
               <Link to="/financial-calculators" onClick={closeAll}>FINANCIAL CALCULATORS</Link>
               <Link to="/knowledge-corner" onClick={closeAll}>KNOWLEDGE CORNER</Link>
               <a href="#partner" onClick={closeAll}>PARTNER WITH US</a>
