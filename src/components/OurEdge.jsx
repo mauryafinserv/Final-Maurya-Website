@@ -64,16 +64,30 @@ const OurEdge = () => {
   return (
     <section className="bg-black py-24 px-6 md:px-12 border-t border-darkGold">
       <div className="max-w-6xl mx-auto">
+
+        {/* Header */}
         <div className="text-center mb-16">
           <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">What Sets Us Apart</p>
           <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">The Maurya Edge</h2>
           <div className="w-16 h-1 bg-primary mx-auto mt-4" />
         </div>
+
+        {/* 2x3 Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pillars.map((pillar, i) => (
-            <PillarCard key={
-grep "title:" ~/Downloads/maurya-website/src/components/OurEdge.jsx
-cd ~/Downloads/maurya-website
-git add .
-git commit -m "Fix OurEdge 6 pillars via terminal"
-git push
+            <PillarCard key={i} pillar={pillar} />
+          ))}
+        </div>
+
+        {/* Quote */}
+        <div className="mt-16 text-center">
+          <p className="text-gray-500 text-sm italic">
+            "Timeless wisdom. Intelligent wealth. Built for those who aspire to leave a legacy."
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default OurEdge;
