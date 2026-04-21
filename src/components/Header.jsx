@@ -33,8 +33,8 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* 🔷 Top Black Bar */}
-      <div className="bg-black text-gold-500 text-sm py-2 px-4 flex justify-end items-center gap-6 relative">
+      {/* 🔷 Top Black Bar — hidden on mobile, visible on desktop */}
+      <div className="hidden md:flex bg-black text-gold-500 text-sm py-2 px-4 justify-end items-center gap-6 relative">
         <Link to="/financial-calculators" className="hover:text-yellow-500">
           FINANCIAL CALCULATORS
         </Link>
@@ -59,7 +59,7 @@ const Header = () => {
 
       {/* CLIENT LOGIN Dropdown */}
       <div
-        className={`fixed top-[52px] right-4 bg-white shadow-lg rounded-md w-[90vw] max-w-xs text-gray-700 z-[999] transition-all duration-200 ease-in-out ${
+        className={`fixed top-[36px] right-4 bg-white shadow-lg rounded-md w-[90vw] max-w-xs text-gray-700 z-[999] transition-all duration-200 ease-in-out ${
           mobileMenu.loginTop ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
         }`}
       >
