@@ -41,15 +41,13 @@ const pillars = [
 ];
 
 const PillarCard = ({ pillar }) => (
-  <div className="relative border border-darkGold rounded-2xl p-8 bg-gray-950 hover:bg-gray-900 transition group overflow-hidden w-full">
+  <div className="relative border border-darkGold rounded-2xl p-8 bg-gray-950 hover:bg-gray-900 transition group overflow-hidden h-full">
     <span className="absolute top-4 right-4 text-xs text-primary border border-primary rounded-full px-3 py-1 font-mono">
       {pillar.tag}
     </span>
     {pillar.icon}
     <h3 className="text-xl font-bold text-white mb-1">{pillar.title}</h3>
-    <p className="text-primary text-xs font-semibold uppercase tracking-wider mb-4">
-      {pillar.subtitle}
-    </p>
+    <p className="text-primary text-xs font-semibold uppercase tracking-wider mb-4">{pillar.subtitle}</p>
     <p className="text-gray-400 text-sm leading-relaxed">{pillar.desc}</p>
     <div className="absolute bottom-0 left-0 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-500" />
   </div>
@@ -60,40 +58,35 @@ const OurEdge = () => {
     <section className="bg-black py-24 px-6 md:px-12 border-t border-darkGold">
       <div className="max-w-6xl mx-auto">
 
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center mb-16">
-          <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">
-            What Sets Us Apart
-          </p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-            The Maurya Edge
-          </h2>
+          <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">What Sets Us Apart</p>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">The Maurya Edge</h2>
           <div className="w-16 h-1 bg-primary mx-auto mt-4" />
         </div>
 
-        {/* Top Row — 3 cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+        {/* Row 1 — 3 equal cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {pillars.slice(0, 3).map((pillar, i) => (
             <PillarCard key={i} pillar={pillar} />
           ))}
         </div>
 
-        {/* Bottom Row — 2 cards centred */}
-        <div className="flex flex-col sm:flex-row justify-center gap-8 max-w-3xl mx-auto">
+        {/* Row 2 — 2 cards centred at same width as above */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="hidden md:block" /> {/* empty spacer left */}
           {pillars.slice(3).map((pillar, i) => (
-            <div key={i} className="w-full sm:flex-1">
-              <PillarCard pillar={pillar} />
-            </div>
+            <PillarCard key={i} pillar={pillar} />
           ))}
+          <div className="hidden md:block" /> {/* empty spacer right */}
         </div>
 
-        {/* Bottom Quote */}
+        {/* Quote */}
         <div className="mt-16 text-center">
           <p className="text-gray-500 text-sm italic">
             "Timeless wisdom. Intelligent wealth. Built for those who aspire to leave a legacy."
           </p>
         </div>
-
       </div>
     </section>
   );
