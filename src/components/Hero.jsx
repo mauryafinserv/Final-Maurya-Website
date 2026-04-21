@@ -17,7 +17,6 @@ const Hero = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch("https://formspree.io/f/xovezbow", {
         method: "POST",
@@ -45,7 +44,7 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-[70vh] sm:min-h-[80vh] md:min-h-[90vh] text-white flex items-center justify-center overflow-hidden">
-      {/* 🎥 Background Video */}
+      {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
         autoPlay
@@ -57,36 +56,42 @@ const Hero = () => {
         Your browser does not support the video tag.
       </video>
 
-      {/* 🧥 Black Overlay */}
+      {/* Black Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-60 z-0" />
 
-      {/* 📝 Content */}
+      {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl">
-        {/* ✅ Company Name */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary mb-6 leading-tight drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
-  Maurya Shares & Stock Brokers Pvt Ltd
-</h1>
 
-        {/* ✅ Tagline */}
+        {/* Company Name */}
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold text-primary mb-6 leading-tight drop-shadow-[2px_2px_6px_rgba(0,0,0,0.8)]">
+          Maurya Shares & Stock Brokers Pvt Ltd
+        </h1>
+
+        {/* Tagline */}
         <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 leading-snug">
           Creating Wealth,
         </p>
-        <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8 leading-snug">
+        <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-snug">
           for Generations!
         </p>
 
-        {/* ✅ Button */}
+        {/* AI Line — new */}
+        <p className="text-sm sm:text-base text-primary font-medium tracking-widest uppercase mb-8 opacity-90">
+          ✦ Now Powered by AI-Driven Research & Insights ✦
+        </p>
+
+        {/* CTA Button */}
         <div className="flex justify-center">
           <button
             onClick={() => setShowModal(true)}
             className="bg-primary text-black px-8 py-4 rounded-full font-semibold hover:bg-darkGold transition text-lg"
           >
-            Start Your Journey
+            Begin Your Wealth Journey
           </button>
         </div>
       </div>
 
-      {/* ✅ Modal */}
+      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 text-black relative">
@@ -96,47 +101,19 @@ const Hero = () => {
             >
               ×
             </button>
-            <h3 className="text-2xl font-bold mb-4 text-center">Start Your Journey</h3>
+            <h3 className="text-2xl font-bold mb-4 text-center">Begin Your Wealth Journey</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-                required
-              />
-              <input
-                type="tel"
-                name="mobile"
-                placeholder="Mobile Number"
-                value={formData.mobile}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-                required
-              />
-              <textarea
-                name="message"
-                placeholder="Message (Optional)"
-                rows={3}
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full border border-gray-300 rounded px-4 py-2"
-              />
-              <button
-                type="submit"
-                className="w-full bg-primary text-black font-semibold py-2 rounded hover:bg-darkGold"
-              >
+              <input type="text" name="name" placeholder="Your Name" value={formData.name}
+                onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
+              <input type="email" name="email" placeholder="Email Address" value={formData.email}
+                onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
+              <input type="tel" name="mobile" placeholder="Mobile Number" value={formData.mobile}
+                onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
+              <textarea name="message" placeholder="What are you looking for? (Optional)" rows={3}
+                value={formData.message} onChange={handleChange}
+                className="w-full border border-gray-300 rounded px-4 py-2" />
+              <button type="submit"
+                className="w-full bg-primary text-black font-semibold py-2 rounded hover:bg-darkGold transition">
                 Submit
               </button>
             </form>

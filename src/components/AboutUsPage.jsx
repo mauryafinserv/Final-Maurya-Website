@@ -66,6 +66,45 @@ const AboutUsPage = () => {
           </p>
         </div>
 
+
+        {/* Our Approach Section */}
+        <div className="mt-16 mb-6 border border-darkGold rounded-2xl p-8 bg-gray-950">
+          <h2 className="text-primary text-2xl font-bold mb-2">Our Approach</h2>
+          <p className="text-xs text-primary font-semibold uppercase tracking-widest mb-6">Where Legacy Meets Intelligence</p>
+          <p className="text-gray-300 leading-relaxed mb-6">
+            At Maurya Shares, we believe that great wealth decisions are built on two foundations —
+            decades of human expertise and the power of modern intelligence. We are one of the few
+            wealth distribution firms in India that actively combines both.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6 mb-6">
+            <div className="border border-gray-800 rounded-xl p-5 bg-black">
+              <p className="text-primary font-semibold mb-2">🧠 AI-Powered Research</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                We leverage Claude AI for deep research and analysis, helping us cut through market noise
+                and bring you insights that are accurate, timely, and relevant to your portfolio.
+              </p>
+            </div>
+            <div className="border border-gray-800 rounded-xl p-5 bg-black">
+              <p className="text-primary font-semibold mb-2">📊 NGen Market Intelligence</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Through our partnership with NGen, we access institutional-grade market intelligence
+                and research tools — the same quality of information that powers top wealth firms globally.
+              </p>
+            </div>
+            <div className="border border-gray-800 rounded-xl p-5 bg-black">
+              <p className="text-primary font-semibold mb-2">🤖 Samridhi — Your AI Wealth Assistant</p>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Our AI-powered wealth assistant Samridhi is available 24/7 to answer your investment
+                queries, guide you to the right resources, and connect you with our team when needed.
+              </p>
+            </div>
+          </div>
+          <p className="text-gray-400 text-sm italic">
+            Technology does not replace the human touch — it sharpens it. Our experienced team uses
+            these tools to serve you better, faster, and smarter.
+          </p>
+        </div>
+
         {/* Regulatory Details Section */}
         <div className="mt-16 border border-darkGold rounded-2xl p-8">
           <h2 className="text-primary text-2xl font-bold mb-6">Regulatory Information</h2>
