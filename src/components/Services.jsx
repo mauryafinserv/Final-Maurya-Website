@@ -3,11 +3,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const services = [
-  { name: "Mutual Fund Distribution", link: "/mutual-funds" },
+  { name: "Mutual Fund Distributor", link: "/mutual-funds" },
   { name: "Equity Broking", link: "/equity-broking" },
   { name: "AIF (Alternative Investment Fund)", link: "/aif" },
-  { name: "PMS (Portfolio Management Services)", link: "/pms" },
-  { name: "Loan Against Mutual Funds", link: "#" },
+  { name: "PMS Distribution", link: "/pms" },
+  { name: "Loan Against Securities", link: "/loan-against-mf" },
   { name: "NPS", link: "/nps" },
   { name: "Company Fixed Deposits", link: "#" },
   { name: "Tax Consultation & Planning", link: "/tax-planning" },

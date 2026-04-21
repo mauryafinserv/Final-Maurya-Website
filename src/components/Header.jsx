@@ -116,7 +116,7 @@ const Header = () => {
                   <li><Link to="/aif" className="block px-4 py-2 hover:bg-gray-100">AIF Distribution</Link></li>
                   <li><Link to="/tax-planning" className="block px-4 py-2 hover:bg-gray-100">Tax Planning</Link></li>
                   <li><Link to="/insurance-advisory" className="block px-4 py-2 hover:bg-gray-100">Insurance Advisory</Link></li>
-                  <li><Link to="/loan-against-mf" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</Link></li>
+                  <li><Link to="/loan-against-mf" className="block px-4 py-2 hover:bg-gray-100">Loan Against Securities</Link></li>
                   <li><Link to="/nps" className="block px-4 py-2 hover:bg-gray-100">NPS</Link></li>
                 </ul>
               </div>
@@ -158,7 +158,7 @@ const Header = () => {
                   <li><Link to="/aif" onClick={closeAll}>AIF Distribution</Link></li>
                   <li><Link to="/tax-planning" onClick={closeAll}>Tax Planning</Link></li>
                   <li><Link to="/insurance-advisory" onClick={closeAll}>Insurance Advisory</Link></li>
-                  <li><Link to="/loan-against-mf" onClick={closeAll}>Loan Against MF</Link></li>
+                  <li><Link to="/loan-against-mf" onClick={closeAll}>Loan Against Securities</Link></li>
                   <li><Link to="/nps" onClick={closeAll}>NPS</Link></li>
                 </ul>
               </details>

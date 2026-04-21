@@ -34,8 +34,8 @@ const AboutUsPage = () => {
           <ul className="list-disc pl-6 space-y-3">
             <li>Distribution of Mutual Funds across all leading AMCs</li>
             <li>Execution support for Equity Broking through a leading brokerage platform</li>
-            <li>Facilitation of investments into Portfolio Management Services (PMS) and Alternative Investment Funds (AIFs)</li>
-            <li>Loan Against Mutual Funds, NPS (National Pension System), and Company Fixed Deposits</li>
+            <li>Facilitation of investments into PMS Distribution and Alternative Investment Funds (AIFs)</li>
+            <li>Loan Against Securities, NPS (National Pension System), and Company Fixed Deposits</li>
             <li>Insurance Advisory across Life, Health, and General Insurance</li>
             <li>Tax Planning and Structuring Support (in collaboration with qualified tax professionals)</li>
             <li>Estate Planning Facilitation through trusted legal and wealth partners to secure your legacy</li>
