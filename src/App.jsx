@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import ScrollToTop from "./components/ScrollToTop";
+import Samridhi from "./components/Samridhi";
 import Header from "./components/Header";
 import SmartTicker from "./components/SmartTicker";
 import Hero from "./components/Hero";
@@ -116,6 +117,7 @@ function App() {
         <Route path="/calculators/education" element={<EducationCalculator />} />
       </Routes>
 
+      <Samridhi />
       <Footer />
     </div>
   );
