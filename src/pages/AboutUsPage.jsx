@@ -14,39 +14,7 @@ const AboutUsPage = () => {
           </h1>
           <p className="text-2xl text-white font-semibold mb-2">Creating Wealth, for Generations.</p>
           <p className="text-primary text-sm font-semibold tracking-widest uppercase">
-            30 Years of Trust. AI-Powered. Built for HNIs & NRIs.
-          </p>
-        </div>
-
-        {/* Regulatory Badge Strip */}
-        <div className="border border-darkGold rounded-2xl p-6 mb-12 bg-gray-950">
-          <p className="text-xs text-primary font-semibold uppercase tracking-widest mb-4 text-center">SEBI Registered Entity — Regulatory Details</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center text-sm">
-            <div>
-              <p className="text-gray-500 text-xs mb-1">MF Distributor</p>
-              <p className="text-white font-semibold">AMFI Registered</p>
-              <p className="text-primary font-mono font-bold">ARN-112272</p>
-            </div>
-            <div>
-              <p className="text-gray-500 text-xs mb-1">Principal Broker</p>
-              <p className="text-white font-semibold">Kotak Securities Ltd.</p>
-              <p className="text-primary font-mono font-bold">INZ000200137</p>
-            </div>
-            <div>
-              <p className="text-gray-500 text-xs mb-1">NSE AP Reg.</p>
-              <p className="text-white font-semibold">Authorised Person</p>
-              <p className="text-primary font-mono font-bold">AP0291570133</p>
-            </div>
-            <div>
-              <p className="text-gray-500 text-xs mb-1">BSE AP Reg.</p>
-              <p className="text-white font-semibold">Authorised Person</p>
-              <p className="text-primary font-mono font-bold">AP01067301170504</p>
-            </div>
-          </div>
-          <p className="text-center mt-4">
-            <Link to="/disclosures" className="text-primary text-xs underline hover:text-darkGold transition">
-              View Full Regulatory Disclosures →
-            </Link>
+            30 Years of Trust. AI-Powered.
           </p>
         </div>
 
@@ -136,59 +104,5 @@ const AboutUsPage = () => {
           </p>
         </div>
 
-        {/* Full Regulatory Details */}
-        <div className="mt-8 border border-darkGold rounded-2xl p-8">
-          <h2 className="text-primary text-2xl font-bold mb-6">Regulatory Information</h2>
-          <div className="grid md:grid-cols-2 gap-6 text-sm">
-            <div className="space-y-4">
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Registered Name</p>
-                <p className="text-white font-medium">Maurya Shares and Stock Brokers Private Limited</p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">AMFI Registration — Mutual Fund Distributor (Non-Individual)</p>
-                <p className="text-primary font-mono font-semibold">ARN-112272</p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">NSE Authorised Person Registration</p>
-                <p className="text-primary font-mono font-semibold">AP0291570133</p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">BSE Authorised Person Registration</p>
-                <p className="text-primary font-mono font-semibold">AP01067301170504</p>
-              </div>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Principal Stock Broker</p>
-                <p className="text-white font-medium">Kotak Securities Limited</p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Kotak Securities SEBI Registration</p>
-                <p className="text-primary font-mono font-semibold">INZ000200137</p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Registered Address</p>
-                <p className="text-gray-300">2nd Floor, 2B Durga Vihar, S P Verma Road, Patna, Bihar - 800001</p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Full Disclosures</p>
-                <Link to="/disclosures" className="text-primary underline hover:text-darkGold transition">
-                  View Regulatory Disclosures →
-                </Link>
-              </div>
-            </div>
-          </div>
-          <p className="text-gray-500 text-xs mt-8 border-t border-gray-700 pt-4">
-            Investment in securities market is subject to market risks. Read all scheme-related documents carefully before investing.
-            Registration does not guarantee performance or assure returns to investors.
-            Maurya Shares and Stock Brokers Private Limited is an AMFI Registered Mutual Fund Distributor (Non-Individual) and an Authorised Person of Kotak Securities Limited.
-          </p>
-        </div>
-
       </div>
     </section>
-  );
-};
-
-export default AboutUsPage;
