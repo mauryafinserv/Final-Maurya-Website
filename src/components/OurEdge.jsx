@@ -40,6 +40,21 @@ const pillars = [
   },
 ];
 
+const PillarCard = ({ pillar }) => (
+  <div className="relative border border-darkGold rounded-2xl p-8 bg-gray-950 hover:bg-gray-900 transition group overflow-hidden w-full">
+    <span className="absolute top-4 right-4 text-xs text-primary border border-primary rounded-full px-3 py-1 font-mono">
+      {pillar.tag}
+    </span>
+    {pillar.icon}
+    <h3 className="text-xl font-bold text-white mb-1">{pillar.title}</h3>
+    <p className="text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+      {pillar.subtitle}
+    </p>
+    <p className="text-gray-400 text-sm leading-relaxed">{pillar.desc}</p>
+    <div className="absolute bottom-0 left-0 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-500" />
+  </div>
+);
+
 const OurEdge = () => {
   return (
     <section className="bg-black py-24 px-6 md:px-12 border-t border-darkGold">
@@ -56,28 +71,18 @@ const OurEdge = () => {
           <div className="w-16 h-1 bg-primary mx-auto mt-4" />
         </div>
 
-        {/* Pillars */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {pillars.map((pillar, i) => (
-            <div
-              key={i}
-              className="relative border border-darkGold rounded-2xl p-8 bg-gray-950 hover:bg-gray-900 transition group overflow-hidden"
-            >
-              {/* Tag */}
-              <span className="absolute top-4 right-4 text-xs text-primary border border-primary rounded-full px-3 py-1 font-mono">
-                {pillar.tag}
-              </span>
+        {/* Top Row — 3 cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+          {pillars.slice(0, 3).map((pillar, i) => (
+            <PillarCard key={i} pillar={pillar} />
+          ))}
+        </div>
 
-              {pillar.icon}
-
-              <h3 className="text-xl font-bold text-white mb-1">{pillar.title}</h3>
-              <p className="text-primary text-xs font-semibold uppercase tracking-wider mb-4">
-                {pillar.subtitle}
-              </p>
-              <p className="text-gray-400 text-sm leading-relaxed">{pillar.desc}</p>
-
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 w-0 group-hover:w-full h-0.5 bg-primary transition-all duration-500" />
+        {/* Bottom Row — 2 cards centred */}
+        <div className="flex flex-col sm:flex-row justify-center gap-8 max-w-3xl mx-auto">
+          {pillars.slice(3).map((pillar, i) => (
+            <div key={i} className="w-full sm:flex-1">
+              <PillarCard pillar={pillar} />
             </div>
           ))}
         </div>
