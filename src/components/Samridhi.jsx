@@ -110,8 +110,13 @@ const Samridhi = () => {
                       ? "bg-yellow-600 text-white rounded-br-none"
                       : "bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-sm"
                   }`}>
-                    {msg.content.split(/\*\*(.*?)\*\*/g).map((part, i) =>
-                      i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+                    {msg.content.split(/(https?:\/\/[^\s]+)/g).map((part, i) =>
+                      part.match(/^https?:\/\//) 
+                        ? <a key={i} href={part} target="_blank" rel="noopener noreferrer" 
+                            className="text-yellow-600 underline break-all hover:text-yellow-800">{part}</a>
+                        : part.split(/\*\*(.*?)\*\*/g).map((p, j) =>
+                            j % 2 === 1 ? <strong key={j}>{p}</strong> : p
+                          )
                     )}
                   </div>
                 </div>
