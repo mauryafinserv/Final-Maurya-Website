@@ -52,7 +52,7 @@ const MutualFundPage = () => {
         {/* 🧾 Intro Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Mutual Fund</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Mutual Fund Distribution</h2>
             <p className="text-gray-300 leading-relaxed">
               Mutual Funds are professionally managed investment vehicles that pool money from multiple investors to invest in a diversified portfolio of stocks, bonds, or other securities.
             </p>

@@ -66,7 +66,7 @@ const Header = () => {
         <ul className="py-2 text-sm">
           <li>
             <a href="https://mauryasecurity.wealthmagic.in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
-              Mutual Fund Platform
+              Mutual Fund Distribution
             </a>
           </li>
           <li>
@@ -110,7 +110,7 @@ const Header = () => {
 
               <div className="absolute left-0 top-full w-72 bg-white shadow-lg rounded-md invisible opacity-0 group-hover:visible group-hover:opacity-100 transition">
                 <ul className="py-2 text-sm text-gray-700">
-                  <li><Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund</Link></li>
+                  <li><Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund Distribution</Link></li>
                   <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS Distribution</Link></li>
                   <li><Link to="/equity-broking" className="block px-4 py-2 hover:bg-gray-100">Equity Broking</Link></li>
                   <li><Link to="/aif" className="block px-4 py-2 hover:bg-gray-100">AIF Distribution</Link></li>
@@ -152,7 +152,7 @@ const Header = () => {
               <details className="group">
                 <summary className="cursor-pointer">PRODUCT OFFERING</summary>
                 <ul className="ml-4 mt-2 flex flex-col gap-2 text-sm">
-                  <li><Link to="/mutual-funds" onClick={closeAll}>Mutual Fund</Link></li>
+                  <li><Link to="/mutual-funds" onClick={closeAll}>Mutual Fund Distribution</Link></li>
                   <li><Link to="/pms" onClick={closeAll}>PMS Distribution</Link></li>
                   <li><Link to="/equity-broking" onClick={closeAll}>Equity Broking</Link></li>
                   <li><Link to="/aif" onClick={closeAll}>AIF Distribution</Link></li>

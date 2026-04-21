@@ -28,6 +28,7 @@ import NpsPage from "./pages/NpsPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import Downloads from "./pages/Downloads";
+import Disclosures from "./pages/Disclosures";
 import FinancialCalculators from "./pages/FinancialCalculators";
 
 // Calculators
@@ -101,6 +102,7 @@ function App() {
         <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
         <Route path="/nps" element={<NpsPage />} />
         <Route path="/downloads" element={<Downloads />} />
+        <Route path="/disclosures" element={<Disclosures />} />
         <Route path="/financial-calculators" element={<FinancialCalculators />} />
 
         {/* Calculators */}
