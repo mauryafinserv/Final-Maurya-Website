@@ -1,6 +1,6 @@
 // src/components/OurEdge.jsx
 import React from "react";
-import { Building2, BrainCircuit, Users } from "lucide-react";
+import { Building2, BrainCircuit, Users, Briefcase, SlidersHorizontal } from "lucide-react";
 
 const pillars = [
   {
@@ -16,6 +16,20 @@ const pillars = [
     subtitle: "Research Meets Technology",
     desc: "We leverage cutting-edge AI tools — including Claude research and NGen market intelligence — to bring you sharper insights, faster analysis, and smarter wealth decisions.",
     tag: "Powered by AI",
+  },
+  {
+    icon: <Briefcase className="h-10 w-10 text-primary mb-5" />,
+    title: "One-Stop Financial Partner",
+    subtitle: "Everything Under One Roof",
+    desc: "From mutual fund distribution to equity broking, PMS, AIF, insurance, NPS, and tax planning — we bring your entire financial life together under one trusted relationship.",
+    tag: "Complete Solutions",
+  },
+  {
+    icon: <SlidersHorizontal className="h-10 w-10 text-primary mb-5" />,
+    title: "Personalised Planning",
+    subtitle: "Your Goals. Your Strategy.",
+    desc: "No two wealth journeys are alike. We craft bespoke financial strategies tailored to your life stage, risk appetite, family structure, and long-term aspirations.",
+    tag: "Tailored for You",
   },
   {
     icon: <Users className="h-10 w-10 text-primary mb-5" />,
@@ -43,7 +57,7 @@ const OurEdge = () => {
         </div>
 
         {/* Pillars */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {pillars.map((pillar, i) => (
             <div
               key={i}
