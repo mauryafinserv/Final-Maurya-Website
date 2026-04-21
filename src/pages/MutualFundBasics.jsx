@@ -9,7 +9,7 @@ const tabContent = [
         <p>
           A mutual fund is a professionally managed investment vehicle that pools money from many investors to purchase a diversified portfolio of stocks, bonds, or other securities.
         </p>
-        <img src="/images/mutual-fund/what-is-mf.jpg" alt="What is a Mutual Fund" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/what-is-mf.jpg" alt="What is a Mutual Fund" className="rounded-xl w-full max-w-sm mx-auto" />
         <p>
           Each investor owns units in the fund, which represent a portion of the holdings. Mutual funds are ideal for those who want to invest without directly managing securities.
         </p>
@@ -29,7 +29,7 @@ const tabContent = [
           <li><strong>Fund of Funds:</strong> Invest in other mutual funds.</li>
           <li><strong>Thematic/Sectoral Funds:</strong> Invest in specific sectors like pharma, IT, or infra.</li>
         </ul>
-        <img src="/images/mutual-fund/types-of-mf.jpg" alt="Types of Mutual Funds" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/types-of-mf.jpg" alt="Types of Mutual Funds" className="rounded-xl w-full max-w-sm mx-auto" />
       </div>
     ),
   },
@@ -44,7 +44,7 @@ const tabContent = [
           <li>Transparent structure regulated by SEBI.</li>
           <li>Available for all risk profiles and financial goals.</li>
         </ul>
-        <img src="/images/mutual-fund/why-invest.jpg" alt="Why Invest in Mutual Funds" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/why-invest.jpg" alt="Why Invest in Mutual Funds" className="rounded-xl w-full max-w-sm mx-auto" />
       </div>
     ),
   },
@@ -54,7 +54,7 @@ const tabContent = [
       <div className="space-y-4">
         <p><strong>SIP (Systematic Investment Plan):</strong> Small, regular investments that average out market volatility.</p>
         <p><strong>Lumpsum:</strong> A one-time investment, ideal when markets are low or if you have idle capital.</p>
-        <img src="/images/mutual-fund/sip-vs-lumpsum.jpg" alt="SIP vs Lumpsum" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/sip-vs-lumpsum.jpg" alt="SIP vs Lumpsum" className="rounded-xl w-full max-w-sm mx-auto" />
       </div>
     ),
   },
@@ -69,7 +69,7 @@ const tabContent = [
           <li><strong>Small Cap:</strong> Companies beyond 250th rank.</li>
           <li><strong>Flexi Cap / Multi Cap:</strong> Invest across all market caps.</li>
         </ul>
-        <img src="/images/mutual-fund/sebi-categories.jpg" alt="SEBI Categories" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/sebi-categories.jpg" alt="SEBI Categories" className="rounded-xl w-full max-w-sm mx-auto" />
       </div>
     ),
   },
@@ -84,7 +84,7 @@ const tabContent = [
           <li>Look for lower expense ratios.</li>
           <li>Evaluate consistency and volatility.</li>
         </ul>
-        <img src="/images/mutual-fund/choose-right.jpg" alt="Choosing the Right Fund" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/choose-right.jpg" alt="Choosing the Right Fund" className="rounded-xl w-full max-w-sm mx-auto" />
       </div>
     ),
   },
@@ -95,7 +95,7 @@ const tabContent = [
         <p><strong>Equity Funds:</strong> STCG (15%) if held &lt;1 year, LTCG (10% above ₹1,00,000) if held &gt;1 year.</p>
         <p><strong>Debt Funds:</strong> Taxed as per slab (STCG) or with indexation (LTCG over 3 years).</p>
         <p><strong>ELSS:</strong> Offers ₹1,50,000 deduction under Section 80C with a 3-year lock-in.</p>
-        <img src="/images/mutual-fund/taxation.jpg" alt="Mutual Fund Taxation" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/taxation.jpg" alt="Mutual Fund Taxation" className="rounded-xl w-full max-w-sm mx-auto" />
       </div>
     ),
   },
@@ -109,7 +109,7 @@ const tabContent = [
           <li><strong>Myth:</strong> NAV shows how expensive a fund is.</li>
           <li><strong>Fact:</strong> NAV is just a unit value, not performance indicator.</li>
         </ul>
-        <img src="/images/mutual-fund/myths.jpg" alt="Myths & Facts" className="rounded-xl w-full max-w-3xl" />
+        <img src="/images/mutual-fund/myths.jpg" alt="Myths & Facts" className="rounded-xl w-full max-w-sm mx-auto" />
       </div>
     ),
   }
