@@ -106,3 +106,7 @@ const AboutUsPage = () => {
 
       </div>
     </section>
+  );
+};
+
+export default AboutUsPage;
