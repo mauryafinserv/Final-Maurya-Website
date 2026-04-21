@@ -33,26 +33,26 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* 🔷 Top Black Bar — hidden on mobile, visible on desktop */}
-      <div className="hidden md:flex bg-black text-gold-500 text-sm py-2 px-4 justify-end items-center gap-6 relative">
-        <Link to="/financial-calculators" className="hover:text-yellow-500">
+      {/* 🔷 Top Black Bar */}
+      <div className="bg-black text-gold-500 text-xs md:text-sm py-2 px-4 flex justify-center md:justify-end items-center gap-x-4 relative">
+        <Link to="/financial-calculators" className="hover:text-yellow-500 whitespace-nowrap">
           FINANCIAL CALCULATORS
         </Link>
 
         <div ref={loginDropdownRef}>
           <button
             onClick={() => setMobileMenu((prev) => ({ ...prev, loginTop: !prev.loginTop }))}
-            className="hover:text-yellow-500"
+            className="hover:text-yellow-500 whitespace-nowrap"
           >
             CLIENT LOG IN
           </button>
         </div>
 
-        <Link to="/downloads" className="hover:text-yellow-500">
+        <Link to="/downloads" className="hover:text-yellow-500 whitespace-nowrap hidden md:inline">
           DOWNLOADS
         </Link>
 
-        <Link to="/contact-us" className="hover:text-yellow-500">
+        <Link to="/contact-us" className="hover:text-yellow-500 whitespace-nowrap">
           CONTACT US
         </Link>
       </div>
