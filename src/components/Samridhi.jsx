@@ -110,7 +110,9 @@ const Samridhi = () => {
                       ? "bg-yellow-600 text-white rounded-br-none"
                       : "bg-white text-gray-800 border border-gray-200 rounded-bl-none shadow-sm"
                   }`}>
-                    {msg.content}
+                    {msg.content.split(/\*\*(.*?)\*\*/g).map((part, i) =>
+                      i % 2 === 1 ? <strong key={i}>{part}</strong> : part
+                    )}
                   </div>
                 </div>
               ))}
@@ -150,7 +152,7 @@ const Samridhi = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Ask me anything..."
-                className="flex-1 text-sm px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-yellow-500"
+                className="flex-1 text-sm px-3 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-yellow-500 text-gray-800 bg-white placeholder-gray-400"
                 disabled={loading}
               />
               <button
