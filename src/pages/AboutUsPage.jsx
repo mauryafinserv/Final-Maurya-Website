@@ -14,7 +14,7 @@ const AboutUsPage = () => {
           </h1>
           <p className="text-2xl text-white font-semibold mb-2">Creating Wealth, for Generations.</p>
           <p className="text-primary text-sm font-semibold tracking-widest uppercase">
-            30 Years of Trust. AI-Powered. Built for HNIs and NRIs.
+            30 Years of Trust. AI-Powered.
           </p>
         </div>
 
@@ -128,10 +128,6 @@ const AboutUsPage = () => {
               <div>
                 <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Kotak Securities SEBI Registration</p>
                 <p className="text-primary font-mono font-semibold">INZ000200137</p>
-              </div>
-              <div>
-                <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Registered Address</p>
-                <p className="text-gray-300">2nd Floor, 2B Durga Vihar, S P Verma Road, Patna, Bihar - 800001</p>
               </div>
               <div>
                 <p className="text-gray-500 text-xs uppercase tracking-widest mb-1">Full Disclosures</p>
