@@ -23,6 +23,9 @@ import AIFPage from "./pages/AIFPage";
 import TaxPlanningPage from "./pages/TaxPlanningPage";
 import InsuranceAdvisoryPage from "./pages/InsuranceAdvisoryPage";
 import MutualFundBasics from "./pages/MutualFundBasics";
+import PMSBasics from "./pages/PMSBasics";
+import AIFBasics from "./pages/AIFBasics";
+import FundamentalAnalysis from "./pages/FundamentalAnalysis";
 import NriInvestmentPage from "./pages/NriInvestmentPage";
 import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
 import NpsPage from "./pages/NpsPage";
@@ -99,6 +102,9 @@ function App() {
         <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
         <Route path="/mutual-fund-basics" element={<MutualFundBasics />} />
+        <Route path="/pms-types" element={<PMSBasics />} />
+        <Route path="/aif-explained" element={<AIFBasics />} />
+        <Route path="/fundamental-analysis" element={<FundamentalAnalysis />} />
         <Route path="/nri-investments" element={<NriInvestmentPage />} />
         <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
         <Route path="/nps" element={<NpsPage />} />
