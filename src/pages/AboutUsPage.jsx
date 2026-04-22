@@ -4,21 +4,36 @@ import { Link } from "react-router-dom";
 
 const AboutUsPage = () => {
   return (
-    <section className="bg-background text-text py-20 px-6 md:px-12 font-sans">
-      <div className="max-w-5xl mx-auto">
+    <section className="bg-background text-text font-sans">
 
-        {/* Hero Title */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
-            Maurya Shares & Stock Brokers Pvt Ltd
-          </h1>
-          <p className="text-2xl text-white font-semibold mb-2">Creating Wealth, for Generations.</p>
-          <p className="text-primary text-sm font-semibold tracking-widest uppercase">
-            30 Years of Trust. AI-Powered.
-          </p>
+      {/* JP Morgan Style Video Banner */}
+      <div className="relative w-full h-[60vh] overflow-hidden">
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src="/about-hero.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black bg-opacity-55" />
+        <div className="relative z-10 h-full flex flex-col justify-end px-8 md:px-20 pb-12">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight">
+              Maurya Shares &<br />Stock Brokers
+            </h1>
+            <div className="w-12 h-1 bg-primary mb-4" />
+            <p className="text-lg md:text-xl text-gray-200 font-light">
+              30 Years of Trust. AI-Powered. Built for HNIs & NRIs.
+            </p>
+          </div>
         </div>
+      </div>
 
-        {/* Main Content */}
+      {/* Main Content */}
+      <div className="max-w-5xl mx-auto px-6 md:px-12 py-16">
+
         <div className="text-gray-300 space-y-6 text-lg leading-relaxed">
           <p>
             At Maurya Shares, we are driven by a simple belief: <br />
