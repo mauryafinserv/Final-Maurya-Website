@@ -11,13 +11,13 @@ const basics = [
     image: "/images/mutual-fund.png",
   },
   {
-    title: "Types of Portfolio Management Services (PMS)",
+    title: "Introduction to PMS",
     description: "Explore discretionary, non-discretionary and advisory PMS options.",
     link: "/pms-types",
     image: "/images/pms.png",
   },
   {
-    title: "What are Alternative Investment Funds (AIF)?",
+    title: "Introduction to AIF",
     description: "An overview of AIF categories and their investment strategies.",
     link: "/aif-explained",
     image: "/images/aif.png",
