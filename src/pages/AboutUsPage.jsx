@@ -18,14 +18,14 @@ const AboutUsPage = () => {
           <source src="/about-hero.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black bg-opacity-55" />
-        <div className="relative z-10 h-full flex flex-col justify-end px-8 md:px-20 pb-12">
+        <div className="relative z-10 h-full flex flex-col justify-start px-8 md:px-20 pt-12">
           <div className="max-w-2xl">
             <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4 leading-tight">
               Maurya Shares &<br />Stock Brokers
             </h1>
             <div className="w-12 h-1 bg-primary mb-4" />
             <p className="text-lg md:text-xl text-gray-200 font-light">
-              30 Years of Trust. AI-Powered. Built for HNIs & NRIs.
+              30 Years of Trust. AI-Powered.
             </p>
           </div>
         </div>
