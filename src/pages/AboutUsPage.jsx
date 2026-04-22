@@ -1,6 +1,5 @@
 // src/pages/AboutUsPage.jsx
 import React from "react";
-import { Link } from "react-router-dom";
 
 const AboutUsPage = () => {
   return (
@@ -8,17 +7,14 @@ const AboutUsPage = () => {
       <div className="max-w-5xl mx-auto">
 
         {/* Hero Title */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold text-primary mb-4">
             Maurya Shares & Stock Brokers Pvt Ltd
           </h1>
-          <p className="text-2xl text-white font-semibold mb-2">Creating Wealth, for Generations.</p>
-          <p className="text-primary text-sm font-semibold tracking-widest uppercase">
-            30 Years of Trust. AI-Powered.
-          </p>
+          <p className="text-2xl text-white font-semibold">Creating Wealth, for Generations.</p>
         </div>
 
-        {/* Main Content */}
+        {/* Main About Us Content */}
         <div className="text-gray-300 space-y-6 text-lg leading-relaxed">
           <p>
             At Maurya Shares, we are driven by a simple belief: <br />
@@ -26,35 +22,38 @@ const AboutUsPage = () => {
           </p>
 
           <p>
-            Established over 30 years ago, Maurya Shares has been serving HNIs, NRIs, families, and corporates in their journey toward sustainable wealth creation. We are not just a distributor — we are a long-term wealth partner, trusted across generations.
+            Established over 30 years ago, Maurya Shares has been serving individual investors, families, NRIs, HNIs, and corporates in their journey toward sustainable wealth creation.
           </p>
 
           <p>
-            Today, we combine our decades of expertise with cutting-edge AI research tools and institutional-grade market intelligence — making us one of the few wealth distribution firms in India that brings together legacy and technology for our clients.
+            As a SEBI-registered Mutual Fund Distributor (ARN-112272) and a trusted name in the financial services space, we offer seamless access to a wide range of investment products and solutions across asset classes.
           </p>
 
           <h2 className="text-primary text-2xl font-bold mt-10 mb-4">Our Key Offerings Include:</h2>
+
           <ul className="list-disc pl-6 space-y-3">
             <li>Distribution of Mutual Funds across all leading AMCs</li>
-            <li>Execution support for Equity Broking through Kotak Securities Limited</li>
-            <li>Facilitation of investments into PMS Distribution and Alternative Investment Funds (AIFs)</li>
-            <li>Loan Against Securities (Mutual Funds & Stocks), NPS (National Pension System), and Company Fixed Deposits</li>
-            <li>Insurance across Life, Health, and General</li>
+            <li>Execution support for Equity Broking through a leading brokerage platform</li>
+            <li>Facilitation of investments into Portfolio Management Services (PMS) and Alternative Investment Funds (AIFs)</li>
+            <li>Loan Against Mutual Funds, NPS (National Pension System), and Company Fixed Deposits</li>
+            <li>Insurance Advisory across Life, Health, and General Insurance</li>
             <li>Tax Planning and Structuring Support (in collaboration with qualified tax professionals)</li>
             <li>Estate Planning Facilitation through trusted legal and wealth partners to secure your legacy</li>
           </ul>
 
           <p>
-            We also enable access to new frontiers through GIFT City — India's first international financial center. NRIs and global investors can now invest into India through GIFT City structures, offering dollar-denominated investments, tax-efficiency, and global portfolio diversification, without the need for a PAN card or Indian bank account.
+            We also enable access to new frontiers through GIFT City — India's first international financial center. <br />
+            NRIs and global investors can now invest into India through GIFT City structures, offering dollar-denominated investments, tax-efficiency, and global portfolio diversification, without the need for a PAN card or Indian bank account.
           </p>
 
           <h2 className="text-primary text-2xl font-bold mt-10 mb-4">Our Strengths:</h2>
+
           <ul className="list-disc pl-6 space-y-3">
-            <li>Deep domain expertise and 30+ years of market understanding</li>
-            <li>Complete transparency and ethical distribution practices</li>
-            <li>AI-powered research and NGen market intelligence</li>
-            <li>Personalised and consistent client engagement</li>
-            <li>Strict adherence to SEBI compliance and regulatory frameworks</li>
+            <li>Deep domain expertise and decades of market understanding</li>
+            <li>Complete transparency and ethical practices</li>
+            <li>Research-backed selection of investment opportunities</li>
+            <li>Personalized and consistent client engagement</li>
+            <li>Strict adherence to compliance and regulatory frameworks</li>
           </ul>
 
           <p>
@@ -62,55 +61,13 @@ const AboutUsPage = () => {
           </p>
 
           <p className="text-primary font-semibold text-xl mt-10">
-            Partner with us — And create a legacy that transcends generations.
-          </p>
-        </div>
-
-        {/* Our Approach Section */}
-        <div className="mt-16 mb-8 border border-darkGold rounded-2xl p-8 bg-gray-950">
-          <h2 className="text-primary text-2xl font-bold mb-2">Our Approach</h2>
-          <p className="text-xs text-primary font-semibold uppercase tracking-widest mb-6">Where Legacy Meets Intelligence</p>
-          <p className="text-gray-300 leading-relaxed mb-6">
-            At Maurya Shares, we believe that great wealth decisions are built on two foundations —
-            decades of human expertise and the power of modern intelligence. We are one of the few
-            wealth distribution firms in India that actively combines both.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-6">
-            <div className="border border-gray-800 rounded-xl p-5 bg-black">
-              <p className="text-primary font-semibold mb-2">🧠 AI-Powered Research</p>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                We leverage Claude AI for deep research and analysis, helping us cut through market noise
-                and bring you insights that are accurate, timely, and relevant to your portfolio.
-              </p>
-            </div>
-            <div className="border border-gray-800 rounded-xl p-5 bg-black">
-              <p className="text-primary font-semibold mb-2">📊 NGen Market Intelligence</p>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Through our partnership with NGen, we access institutional-grade market intelligence
-                and research tools — the same quality of information that powers top wealth firms globally.
-              </p>
-            </div>
-            <div className="border border-gray-800 rounded-xl p-5 bg-black">
-              <p className="text-primary font-semibold mb-2">🤖 Samridhi — Your AI Wealth Assistant</p>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Our AI-powered wealth assistant Samridhi is available 24/7 to answer your investment
-                queries, guide you to the right resources, and connect you with our team when needed.
-              </p>
-            </div>
-          </div>
-          <p className="text-gray-400 text-sm italic">
-            Technology does not replace the human touch — it sharpens it. Our experienced team uses
-            these tools to serve you better, faster, and smarter.
+            Partner with us —
+            And create a legacy that transcends generations.
           </p>
         </div>
 
       </div>
     </section>
-  );
-};
-
-export default AboutUsPage;
-
   );
 };
 
