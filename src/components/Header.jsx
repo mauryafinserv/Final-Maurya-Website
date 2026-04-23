@@ -52,6 +52,9 @@ const Header = () => {
           DOWNLOADS
         </Link>
 
+        <Link to="/kyc" className="hover:text-yellow-500 whitespace-nowrap font-semibold text-primary">
+          KYC FORM
+        </Link>
         <Link to="/contact-us" className="hover:text-yellow-500 whitespace-nowrap">
           CONTACT US
         </Link>
@@ -167,6 +170,7 @@ const Header = () => {
               <Link to="/knowledge-corner" onClick={closeAll}>KNOWLEDGE CORNER</Link>
               <a href="#partner" onClick={closeAll}>PARTNER WITH US</a>
               <Link to="/downloads" onClick={closeAll}>DOWNLOADS</Link>
+              <Link to="/kyc" onClick={closeAll} className="text-primary font-semibold">KYC FORM</Link>
               <Link to="/contact-us" onClick={closeAll}>CONTACT US</Link>
             </nav>
           </div>

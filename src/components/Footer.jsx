@@ -56,6 +56,7 @@ const Footer = () => {
             <li><Link to="/aif" className="hover:underline">AIF</Link></li>
             <li><Link to="/pms" className="hover:underline">PMS Distribution</Link></li>
             <li><Link to="/insurance-advisory" className="hover:underline">Insurance Advisory</Link></li>
+            <li><Link to="/kyc" className="hover:underline text-primary font-semibold">KYC Form</Link></li>
             <li><Link to="/disclosures" className="hover:underline text-primary">Regulatory Disclosures</Link></li>
           </ul>
         </div>
