@@ -94,7 +94,7 @@ const KYCForm = () => {
           <div className="text-5xl mb-6">✅</div>
           <h2 className="text-3xl font-bold text-primary mb-4">All Done!</h2>
           <p className="text-gray-300 mb-2">Your KYC details and documents have been submitted successfully.</p>
-          <p className="text-gray-400 text-sm">Our team will reach out within 3-4 working days.</p>
+          <p className="text-gray-400 text-sm">Our team will get back to you within 48 hours.</p>
           <p className="text-gray-400 text-sm mt-2">For queries: <a href="tel:7004016074" className="text-primary">+91 7004016074</a></p>
         </div>
       </section>
@@ -235,7 +235,7 @@ const KYCForm = () => {
               </div>
               <div>
                 <label className={labelClass}>Aadhar Number *</label>
-                <input name="aadhar" required value={form.aadhar} onChange={handleChange} placeholder="XXXX XXXX XXXX" className={inputClass} maxLength={14} />
+                <input name="aadhar" required value={form.aadhar} onChange={handleChange} placeholder="XXXX XXXX XXXX" className={inputClass} maxLength={12} />
               </div>
               <div>
                 <label className={labelClass}>Mobile Number *</label>
@@ -310,20 +310,20 @@ const KYCForm = () => {
             <h3 className={sectionTitle}>Nominee Details</h3>
             <div className="grid md:grid-cols-2 gap-5">
               <div>
-                <label className={labelClass}>Nominee Name</label>
-                <input name="nomineeName" value={form.nomineeName} onChange={handleChange} className={inputClass} />
+                <label className={labelClass}>Nominee Name *</label>
+                <input name="nomineeName" required value={form.nomineeName} onChange={handleChange} className={inputClass} />
               </div>
               <div>
-                <label className={labelClass}>Nominee Date of Birth</label>
-                <input name="nomineeDob" type="date" value={form.nomineeDob} onChange={handleChange} className={inputClass} />
+                <label className={labelClass}>Nominee Date of Birth *</label>
+                <input name="nomineeDob" type="date" required value={form.nomineeDob} onChange={handleChange} className={inputClass} />
               </div>
               <div>
-                <label className={labelClass}>Relation with Nominee</label>
-                <input name="nomineeRelation" value={form.nomineeRelation} onChange={handleChange} placeholder="e.g. Spouse, Son, Daughter" className={inputClass} />
+                <label className={labelClass}>Relation with Nominee *</label>
+                <input name="nomineeRelation" required value={form.nomineeRelation} onChange={handleChange} placeholder="e.g. Spouse, Son, Daughter" className={inputClass} />
               </div>
               <div>
-                <label className={labelClass}>Nominee Contact No</label>
-                <input name="nomineeContact" type="tel" value={form.nomineeContact} onChange={handleChange} className={inputClass} />
+                <label className={labelClass}>Nominee Contact No *</label>
+                <input name="nomineeContact" type="tel" required value={form.nomineeContact} onChange={handleChange} className={inputClass} />
               </div>
               <div>
                 <label className={labelClass}>Nominee PAN Number</label>
