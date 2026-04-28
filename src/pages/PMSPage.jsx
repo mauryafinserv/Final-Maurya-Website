@@ -116,7 +116,9 @@ const PMSPage = () => {
           </div>
         </div>
       )}
+      </div>
     </section>
+
   );
 };
 
