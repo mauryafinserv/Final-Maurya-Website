@@ -42,54 +42,29 @@ const PMSPage = () => {
 
       {/* Hero */}
       <div className="px-6 md:px-16 pt-24 pb-16 border-b border-gray-900">
-        <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">PMS Distribution</p>
-        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight max-w-3xl mb-6">
-          Wealth managed<br />with <span className="text-primary">conviction.</span>
-        </h1>
-        <p className="text-gray-400 text-lg max-w-2xl leading-relaxed mb-4">
-          Portfolio Management Services for HNIs seeking personalised, professionally managed equity portfolios. Minimum investment ₹50 lakhs as per SEBI guidelines.
-        </p>
-        <p className="text-gray-600 text-sm mb-8">Suitable for investors with ₹1.2 Cr+ investable surplus and a 3-5 year horizon.</p>
-        <div className="flex flex-wrap gap-4">
-          <button onClick={() => setShowModal(true)} className="bg-primary text-black font-bold px-8 py-4 text-sm tracking-wide hover:bg-white transition">
-            Explore PMS Options
-          </button>
-          <Link to="/pms-types" className="border border-gray-700 text-gray-300 font-semibold px-8 py-4 text-sm hover:border-primary hover:text-primary transition flex items-center gap-2">
-            PMS Basics <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-
-      {/* Hero Image */}
-      <div className="px-6 md:px-16 py-16 border-b border-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <img
-            src="/images/pms.png"
-            alt="Portfolio Management Services"
-            className="w-full max-h-96 object-cover"
-            onError={(e) => { e.target.style.display = "none"; }}
-          />
-        </div>
-      </div>
-
-      {/* Why PMS */}
-      <div className="px-6 md:px-16 py-20 border-b border-gray-900">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">Why PMS</p>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-16 max-w-xl">The PMS advantage.</h2>
-          <div className="divide-y divide-gray-900">
-            {features.map((f) => (
-              <div key={f.no} className="flex items-start gap-8 py-8 group">
-                <span className="text-gray-700 text-sm font-mono mt-1 w-8 flex-shrink-0">{f.no}</span>
-                <div>
-                  <h3 className="text-white text-xl font-bold mb-2 group-hover:text-primary transition">{f.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed max-w-2xl">{f.desc}</p>
-                </div>
-              </div>
-            ))}
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+          <div>
+            <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">PMS Distribution</p>
+            <h1 className="text-5xl md:text-6xl font-black text-white leading-tight mb-6">
+              Wealth managed<br />with <span className="text-primary">conviction.</span>
+            </h1>
+            <p className="text-gray-400 text-lg leading-relaxed mb-4">
+              Portfolio Management Services for HNIs seeking personalised, professionally managed equity portfolios. Minimum investment ₹50 lakhs as per SEBI guidelines.
+            </p>
+            <p className="text-gray-600 text-sm mb-8">Suitable for investors with ₹1.2 Cr+ investable surplus and a 3-5 year horizon.</p>
+            <div className="flex flex-wrap gap-4">
+              <button onClick={() => setShowModal(true)} className="bg-primary text-black font-bold px-8 py-4 text-sm tracking-wide hover:bg-white transition">
+                Explore PMS Options
+              </button>
+              <Link to="/pms-types" className="border border-gray-700 text-gray-300 font-semibold px-8 py-4 text-sm hover:border-primary hover:text-primary transition flex items-center gap-2">
+                PMS Basics <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+          <div>
+            <img src="/images/pms.png" alt="Portfolio Management Services" className="w-full h-auto object-cover rounded-sm" onError={(e) => { e.target.style.display = "none"; }} />
           </div>
         </div>
-      </div>
 
       {/* Providers */}
       <div className="px-6 md:px-16 py-20 border-b border-gray-900">
