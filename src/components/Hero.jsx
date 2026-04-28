@@ -50,10 +50,10 @@ const Hero = () => {
           <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">
             Est. 1990s · Mumbai & Patna · ARN-112272
           </p>
-          <h2 className="text-white text-2xl md:text-4xl font-bold mb-4 tracking-wide">
+          <h2 className="text-white text-4xl md:text-7xl font-black mb-4 tracking-wide">
             Maurya Shares & Stock Brokers Pvt. Ltd.
           </h2>
-          <h1 className="text-4xl md:text-6xl font-black text-white leading-none mb-6">
+          <h1 className="text-2xl md:text-4xl font-semibold text-white leading-snug mb-6">
             Creating<br />
             <span className="text-primary">Wealth,</span><br />
             for Generations.
