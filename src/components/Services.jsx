@@ -29,11 +29,11 @@ const Services = () => {
   }, []);
 
   return (
-    <section className="bg-black py-32 px-6 md:px-16" ref={ref}>
+    <section className="bg-black py-20 px-6 md:px-16" ref={ref}>
       <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <div className="mb-20 fade-item opacity-0 translate-y-8 transition-all duration-700">
+        <div className="mb-12 fade-item opacity-0 translate-y-8 transition-all duration-700">
           <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">What We Offer</p>
           <h2 className="text-5xl md:text-6xl font-black text-white leading-tight max-w-2xl">
             Every wealth need.<br />One trusted partner.
