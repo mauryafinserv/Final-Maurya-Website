@@ -62,20 +62,20 @@ const Header = () => {
       <div className="px-6 md:px-16 flex justify-between items-center h-16">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3">
-          <img src="/logo.png" alt="Maurya Logo" className="h-9 w-auto" />
-          <span className="text-white text-sm font-semibold whitespace-nowrap hidden sm:block">
+          <img src="/logo.png" alt="Maurya Logo" className="h-8 w-8 object-contain" />
+          <span className="text-white text-sm font-bold whitespace-nowrap hidden sm:block tracking-wide">
             Maurya Shares & Stock Brokers
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-8 text-xs font-medium text-gray-400 items-center tracking-widest uppercase">
-          <Link to="/" className="hover:text-white transition">Home</Link>
-          <Link to="/about-us" className="hover:text-white transition">About Us</Link>
+        <nav className="hidden md:flex gap-8 text-xs font-bold text-gray-300 items-center tracking-widest uppercase">
+          <Link to="/" className="hover:text-primary transition">Home</Link>
+          <Link to="/about-us" className="hover:text-primary transition">About Us</Link>
           <Link to="/nri-investments" className="hover:text-white transition">NRI</Link>
 
           <div className="relative group">
-            <button className="hover:text-white transition flex items-center gap-1">
+            <button className="hover:text-primary transition flex items-center gap-1">
               Products <ChevronDown className="h-3 w-3" />
             </button>
             <div className="absolute left-0 top-full mt-0 pt-2 w-64 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 z-50">
@@ -102,7 +102,7 @@ const Header = () => {
             </div>
           </div>
 
-          <Link to="/knowledge-corner" className="hover:text-white transition">Knowledge</Link>
+          <Link to="/knowledge-corner" className="hover:text-primary transition">Knowledge</Link>
           <a href="#partner" className="hover:text-white transition">Partner</a>
         </nav>
 
