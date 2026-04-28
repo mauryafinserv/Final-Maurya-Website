@@ -11,6 +11,7 @@ import NeedHighlightCarousel from "./components/NeedHighlightCarousel";
 import Services from "./components/Services";
 import OurEdge from "./components/OurEdge";
 import ContactBanner from "./components/ContactBanner";
+import Stats from "./components/Stats";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
@@ -92,7 +93,7 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-        <Route path="/" element={<><SmartTicker /><Hero /><NeedHighlightCarousel /><Services /><OurEdge /><Testimonials /><ContactBanner /></>} />
+        <Route path="/" element={<><SmartTicker /><Hero /><Stats /><NeedHighlightCarousel /><Services /><OurEdge /><Testimonials /><ContactBanner /></>} />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
         <Route path="/mutual-funds" element={<MutualFundPage />} />

@@ -1,88 +1,64 @@
 // src/components/Services.jsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const services = [
-  {
-    name: "Mutual Fund Distribution",
-    desc: "Access top-performing funds across all leading AMCs — curated for your goals.",
-    link: "/mutual-funds",
-  },
-  {
-    name: "Equity Broking",
-    desc: "Trade and invest in listed equities through our trusted brokerage platform.",
-    link: "/equity-broking",
-  },
-  {
-    name: "AIF Distribution",
-    desc: "Exclusive access to Alternative Investment Funds for sophisticated investors.",
-    link: "/aif",
-  },
-  {
-    name: "PMS Distribution",
-    desc: "Professionally managed, high-conviction portfolios built for HNI wealth.",
-    link: "/pms",
-  },
-  {
-    name: "Loan Against Securities",
-    desc: "Unlock liquidity by pledging your MF units or stocks — without selling.",
-    link: "/loan-against-mf",
-  },
-  {
-    name: "NPS",
-    desc: "Build a tax-efficient retirement corpus with the National Pension System.",
-    link: "/nps",
-  },
-  {
-    name: "Tax Planning",
-    desc: "Strategic tax structuring in collaboration with qualified tax professionals.",
-    link: "/tax-planning",
-  },
-  {
-    name: "Insurance",
-    desc: "Comprehensive life and health coverage tailored to your family's needs.",
-    link: "/insurance-advisory",
-  },
-  {
-    name: "NRI Investments",
-    desc: "GIFT City and India-focused solutions for global Indians — seamless and compliant.",
-    link: "/nri-investments",
-  },
+  { name: "Mutual Fund Distribution", desc: "Access top-performing funds across all leading AMCs — curated for your goals.", link: "/mutual-funds" },
+  { name: "Equity Broking", desc: "Trade and invest in listed equities through our trusted brokerage platform.", link: "/equity-broking" },
+  { name: "PMS Distribution", desc: "Professionally managed, high-conviction portfolios built for HNI wealth.", link: "/pms" },
+  { name: "AIF Distribution", desc: "Exclusive access to Alternative Investment Funds for sophisticated investors.", link: "/aif" },
+  { name: "NRI Investments", desc: "GIFT City and India-focused solutions for global Indians — seamless and compliant.", link: "/nri-investments" },
+  { name: "Loan Against Securities", desc: "Unlock liquidity by pledging your MF units or stocks — without selling.", link: "/loan-against-mf" },
+  { name: "Tax Planning", desc: "Strategic tax structuring in collaboration with qualified tax professionals.", link: "/tax-planning" },
+  { name: "Insurance", desc: "Comprehensive life and health coverage tailored to your family's needs.", link: "/insurance-advisory" },
+  { name: "NPS", desc: "Build a tax-efficient retirement corpus with the National Pension System.", link: "/nps" },
 ];
 
 const Services = () => {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("opacity-100", "translate-y-0"); }),
+      { threshold: 0.1 }
+    );
+    const items = ref.current?.querySelectorAll(".fade-item");
+    items?.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="bg-background py-24 px-6 md:px-12 text-text border-t border-darkGold border-b">
-      <div className="max-w-6xl mx-auto text-center">
+    <section className="bg-black py-32 px-6 md:px-16" ref={ref}>
+      <div className="max-w-7xl mx-auto">
 
         {/* Header */}
-        <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">
-          Our Solutions
-        </p>
-        <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
-          What We Offer
-        </h2>
-        <p className="text-gray-400 text-lg mb-14 max-w-2xl mx-auto">
-          A complete suite of wealth solutions — designed for HNIs, NRIs, families, and corporates who demand more than the ordinary.
-        </p>
+        <div className="mb-20 fade-item opacity-0 translate-y-8 transition-all duration-700">
+          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">What We Offer</p>
+          <h2 className="text-5xl md:text-6xl font-black text-white leading-tight max-w-2xl">
+            Every wealth need.<br />One trusted partner.
+          </h2>
+        </div>
 
-        {/* Service Cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-left">
+        {/* Service List — Apple style horizontal dividers */}
+        <div className="divide-y divide-gray-800">
           {services.map((service, index) => (
             <Link
               key={index}
               to={service.link}
-              className="group border border-darkGold rounded-xl p-6 bg-gray-950 hover:bg-primary hover:border-primary transition duration-300"
+              className="fade-item opacity-0 translate-y-8 transition-all duration-700 group flex items-center justify-between py-8 hover:py-10 transition-all"
+              style={{ transitionDelay: `${index * 60}ms` }}
             >
-              <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-black transition">
-                {service.name}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed group-hover:text-black transition">
-                {service.desc}
-              </p>
-              <p className="text-primary text-xs font-semibold mt-4 group-hover:text-black transition">
-                Learn more →
-              </p>
+              <div className="flex items-start gap-8">
+                <span className="text-gray-600 text-sm font-mono mt-1 w-6">{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <h3 className="text-white text-xl md:text-2xl font-semibold group-hover:text-primary transition duration-300 mb-1">
+                    {service.name}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed max-w-lg">{service.desc}</p>
+                </div>
+              </div>
+              <ArrowRight className="h-5 w-5 text-gray-600 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300 flex-shrink-0 ml-4" />
             </Link>
           ))}
         </div>
