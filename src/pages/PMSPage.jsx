@@ -60,6 +60,18 @@ const PMSPage = () => {
         </div>
       </div>
 
+      {/* Hero Image */}
+      <div className="px-6 md:px-16 py-16 border-b border-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <img
+            src="/images/pms.png"
+            alt="Portfolio Management Services"
+            className="w-full max-h-96 object-cover"
+            onError={(e) => { e.target.style.display = "none"; }}
+          />
+        </div>
+      </div>
+
       {/* Why PMS */}
       <div className="px-6 md:px-16 py-20 border-b border-gray-900">
         <div className="max-w-7xl mx-auto">
