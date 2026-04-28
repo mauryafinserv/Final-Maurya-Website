@@ -47,9 +47,12 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 px-8 md:px-20 max-w-5xl">
         <div className={`transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
-          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-6">
+          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">
             Est. 1990s · Mumbai & Patna · ARN-112272
           </p>
+          <h2 className="text-white text-lg md:text-xl font-semibold mb-4 tracking-wide">
+            Maurya Shares & Stock Brokers Pvt. Ltd.
+          </h2>
           <h1 className="text-6xl md:text-8xl font-black text-white leading-none mb-6">
             Creating<br />
             <span className="text-primary">Wealth,</span><br />

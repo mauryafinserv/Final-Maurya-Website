@@ -93,7 +93,7 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-        <Route path="/" element={<><SmartTicker /><Hero /><Stats /><NeedHighlightCarousel /><Services /><OurEdge /><Testimonials /><ContactBanner /></>} />
+        <Route path="/" element={<><SmartTicker /><Hero /><NeedHighlightCarousel /><Services /><OurEdge /><Testimonials /><ContactBanner /></>} />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
         <Route path="/mutual-funds" element={<MutualFundPage />} />

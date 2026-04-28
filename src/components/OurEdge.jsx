@@ -52,8 +52,20 @@ const OurEdge = () => {
           ))}
         </div>
 
+        {/* Stats Strip */}
+        <div className="mt-24 pt-12 border-t border-gray-800 grid grid-cols-2 gap-12 max-w-xl fade-item opacity-0 translate-y-8 transition-all duration-700">
+          <div>
+            <p className="text-4xl md:text-5xl font-black text-primary mb-2">30+</p>
+            <p className="text-gray-500 text-sm tracking-wide">Years of Legacy</p>
+          </div>
+          <div>
+            <p className="text-4xl md:text-5xl font-black text-primary mb-2">2500+</p>
+            <p className="text-gray-500 text-sm tracking-wide">Families Served — India & Globe</p>
+          </div>
+        </div>
+
         {/* Quote */}
-        <div className="mt-24 pt-12 border-t border-gray-800 fade-item opacity-0 translate-y-8 transition-all duration-700">
+        <div className="mt-12 fade-item opacity-0 translate-y-8 transition-all duration-700">
           <p className="text-gray-500 text-base italic max-w-2xl">
             "Timeless wisdom. Intelligent wealth. Built for those who aspire to leave a legacy."
           </p>
