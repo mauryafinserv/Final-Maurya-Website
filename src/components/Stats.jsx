@@ -3,9 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const stats = [
   { value: 30, suffix: "+", label: "Years of Legacy" },
-  { value: 300, prefix: "₹", suffix: "+ Cr", label: "Assets Managed" },
-  { value: 2500, suffix: "+", label: "Families Served" },
-  { value: 2, suffix: "", label: "Offices — Mumbai & Patna" },
+  { value: 2500, suffix: "+", label: "Families Served — India & Globe" },
 ];
 
 const Counter = ({ value, prefix = "", suffix = "", duration = 1500 }) => {
@@ -46,7 +44,7 @@ const Stats = () => {
   return (
     <section className="bg-black py-24 px-6 md:px-16 border-t border-b border-gray-900">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 gap-12 max-w-xl">
           {stats.map((stat, i) => (
             <div key={i} className="text-center md:text-left">
               <p className="text-4xl md:text-5xl font-black text-primary mb-2">
