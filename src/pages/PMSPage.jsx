@@ -1,136 +1,130 @@
+// src/pages/PMSPage.jsx
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const PMSPage = () => {
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", mobile: "", message: "" });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch("https://formspree.io/f/xovezbow", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(formData),
       });
-
       const result = await response.json();
       if (result.ok || result.success || response.status === 200) {
-        alert("Thank you! Your details have been submitted.");
+        alert("Thank you! We will get back to you within 48 hours.");
         setFormData({ name: "", email: "", mobile: "", message: "" });
         setShowModal(false);
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("There was a problem submitting the form.");
-    }
+      } else { alert("Something went wrong."); }
+    } catch { alert("There was a problem submitting the form."); }
   };
 
+  const features = [
+    { no: "01", title: "Personalised Portfolio", desc: "Tailored to your risk profile, return expectations, and long-term goals — unlike one-size-fits-all funds." },
+    { no: "02", title: "Direct Ownership", desc: "Securities are held directly in your Demat account — full transparency and control at all times." },
+    { no: "03", title: "Expert Active Management", desc: "Portfolios dynamically managed by professionals to capitalise on opportunities and mitigate risks." },
+    { no: "04", title: "High-Conviction Strategies", desc: "Concentrated, focused portfolios built around high-potential ideas with research-backed conviction." },
+    { no: "05", title: "Tax Efficiency", desc: "Strategies optimised for tax savings through loss harvesting and thoughtful profit booking." },
+    { no: "06", title: "Detailed Reporting", desc: "Advanced analytics, XIRR tracking, and transparent performance updates — always in your hands." },
+  ];
+
+  const providers = ["ICICI Prudential PMS", "Aditya Birla Sun Life PMS", "Motilal Oswal PMS", "PPFAS PMS"];
+
   return (
-    <section className="bg-black text-white py-16 px-6 md:px-20 font-sans">
-      <div className="max-w-6xl mx-auto">
+    <section className="bg-black text-white font-sans">
 
-        {/* Intro Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16">
+      {/* Hero */}
+      <div className="px-6 md:px-16 pt-24 pb-16 border-b border-gray-900">
+        <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">PMS Distribution</p>
+        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight max-w-3xl mb-6">
+          Wealth managed<br />with <span className="text-primary">conviction.</span>
+        </h1>
+        <p className="text-gray-400 text-lg max-w-2xl leading-relaxed mb-4">
+          Portfolio Management Services for HNIs seeking personalised, professionally managed equity portfolios. Minimum investment ₹50 lakhs as per SEBI guidelines.
+        </p>
+        <p className="text-gray-600 text-sm mb-8">Suitable for investors with ₹1.2 Cr+ investable surplus and a 3-5 year horizon.</p>
+        <div className="flex flex-wrap gap-4">
+          <button onClick={() => setShowModal(true)} className="bg-primary text-black font-bold px-8 py-4 text-sm tracking-wide hover:bg-white transition">
+            Explore PMS Options
+          </button>
+          <Link to="/pms-types" className="border border-gray-700 text-gray-300 font-semibold px-8 py-4 text-sm hover:border-primary hover:text-primary transition flex items-center gap-2">
+            PMS Basics <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+
+      {/* Why PMS */}
+      <div className="px-6 md:px-16 py-20 border-b border-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">Why PMS</p>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-16 max-w-xl">The PMS advantage.</h2>
+          <div className="divide-y divide-gray-900">
+            {features.map((f) => (
+              <div key={f.no} className="flex items-start gap-8 py-8 group">
+                <span className="text-gray-700 text-sm font-mono mt-1 w-8 flex-shrink-0">{f.no}</span>
+                <div>
+                  <h3 className="text-white text-xl font-bold mb-2 group-hover:text-primary transition">{f.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed max-w-2xl">{f.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Providers */}
+      <div className="px-6 md:px-16 py-20 border-b border-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">Our PMS Partners</p>
+          <h2 className="text-4xl font-black text-white mb-12">Providers we work with.</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {providers.map((p) => (
+              <div key={p} className="border border-gray-800 p-6 hover:border-primary transition">
+                <p className="text-white text-sm font-semibold">{p}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* CTA */}
+      <div className="px-6 md:px-16 py-24">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">
-              PMS Distribution (Portfolio Management Services)
-            </h2>
-
-            <p className="text-gray-300 leading-relaxed mb-4">
-              PMS Distribution allows investors to access professionally managed,
-              high-conviction strategies across leading portfolio management firms.
-              These solutions are suited for HNIs seeking personalized equity portfolio
-              management handled by expert fund managers.
-            </p>
-
-            <p className="text-gray-400 leading-relaxed">
-              At <span className="text-primary font-medium">Maurya Shares & Stock Brokers</span>, 
-              we act as distributors providing seamless access to top-performing PMS strategies 
-              from leading AMCs. Our role ensures guidance, transparency, performance tracking, 
-              and research-backed recommendations — all under one roof.
-            </p>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-3">Ready to explore PMS?</h2>
+            <p className="text-gray-500">Our team will help you identify the right strategy for your wealth.</p>
+            <p className="text-gray-600 text-xs mt-2">Investment in PMS is subject to market risks. Minimum investment ₹50 lakhs.</p>
           </div>
-
-          <div className="flex justify-center">
-            <img
-              src="/pms-illustration.png"
-              alt="PMS Illustration"
-              className="w-full max-w-md rounded-lg border-2 border-darkGold shadow-lg"
-            />
-          </div>
-        </div>
-
-        {/* Why PMS */}
-        <div className="bg-gray-900 p-8 rounded-lg shadow mb-16">
-          <h3 className="text-2xl font-semibold text-primary mb-6">
-            Why PMS Is a Powerful Addition to an HNI’s Portfolio
-          </h3>
-
-          <ul className="list-disc pl-5 text-gray-300 space-y-4">
-            <li><strong>Personalized Portfolio Construction:</strong> Tailored to your risk profile, return expectations, and long-term goals — unlike one-size-fits-all mutual funds.</li>
-            <li><strong>Direct Ownership of Securities:</strong> Investments are held in your demat account, offering full transparency and control.</li>
-            <li><strong>Expert Active Management:</strong> Portfolios are dynamically managed by professionals to capitalize on market opportunities and mitigate risks.</li>
-            <li><strong>Tax Efficiency & Customization:</strong> Strategies optimized for tax savings through loss harvesting and profit booking.</li>
-
-            {/* ✅ UPDATED LINE */}
-            <li><strong>High-Conviction Bets:</strong> PMS allows concentrated investments in high-potential ideas through focused portfolio strategies.</li>
-
-            <li><strong>Detailed Reporting:</strong> Investors receive advanced analytics and transparent performance updates.</li>
-            <li><strong>Legacy & Wealth Structuring:</strong> Helps align investments with long-term family wealth planning objectives.</li>
-          </ul>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center">
-          <h4 className="text-xl md:text-2xl font-semibold text-white mb-4">
-            Looking to explore PMS Distribution?
-          </h4>
-          <p className="text-gray-400 mb-6">
-            Connect with our team to understand which strategies align best with your financial vision.
-          </p>
-          <button
-            onClick={() => setShowModal(true)}
-            className="inline-block bg-primary text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-400 transition"
-          >
-            Book a Call
+          <button onClick={() => setShowModal(true)} className="bg-primary text-black font-bold px-10 py-4 text-sm tracking-wide hover:bg-white transition flex-shrink-0">
+            Speak with Our Team →
           </button>
         </div>
       </div>
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 text-black relative">
-            <button
-              className="absolute top-3 right-4 text-gray-500 hover:text-red-600 text-xl"
-              onClick={() => setShowModal(false)}
-            >
-              ×
-            </button>
-
-            <h3 className="text-2xl font-bold mb-4 text-center">Book a Call</h3>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="text" name="name" placeholder="Name" value={formData.name} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
-              <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
-              <input type="tel" name="mobile" placeholder="Mobile Number" value={formData.mobile} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" required />
-              <textarea name="message" placeholder="Message (Optional)" rows={3} value={formData.message} onChange={handleChange} className="w-full border border-gray-300 rounded px-4 py-2" />
-              <button type="submit" className="w-full bg-primary text-black font-semibold py-2 rounded hover:bg-darkGold">Submit</button>
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="bg-black border border-gray-800 w-full max-w-md p-8 relative">
+            <button className="absolute top-4 right-5 text-gray-600 hover:text-white text-xl" onClick={() => setShowModal(false)}>×</button>
+            <h3 className="text-2xl font-black text-white mb-1">Let's Talk PMS</h3>
+            <p className="text-gray-500 text-sm mb-6">We'll get back to you within 48 hours.</p>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {[["name","Your Name","text"],["email","Email Address","email"],["mobile","Mobile Number","tel"]].map(([name,ph,type]) => (
+                <div key={name} className="border-b border-gray-800 pb-2">
+                  <input type={type} name={name} placeholder={ph} required value={formData[name]} onChange={handleChange} className="w-full bg-transparent text-white text-sm focus:outline-none placeholder-gray-600" />
+                </div>
+              ))}
+              <div className="border-b border-gray-800 pb-2">
+                <textarea name="message" placeholder="Your investment goals" rows={2} value={formData.message} onChange={handleChange} className="w-full bg-transparent text-white text-sm focus:outline-none placeholder-gray-600 resize-none" />
+              </div>
+              <button type="submit" className="w-full bg-primary text-black font-bold py-4 text-sm tracking-wide hover:bg-white transition">Submit</button>
             </form>
           </div>
         </div>
