@@ -2,133 +2,137 @@
 import React, { useState } from "react";
 
 const ContactUsPage = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", mobile: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await fetch("https://formspree.io/f/xovezbow", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify(formData),
       });
-
       const result = await response.json();
       if (result.ok || result.success || response.status === 200) {
-        alert("Thank you! Your details have been submitted.");
+        setSubmitted(true);
         setFormData({ name: "", email: "", mobile: "", message: "" });
       } else {
         alert("Something went wrong. Please try again.");
       }
-    } catch (error) {
-      console.error("Error submitting form:", error);
+    } catch {
       alert("There was a problem submitting the form.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <section className="bg-background text-text py-20 px-6 md:px-12 font-sans">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-        
-        {/* Contact Information */}
+    <section className="bg-black text-white min-h-screen font-sans">
+
+      {/* Hero */}
+      <div className="px-6 md:px-16 pt-24 pb-16 border-b border-gray-900">
+        <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">Get In Touch</p>
+        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight max-w-2xl">
+          Begin your<br /><span className="text-primary">wealth</span> journey.
+        </h1>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-16 py-20 grid md:grid-cols-2 gap-20">
+
+        {/* Left — Info */}
         <div>
-          <h1 className="text-4xl font-bold text-primary mb-6">Contact Us</h1>
-          <p className="text-lg text-gray-300 mb-4">
-            Have questions? Our team is here to assist you.
-          </p>
+          <h2 className="text-2xl font-bold text-white mb-10">Our Offices</h2>
 
-          <div className="space-y-6 text-gray-400">
+          <div className="space-y-10">
             <div>
-              <h4 className="text-primary font-semibold mb-2">Email Support:</h4>
-              <p>support@mauryafinserv.com</p>
+              <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-2">Mumbai</p>
+              <p className="text-white font-semibold mb-1">Worli Office</p>
+              <p className="text-gray-400 text-sm leading-relaxed">1st Floor, 264-265, Dr Annie Besant Road,<br />Worli, Mumbai — 400030</p>
             </div>
-
             <div>
-              <h4 className="text-primary font-semibold mb-2">Phone Numbers:</h4>
-              <p>📞 Resident Clients: +91 7004016074</p>
-              <p>🌎 NRI Clients: +91 7021477258</p>
+              <p className="text-primary text-xs font-semibold tracking-widest uppercase mb-2">Patna</p>
+              <p className="text-white font-semibold mb-1">Head Office</p>
+              <p className="text-gray-400 text-sm leading-relaxed">2nd Floor, 2B Durga Vihar,<br />S P Verma Road, Patna, Bihar — 800001</p>
             </div>
+          </div>
 
+          <div className="mt-12 space-y-4 text-sm">
             <div>
-              <h4 className="text-primary font-semibold mb-2">Mumbai Office:</h4>
-              <p>
-                1st Floor, 264-265, Dr Annie Besant Rd,<br />
-                Municipal Colony, Worli Shivaji Nagar,<br />
-                Worli, Mumbai, Maharashtra 400030
-              </p>
+              <p className="text-gray-600 text-xs uppercase tracking-widest mb-1">Phone</p>
+              <a href="tel:7004016074" className="text-white hover:text-primary transition">+91 7004016074</a>
             </div>
-
             <div>
-              <h4 className="text-primary font-semibold mb-2">Patna Office:</h4>
-              <p>
-                Durga Vihar, S. P. Verma Road,<br />
-                Patna, Bihar 800001
-              </p>
+              <p className="text-gray-600 text-xs uppercase tracking-widest mb-1">WhatsApp</p>
+              <a href="https://wa.me/917021477258" target="_blank" rel="noopener noreferrer" className="text-white hover:text-primary transition">+91 7021477258</a>
+            </div>
+            <div>
+              <p className="text-gray-600 text-xs uppercase tracking-widest mb-1">Email</p>
+              <a href="mailto:support@mauryafinserv.com" className="text-white hover:text-primary transition">support@mauryafinserv.com</a>
+            </div>
+            <div>
+              <p className="text-gray-600 text-xs uppercase tracking-widest mb-1">Working Hours</p>
+              <p className="text-white">Monday – Saturday, 9 AM – 7 PM</p>
             </div>
           </div>
         </div>
 
-        {/* Contact Form */}
-        <div className="bg-gray-900 p-8 rounded-xl shadow-lg">
-          <h3 className="text-2xl font-bold text-primary mb-6">Send Us a Message</h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full border border-gray-700 rounded px-4 py-2 bg-black text-white"
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full border border-gray-700 rounded px-4 py-2 bg-black text-white"
-              required
-            />
-            <input
-              type="tel"
-              name="mobile"
-              placeholder="Mobile Number"
-              value={formData.mobile}
-              onChange={handleChange}
-              className="w-full border border-gray-700 rounded px-4 py-2 bg-black text-white"
-              required
-            />
-            <textarea
-              name="message"
-              placeholder="Message (Optional)"
-              rows={4}
-              value={formData.message}
-              onChange={handleChange}
-              className="w-full border border-gray-700 rounded px-4 py-2 bg-black text-white"
-            />
-            <button
-              type="submit"
-              className="w-full bg-primary text-black font-semibold py-3 rounded hover:bg-darkGold"
-            >
-              Submit
-            </button>
-          </form>
+        {/* Right — Form */}
+        <div>
+          {submitted ? (
+            <div className="h-full flex flex-col justify-center">
+              <div className="text-5xl mb-6">✅</div>
+              <h3 className="text-3xl font-black text-white mb-3">Message received.</h3>
+              <p className="text-gray-400">Our team will get back to you within 48 hours.</p>
+            </div>
+          ) : (
+            <>
+              <h2 className="text-2xl font-bold text-white mb-10">Send us a message</h2>
+              <form onSubmit={handleSubmit} className="space-y-8">
+                {[
+                  { name: "name", label: "Your Name", type: "text", required: true },
+                  { name: "email", label: "Email Address", type: "email", required: true },
+                  { name: "mobile", label: "Mobile Number", type: "tel", required: true },
+                ].map((field) => (
+                  <div key={field.name} className="border-b border-gray-800 pb-2">
+                    <label className="text-gray-600 text-xs uppercase tracking-widest block mb-2">{field.label}</label>
+                    <input
+                      type={field.type}
+                      name={field.name}
+                      required={field.required}
+                      value={formData[field.name]}
+                      onChange={handleChange}
+                      className="w-full bg-transparent text-white text-sm focus:outline-none placeholder-gray-700"
+                      placeholder={`Enter ${field.label.toLowerCase()}`}
+                    />
+                  </div>
+                ))}
+                <div className="border-b border-gray-800 pb-2">
+                  <label className="text-gray-600 text-xs uppercase tracking-widest block mb-2">Message</label>
+                  <textarea
+                    name="message"
+                    rows={3}
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="w-full bg-transparent text-white text-sm focus:outline-none placeholder-gray-700 resize-none"
+                    placeholder="How can we help you?"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-primary text-black font-bold px-10 py-4 text-sm tracking-wide hover:bg-white transition disabled:opacity-50"
+                >
+                  {loading ? "Sending..." : "Send Message →"}
+                </button>
+              </form>
+            </>
+          )}
         </div>
-
       </div>
     </section>
   );
