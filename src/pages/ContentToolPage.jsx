@@ -22,32 +22,55 @@ const ContentToolPage = () => {
   const [generateImage, setGenerateImage] = useState(false);
   const [output, setOutput] = useState("");
   const [imageBase64, setImageBase64] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loadingText, setLoadingText] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleGenerate = async () => {
     if (!prompt.trim()) return;
-    setLoading(true);
+
+    setLoadingText(true);
+    setLoadingImage(false);
     setOutput("");
     setImageBase64(null);
     setCopied(false);
 
+    // Step 1 — generate text (fast, 2-3 seconds)
     try {
-      const response = await fetch("/api/generate-content", {
+      const textRes = await fetch("/api/generate-content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contentType, platform, prompt, generateImage }),
+        body: JSON.stringify({ contentType, platform, prompt }),
       });
-
-      const data = await response.json();
-      if (data.content) setOutput(data.content);
-      else setOutput("Something went wrong. Please try again.");
-      if (data.imageBase64) setImageBase64(data.imageBase64);
+      const textData = await textRes.json();
+      if (textData.content) {
+        setOutput(textData.content);
+      } else {
+        setOutput("Something went wrong. Please try again.");
+      }
     } catch {
       setOutput("Error connecting to server. Please try again.");
     }
+    setLoadingText(false);
 
-    setLoading(false);
+    // Step 2 — generate image separately if toggled (slow, 15-20 seconds)
+    if (generateImage) {
+      setLoadingImage(true);
+      try {
+        const imgRes = await fetch("/api/generate-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt, platform }),
+        });
+        const imgData = await imgRes.json();
+        if (imgData.imageBase64) {
+          setImageBase64(imgData.imageBase64);
+        }
+      } catch {
+        // image failed silently — text is still shown
+      }
+      setLoadingImage(false);
+    }
   };
 
   const handleCopy = () => {
@@ -63,6 +86,8 @@ const ContentToolPage = () => {
     link.download = "maurya-content-image.png";
     link.click();
   };
+
+  const loading = loadingText || loadingImage;
 
   return (
     <section className="bg-black text-white font-sans min-h-screen">
@@ -120,20 +145,25 @@ const ContentToolPage = () => {
 
             <div className="flex items-center gap-3">
               <button onClick={() => setGenerateImage(!generateImage)}
-                className={`w-10 h-5 rounded-full transition-colors relative ${generateImage ? "bg-primary" : "bg-gray-700"}`}>
+                className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${generateImage ? "bg-primary" : "bg-gray-700"}`}>
                 <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${generateImage ? "translate-x-5" : "translate-x-0.5"}`} />
               </button>
-              <span className="text-sm text-gray-400">Also generate an image <span className="text-gray-600 text-xs">(+₹4 per image)</span></span>
+              <span className="text-sm text-gray-400">
+                Also generate an image
+                <span className="text-gray-600 text-xs ml-1">(~20 sec, ₹4 per image)</span>
+              </span>
             </div>
 
             <button onClick={handleGenerate} disabled={loading || !prompt.trim()}
               className={`w-full py-4 text-sm font-bold tracking-wide transition ${loading || !prompt.trim() ? "bg-gray-800 text-gray-600 cursor-not-allowed" : "bg-primary text-black hover:bg-white"}`}>
-              {loading ? "Generating..." : "Generate Content →"}
+              {loadingText ? "Writing content..." : loading ? "Generating image..." : "Generate Content →"}
             </button>
           </div>
 
           {/* Right — Output */}
           <div className="space-y-6">
+
+            {/* Text output */}
             <div>
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Output</p>
@@ -145,12 +175,35 @@ const ContentToolPage = () => {
                 )}
               </div>
               <div className="bg-gray-950 border border-gray-800 p-6 min-h-[220px]">
-                {loading && <div className="flex items-center gap-2 text-gray-600 text-sm"><span className="animate-pulse">●</span><span>Writing your content...</span></div>}
-                {!loading && !output && <p className="text-gray-700 text-sm">Your generated content will appear here.</p>}
-                {!loading && output && <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{output}</p>}
+                {loadingText && (
+                  <div className="flex items-center gap-2 text-gray-600 text-sm">
+                    <span className="animate-pulse">●</span>
+                    <span>Writing your content...</span>
+                  </div>
+                )}
+                {!loadingText && !output && (
+                  <p className="text-gray-700 text-sm">Your generated content will appear here.</p>
+                )}
+                {!loadingText && output && (
+                  <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{output}</p>
+                )}
               </div>
-              {output && <p className="text-gray-700 text-xs mt-2">✓ SEBI disclaimer auto-included · {platform.charAt(0).toUpperCase() + platform.slice(1)} format</p>}
+              {output && (
+                <p className="text-gray-700 text-xs mt-2">
+                  ✓ SEBI disclaimer auto-included · {platform.charAt(0).toUpperCase() + platform.slice(1)} format
+                </p>
+              )}
             </div>
+
+            {/* Image output */}
+            {loadingImage && (
+              <div className="bg-gray-950 border border-gray-800 p-6">
+                <div className="flex items-center gap-2 text-gray-600 text-sm">
+                  <span className="animate-pulse">●</span>
+                  <span>Generating image... (~20 seconds)</span>
+                </div>
+              </div>
+            )}
 
             {imageBase64 && (
               <div>
@@ -164,11 +217,10 @@ const ContentToolPage = () => {
                 <img src={`data:image/png;base64,${imageBase64}`} alt="Generated content" className="w-full border border-gray-800" />
               </div>
             )}
-          </div>
 
+          </div>
         </div>
       </div>
-
     </section>
   );
 };
