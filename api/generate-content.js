@@ -69,7 +69,7 @@ export default async function handler(req, res) {
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "dall-e-2",
+          model: "dall-e-3",
           prompt: imagePrompt,
           n: 1,
           size: "512x512",
