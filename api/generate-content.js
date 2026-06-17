@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const { contentType, platform, prompt } = req.body;
+  const { contentType, platform, prompt, generateImage } = req.body;
 
   if (!prompt) {
     return res.status(400).json({ error: "Prompt is required" });
@@ -45,7 +45,8 @@ ${platformInstructions[platform] || ""}
 IMPORTANT: Do NOT add any disclaimer at the end — it will be added automatically. Just write the main content.`;
 
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    // Generate text content
+    const textResponse = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -61,14 +62,41 @@ IMPORTANT: Do NOT add any disclaimer at the end — it will be added automatical
       }),
     });
 
-    const data = await response.json();
+    const textData = await textResponse.json();
 
-    if (data.choices && data.choices[0]) {
-      const content = data.choices[0].message.content + disclaimer[platform];
-      return res.status(200).json({ content });
-    } else {
+    if (!textData.choices || !textData.choices[0]) {
       return res.status(500).json({ error: "No response from OpenAI" });
     }
+
+    const content = textData.choices[0].message.content + disclaimer[platform];
+
+    // Generate image if requested
+    let imageUrl = null;
+    if (generateImage) {
+      const imagePrompt = `Professional financial social media graphic for Indian mutual fund investors. Topic: ${prompt}. Style: clean, modern, minimal design with dark background, gold and white accents. No text in image. Suitable for ${platform} post. High quality, professional look.`;
+
+      const imageResponse = await fetch("https://api.openai.com/v1/images/generations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "dall-e-2",
+          prompt: imagePrompt,
+          n: 1,
+          size: "1024x1024",
+        }),
+      });
+
+      const imageData = await imageResponse.json();
+      if (imageData.data && imageData.data[0]) {
+        imageUrl = imageData.data[0].url;
+      }
+    }
+
+    return res.status(200).json({ content, imageUrl });
+
   } catch (error) {
     return res.status(500).json({ error: "Failed to generate content" });
   }

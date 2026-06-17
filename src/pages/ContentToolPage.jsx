@@ -19,7 +19,9 @@ const ContentToolPage = () => {
   const [contentType, setContentType] = useState("sip");
   const [platform, setPlatform] = useState("instagram");
   const [prompt, setPrompt] = useState("");
+  const [generateImage, setGenerateImage] = useState(false);
   const [output, setOutput] = useState("");
+  const [imageUrl, setImageUrl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -27,13 +29,14 @@ const ContentToolPage = () => {
     if (!prompt.trim()) return;
     setLoading(true);
     setOutput("");
+    setImageUrl(null);
     setCopied(false);
 
     try {
       const response = await fetch("/api/generate-content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contentType, platform, prompt }),
+        body: JSON.stringify({ contentType, platform, prompt, generateImage }),
       });
 
       const data = await response.json();
@@ -41,6 +44,9 @@ const ContentToolPage = () => {
         setOutput(data.content);
       } else {
         setOutput("Something went wrong. Please try again.");
+      }
+      if (data.imageUrl) {
+        setImageUrl(data.imageUrl);
       }
     } catch {
       setOutput("Error connecting to server. Please try again.");
@@ -53,6 +59,15 @@ const ContentToolPage = () => {
     navigator.clipboard.writeText(output);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownloadImage = () => {
+    if (!imageUrl) return;
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = "maurya-content-image.png";
+    link.target = "_blank";
+    link.click();
   };
 
   return (
@@ -131,6 +146,19 @@ const ContentToolPage = () => {
               />
             </div>
 
+            {/* Image toggle */}
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setGenerateImage(!generateImage)}
+                className={`w-10 h-5 rounded-full transition-colors relative ${generateImage ? "bg-primary" : "bg-gray-700"}`}
+              >
+                <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${generateImage ? "translate-x-5" : "translate-x-0.5"}`} />
+              </button>
+              <span className="text-sm text-gray-400">
+                Also generate an image <span className="text-gray-600 text-xs">(+₹0.42 per image)</span>
+              </span>
+            </div>
+
             <button
               onClick={handleGenerate}
               disabled={loading || !prompt.trim()}
@@ -146,39 +174,73 @@ const ContentToolPage = () => {
           </div>
 
           {/* Right — Output */}
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Output</p>
+          <div className="space-y-6">
+
+            {/* Text output */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Output</p>
+                {output && (
+                  <button
+                    onClick={handleCopy}
+                    className="text-xs text-primary border border-primary px-3 py-1 hover:bg-primary hover:text-black transition"
+                  >
+                    {copied ? "Copied ✓" : "Copy"}
+                  </button>
+                )}
+              </div>
+
+              <div className="bg-gray-950 border border-gray-800 p-6 min-h-[220px]">
+                {loading && (
+                  <div className="flex items-center gap-2 text-gray-600 text-sm">
+                    <span className="animate-pulse">●</span>
+                    <span>Writing your content...</span>
+                  </div>
+                )}
+                {!loading && !output && (
+                  <p className="text-gray-700 text-sm">Your generated content will appear here.</p>
+                )}
+                {!loading && output && (
+                  <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{output}</p>
+                )}
+              </div>
+
               {output && (
-                <button
-                  onClick={handleCopy}
-                  className="text-xs text-primary border border-primary px-3 py-1 hover:bg-primary hover:text-black transition"
-                >
-                  {copied ? "Copied ✓" : "Copy"}
-                </button>
+                <p className="text-gray-700 text-xs mt-2">
+                  ✓ SEBI disclaimer auto-included · {platform.charAt(0).toUpperCase() + platform.slice(1)} format
+                </p>
               )}
             </div>
 
-            <div className="bg-gray-950 border border-gray-800 p-6 min-h-[320px]">
-              {loading && (
-                <div className="flex items-center gap-2 text-gray-600 text-sm">
+            {/* Image output */}
+            {(loading && generateImage) && (
+              <div className="bg-gray-950 border border-gray-800 p-6 text-center">
+                <div className="flex items-center justify-center gap-2 text-gray-600 text-sm">
                   <span className="animate-pulse">●</span>
-                  <span>Writing your content...</span>
+                  <span>Generating image...</span>
                 </div>
-              )}
-              {!loading && !output && (
-                <p className="text-gray-700 text-sm">Your generated content will appear here.</p>
-              )}
-              {!loading && output && (
-                <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{output}</p>
-              )}
-            </div>
-
-            {output && (
-              <p className="text-gray-700 text-xs mt-3">
-                ✓ SEBI disclaimer auto-included · {platform.charAt(0).toUpperCase() + platform.slice(1)} format
-              </p>
+              </div>
             )}
+
+            {imageUrl && (
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Generated Image</p>
+                  <button
+                    onClick={handleDownloadImage}
+                    className="text-xs text-primary border border-primary px-3 py-1 hover:bg-primary hover:text-black transition"
+                  >
+                    Download
+                  </button>
+                </div>
+                <img
+                  src={imageUrl}
+                  alt="Generated content"
+                  className="w-full border border-gray-800"
+                />
+              </div>
+            )}
+
           </div>
 
         </div>
