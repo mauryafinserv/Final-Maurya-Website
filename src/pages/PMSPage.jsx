@@ -65,6 +65,7 @@ const PMSPage = () => {
             <img src="/images/pms.png" alt="Portfolio Management Services" className="w-full h-auto object-cover rounded-sm" onError={(e) => { e.target.style.display = "none"; }} />
           </div>
         </div>
+      </div>
 
       {/* Providers */}
       <div className="px-6 md:px-16 py-20 border-b border-gray-900">
@@ -116,9 +117,8 @@ const PMSPage = () => {
           </div>
         </div>
       )}
-      </div>
-    </section>
 
+    </section>
   );
 };
 
