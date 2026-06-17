@@ -36,6 +36,7 @@ import Downloads from "./pages/Downloads";
 import KYCForm from "./pages/KYCForm";
 import Disclosures from "./pages/Disclosures";
 import FinancialCalculators from "./pages/FinancialCalculators";
+import ContentToolPage from "./pages/ContentToolPage";
 
 // Calculators
 import SipGoalCalculator from "./components/calculators/SipGoalCalculator";
@@ -114,6 +115,7 @@ function App() {
         <Route path="/kyc" element={<KYCForm />} />
         <Route path="/disclosures" element={<Disclosures />} />
         <Route path="/financial-calculators" element={<FinancialCalculators />} />
+        <Route path="/content-tool" element={<ContentToolPage />} />
 
         {/* Calculators */}
         <Route path="/calculators/sip-goal" element={<SipGoalCalculator />} />
