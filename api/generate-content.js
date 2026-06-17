@@ -1,4 +1,3 @@
-// api/generate-content.js
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -30,22 +29,9 @@ export default async function handler(req, res) {
     linkedin: "\n\nMutual Fund investments are subject to market risks. Read all scheme related documents carefully. Past performance is not indicative of future returns. This content is for educational purposes only and not financial advice.",
   };
 
-  const systemPrompt = `You are an expert financial content writer for Maurya Shares & Stock Brokers Pvt. Ltd. (ARN-112272), a SEBI-registered Mutual Fund Distributor based in India.
-
-Your job is to write social media content for MF distributors that is:
-- Clear, engaging, and educational
-- Written for Indian retail investors
-- NEVER making specific return promises or guarantees
-- Always compliant with SEBI guidelines
-- In a confident but approachable tone
-
-${contentTypeContext[contentType] || ""}
-${platformInstructions[platform] || ""}
-
-IMPORTANT: Do NOT add any disclaimer at the end — it will be added automatically. Just write the main content.`;
+  const systemPrompt = `You are an expert financial content writer for Maurya Shares & Stock Brokers Pvt. Ltd. (ARN-112272), a SEBI-registered Mutual Fund Distributor based in India. Write social media content that is clear, engaging, educational, written for Indian retail investors, never makes specific return promises, and is always compliant with SEBI guidelines. ${contentTypeContext[contentType] || ""} ${platformInstructions[platform] || ""} IMPORTANT: Do NOT add any disclaimer at the end.`;
 
   try {
-    // Generate text content
     const textResponse = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -65,15 +51,16 @@ IMPORTANT: Do NOT add any disclaimer at the end — it will be added automatical
     const textData = await textResponse.json();
 
     if (!textData.choices || !textData.choices[0]) {
-      return res.status(500).json({ error: "No response from OpenAI" });
+      return res.status(500).json({ error: "No text response from OpenAI" });
     }
 
     const content = textData.choices[0].message.content + disclaimer[platform];
 
-    // Generate image if requested
     let imageUrl = null;
+    let imageError = null;
+
     if (generateImage) {
-      const imagePrompt = `Professional financial social media graphic for Indian mutual fund investors. Topic: ${prompt}. Style: clean, modern, minimal design with dark background, gold and white accents. No text in image. Suitable for ${platform} post. High quality, professional look.`;
+      const imagePrompt = `Professional financial graphic for Indian mutual fund investors about: ${prompt}. Clean minimal design, dark background, gold and white colors, no text, suitable for social media.`;
 
       const imageResponse = await fetch("https://api.openai.com/v1/images/generations", {
         method: "POST",
@@ -85,19 +72,21 @@ IMPORTANT: Do NOT add any disclaimer at the end — it will be added automatical
           model: "dall-e-2",
           prompt: imagePrompt,
           n: 1,
-          size: "1024x1024",
+          size: "512x512",
         }),
       });
 
       const imageData = await imageResponse.json();
       if (imageData.data && imageData.data[0]) {
         imageUrl = imageData.data[0].url;
+      } else {
+        imageError = JSON.stringify(imageData);
       }
     }
 
-    return res.status(200).json({ content, imageUrl });
+    return res.status(200).json({ content, imageUrl, imageError });
 
   } catch (error) {
-    return res.status(500).json({ error: "Failed to generate content" });
+    return res.status(500).json({ error: error.message });
   }
 }
