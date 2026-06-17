@@ -56,11 +56,11 @@ export default async function handler(req, res) {
 
     const content = textData.choices[0].message.content + disclaimer[platform];
 
-    let imageUrl = null;
+    let imageBase64 = null;
     let imageError = null;
 
     if (generateImage) {
-      const imagePrompt = `Professional financial graphic for Indian mutual fund investors about: ${prompt}. Clean minimal design, dark background, gold and white colors, no text, suitable for social media.`;
+      const imagePrompt = `Professional financial graphic for Indian mutual fund investors about: ${prompt}. Clean minimal design, dark background, gold and white colors, no text overlay, suitable for social media.`;
 
       const imageResponse = await fetch("https://api.openai.com/v1/images/generations", {
         method: "POST",
@@ -69,22 +69,23 @@ export default async function handler(req, res) {
           Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
         },
         body: JSON.stringify({
-          model: "dall-e-3",
+          model: "gpt-image-1",
           prompt: imagePrompt,
           n: 1,
-          size: "512x512",
+          size: "1024x1024",
+          output_format: "png",
         }),
       });
 
       const imageData = await imageResponse.json();
-      if (imageData.data && imageData.data[0]) {
-        imageUrl = imageData.data[0].url;
+      if (imageData.data && imageData.data[0] && imageData.data[0].b64_json) {
+        imageBase64 = imageData.data[0].b64_json;
       } else {
         imageError = JSON.stringify(imageData);
       }
     }
 
-    return res.status(200).json({ content, imageUrl, imageError });
+    return res.status(200).json({ content, imageBase64, imageError });
 
   } catch (error) {
     return res.status(500).json({ error: error.message });
