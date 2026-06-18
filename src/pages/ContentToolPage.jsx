@@ -103,13 +103,16 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 2 — generate image via Cloudflare, then add disclaimer via Canvas
+    // Step 2 — generate image via Cloudflare Worker (secured with auth token)
     if (generateImage) {
       setLoadingImage(true);
       try {
         const imgRes = await fetch("https://maurya-image-generator.adarshcharanpahari.workers.dev", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "X-Auth-Token": import.meta.env.VITE_WORKER_SECRET,
+          },
           body: JSON.stringify({ prompt, platform, contentType }),
         });
         const imgData = await imgRes.json();
