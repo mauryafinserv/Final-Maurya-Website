@@ -15,59 +15,6 @@ const PLATFORMS = [
   { id: "linkedin", label: "LinkedIn" },
 ];
 
-const addDisclaimerToImage = (base64) => {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      try {
-        const canvas = document.createElement("canvas");
-        const footerHeight = 90;
-        canvas.width = img.width;
-        canvas.height = img.height + footerHeight;
-        const ctx = canvas.getContext("2d");
-
-        // Draw original image
-        ctx.drawImage(img, 0, 0);
-
-        // Dark navy footer
-        ctx.fillStyle = "#0a1628";
-        ctx.fillRect(0, img.height, canvas.width, footerHeight);
-
-        // Gold border line
-        ctx.fillStyle = "#C9A84C";
-        ctx.fillRect(0, img.height, canvas.width, 2);
-
-        // Line 1
-        ctx.fillStyle = "#ffffff";
-        ctx.textAlign = "center";
-        ctx.font = "bold 18px Arial, sans-serif";
-        ctx.fillText("Mutual Fund investments are subject to market risks.", canvas.width / 2, img.height + 28);
-
-        // Line 2
-        ctx.font = "16px Arial, sans-serif";
-        ctx.fillStyle = "#dddddd";
-        ctx.fillText("Read all scheme related documents carefully.", canvas.width / 2, img.height + 52);
-
-        // Line 3
-        ctx.font = "14px Arial, sans-serif";
-        ctx.fillStyle = "#aaaaaa";
-        ctx.fillText("Past performance is not indicative of future returns. For educational purposes only.", canvas.width / 2, img.height + 74);
-
-        resolve(canvas.toDataURL("image/png").split(",")[1]);
-      } catch (e) {
-        console.error("Canvas error:", e);
-        resolve(base64);
-      }
-    };
-    img.onerror = () => {
-      console.error("Image load error");
-      resolve(base64);
-    };
-    img.src = `data:image/png;base64,${base64}`;
-  });
-};
-
 const ContentToolPage = () => {
   const [contentType, setContentType] = useState("sip");
   const [platform, setPlatform] = useState("instagram");
@@ -103,7 +50,8 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 2 — generate image via Cloudflare Worker (secured with auth token)
+    // Step 2 — generate image via Cloudflare Worker
+    // Disclaimer is baked into image by Gemini — no Canvas needed
     if (generateImage) {
       setLoadingImage(true);
       try {
@@ -111,14 +59,13 @@ const ContentToolPage = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-Auth-Token": import.meta.env.VITE_WORKER_SECRET,
+            "X-Auth-Token": "maurya-mf-tool-2026-xK9pL3mN",
           },
           body: JSON.stringify({ prompt, platform, contentType }),
         });
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
-          const withDisclaimer = await addDisclaimerToImage(imgData.imageBase64);
-          setImageBase64(withDisclaimer);
+          setImageBase64(imgData.imageBase64);
         }
       } catch (e) {
         console.error("Image generation failed:", e);
@@ -201,7 +148,7 @@ const ContentToolPage = () => {
               </button>
               <span className="text-sm text-gray-400">
                 Also generate an image
-                <span className="text-gray-600 text-xs ml-1">(~20 sec, ₹4 per image)</span>
+                <span className="text-gray-600 text-xs ml-1">(~20 sec, ₹6 per image)</span>
               </span>
             </div>
 
@@ -262,7 +209,7 @@ const ContentToolPage = () => {
                   </button>
                 </div>
                 <img src={`data:image/png;base64,${imageBase64}`} alt="Generated content" className="w-full border border-gray-800" />
-                <p className="text-gray-700 text-xs mt-2">✓ SEBI disclaimer added · Ready to post</p>
+                <p className="text-gray-700 text-xs mt-2">✓ SEBI disclaimer included · Ready to post</p>
               </div>
             )}
           </div>
