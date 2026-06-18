@@ -15,6 +15,42 @@ const PLATFORMS = [
   { id: "linkedin", label: "LinkedIn" },
 ];
 
+const DISCLAIMER_LINE1 = "Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.";
+const DISCLAIMER_LINE2 = "Past performance is not indicative of future returns. This content is for educational purposes only and not financial advice.";
+
+const addDisclaimerToImage = (base64) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const footerHeight = 80;
+      canvas.width = img.width;
+      canvas.height = img.height + footerHeight;
+
+      const ctx = canvas.getContext("2d");
+
+      // Draw original image
+      ctx.drawImage(img, 0, 0);
+
+      // Draw dark footer
+      ctx.fillStyle = "#0f1f3d";
+      ctx.fillRect(0, img.height, canvas.width, footerHeight);
+
+      // Draw disclaimer text
+      ctx.fillStyle = "#ffffff";
+      ctx.textAlign = "center";
+      ctx.font = "13px Arial, sans-serif";
+      ctx.fillText(DISCLAIMER_LINE1, canvas.width / 2, img.height + 28);
+      ctx.font = "12px Arial, sans-serif";
+      ctx.fillStyle = "#cccccc";
+      ctx.fillText(DISCLAIMER_LINE2, canvas.width / 2, img.height + 52);
+
+      resolve(canvas.toDataURL("image/png").split(",")[1]);
+    };
+    img.src = `data:image/png;base64,${base64}`;
+  });
+};
+
 const ContentToolPage = () => {
   const [contentType, setContentType] = useState("sip");
   const [platform, setPlatform] = useState("instagram");
@@ -35,7 +71,7 @@ const ContentToolPage = () => {
     setImageBase64(null);
     setCopied(false);
 
-    // Step 1 — generate text (fast, 2-3 seconds)
+    // Step 1 — generate text
     try {
       const textRes = await fetch("/api/generate-content", {
         method: "POST",
@@ -43,17 +79,14 @@ const ContentToolPage = () => {
         body: JSON.stringify({ contentType, platform, prompt }),
       });
       const textData = await textRes.json();
-      if (textData.content) {
-        setOutput(textData.content);
-      } else {
-        setOutput("Something went wrong. Please try again.");
-      }
+      if (textData.content) setOutput(textData.content);
+      else setOutput("Something went wrong. Please try again.");
     } catch {
       setOutput("Error connecting to server. Please try again.");
     }
     setLoadingText(false);
 
-    // Step 2 — generate image via Cloudflare Worker (no timeout issues)
+    // Step 2 — generate image via Cloudflare, then add disclaimer via Canvas
     if (generateImage) {
       setLoadingImage(true);
       try {
@@ -64,10 +97,11 @@ const ContentToolPage = () => {
         });
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
-          setImageBase64(imgData.imageBase64);
+          const withDisclaimer = await addDisclaimerToImage(imgData.imageBase64);
+          setImageBase64(withDisclaimer);
         }
       } catch {
-        // image failed silently — text is still shown
+        // image failed silently
       }
       setLoadingImage(false);
     }
@@ -162,8 +196,6 @@ const ContentToolPage = () => {
 
           {/* Right — Output */}
           <div className="space-y-6">
-
-            {/* Text output */}
             <div>
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Output</p>
@@ -195,7 +227,6 @@ const ContentToolPage = () => {
               )}
             </div>
 
-            {/* Image output */}
             {loadingImage && (
               <div className="bg-gray-950 border border-gray-800 p-6">
                 <div className="flex items-center gap-2 text-gray-600 text-sm">
@@ -215,9 +246,9 @@ const ContentToolPage = () => {
                   </button>
                 </div>
                 <img src={`data:image/png;base64,${imageBase64}`} alt="Generated content" className="w-full border border-gray-800" />
+                <p className="text-gray-700 text-xs mt-2">✓ SEBI disclaimer added · Ready to post</p>
               </div>
             )}
-
           </div>
         </div>
       </div>
