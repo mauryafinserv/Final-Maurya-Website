@@ -15,35 +15,42 @@ const PLATFORMS = [
   { id: "linkedin", label: "LinkedIn" },
 ];
 
-const DISCLAIMER_LINE1 = "Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.";
-const DISCLAIMER_LINE2 = "Past performance is not indicative of future returns. This content is for educational purposes only and not financial advice.";
-
 const addDisclaimerToImage = (base64) => {
   return new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement("canvas");
-      const footerHeight = 80;
+      const footerHeight = 90;
       canvas.width = img.width;
       canvas.height = img.height + footerHeight;
-
       const ctx = canvas.getContext("2d");
 
       // Draw original image
       ctx.drawImage(img, 0, 0);
 
-      // Draw dark footer
-      ctx.fillStyle = "#0f1f3d";
+      // Dark navy footer
+      ctx.fillStyle = "#0a1628";
       ctx.fillRect(0, img.height, canvas.width, footerHeight);
 
-      // Draw disclaimer text
+      // Top border line on footer
+      ctx.fillStyle = "#C9A84C";
+      ctx.fillRect(0, img.height, canvas.width, 2);
+
+      // Line 1
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
-      ctx.font = "13px Arial, sans-serif";
-      ctx.fillText(DISCLAIMER_LINE1, canvas.width / 2, img.height + 28);
-      ctx.font = "12px Arial, sans-serif";
-      ctx.fillStyle = "#cccccc";
-      ctx.fillText(DISCLAIMER_LINE2, canvas.width / 2, img.height + 52);
+      ctx.font = "bold 18px Arial, sans-serif";
+      ctx.fillText("Mutual Fund investments are subject to market risks.", canvas.width / 2, img.height + 30);
+
+      // Line 2
+      ctx.font = "16px Arial, sans-serif";
+      ctx.fillStyle = "#dddddd";
+      ctx.fillText("Read all scheme related documents carefully.", canvas.width / 2, img.height + 52);
+
+      // Line 3
+      ctx.font = "14px Arial, sans-serif";
+      ctx.fillStyle = "#aaaaaa";
+      ctx.fillText("Past performance is not indicative of future returns. For educational purposes only.", canvas.width / 2, img.height + 74);
 
       resolve(canvas.toDataURL("image/png").split(",")[1]);
     };
@@ -93,15 +100,15 @@ const ContentToolPage = () => {
         const imgRes = await fetch("https://maurya-image-generator.adarshcharanpahari.workers.dev", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt, platform }),
+          body: JSON.stringify({ prompt, platform, contentType }),
         });
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
           const withDisclaimer = await addDisclaimerToImage(imgData.imageBase64);
           setImageBase64(withDisclaimer);
         }
-      } catch {
-        // image failed silently
+      } catch (e) {
+        console.error("Image generation failed:", e);
       }
       setLoadingImage(false);
     }
@@ -126,7 +133,6 @@ const ContentToolPage = () => {
   return (
     <section className="bg-black text-white font-sans min-h-screen">
 
-      {/* Header */}
       <div className="px-6 md:px-16 pt-24 pb-12 border-b border-gray-900">
         <div className="max-w-4xl mx-auto">
           <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">Beta Tool</p>
@@ -140,11 +146,9 @@ const ContentToolPage = () => {
         </div>
       </div>
 
-      {/* Tool */}
       <div className="px-6 md:px-16 py-12">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
 
-          {/* Left — Inputs */}
           <div className="space-y-8">
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Content Type</p>
@@ -173,7 +177,7 @@ const ContentToolPage = () => {
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">What do you want to say?</p>
               <textarea rows={5} value={prompt} onChange={(e) => setPrompt(e.target.value)}
-                placeholder="e.g. Write about why SIP is better than lump sum during volatile markets. Target first-time investors."
+                placeholder="e.g. Why SIP is better than lump sum during volatile markets. Target first-time investors."
                 className="w-full bg-gray-950 border border-gray-800 text-white text-sm p-4 focus:outline-none focus:border-primary placeholder-gray-700 resize-none" />
             </div>
 
@@ -194,7 +198,6 @@ const ContentToolPage = () => {
             </button>
           </div>
 
-          {/* Right — Output */}
           <div className="space-y-6">
             <div>
               <div className="flex items-center justify-between mb-3">
