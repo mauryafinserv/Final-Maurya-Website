@@ -53,11 +53,11 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 2 — generate image separately if toggled (slow, 15-20 seconds)
+    // Step 2 — generate image via Cloudflare Worker (no timeout issues)
     if (generateImage) {
       setLoadingImage(true);
       try {
-        const imgRes = await fetch("/api/generate-image", {
+        const imgRes = await fetch("https://maurya-image-generator.adarshcharanpahari.workers.dev", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ prompt, platform }),
@@ -156,7 +156,7 @@ const ContentToolPage = () => {
 
             <button onClick={handleGenerate} disabled={loading || !prompt.trim()}
               className={`w-full py-4 text-sm font-bold tracking-wide transition ${loading || !prompt.trim() ? "bg-gray-800 text-gray-600 cursor-not-allowed" : "bg-primary text-black hover:bg-white"}`}>
-              {loadingText ? "Writing content..." : loading ? "Generating image..." : "Generate Content →"}
+              {loadingText ? "Writing content..." : loadingImage ? "Generating image..." : "Generate Content →"}
             </button>
           </div>
 
