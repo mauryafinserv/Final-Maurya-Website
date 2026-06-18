@@ -18,41 +18,51 @@ const PLATFORMS = [
 const addDisclaimerToImage = (base64) => {
   return new Promise((resolve) => {
     const img = new Image();
+    img.crossOrigin = "anonymous";
     img.onload = () => {
-      const canvas = document.createElement("canvas");
-      const footerHeight = 90;
-      canvas.width = img.width;
-      canvas.height = img.height + footerHeight;
-      const ctx = canvas.getContext("2d");
+      try {
+        const canvas = document.createElement("canvas");
+        const footerHeight = 90;
+        canvas.width = img.width;
+        canvas.height = img.height + footerHeight;
+        const ctx = canvas.getContext("2d");
 
-      // Draw original image
-      ctx.drawImage(img, 0, 0);
+        // Draw original image
+        ctx.drawImage(img, 0, 0);
 
-      // Dark navy footer
-      ctx.fillStyle = "#0a1628";
-      ctx.fillRect(0, img.height, canvas.width, footerHeight);
+        // Dark navy footer
+        ctx.fillStyle = "#0a1628";
+        ctx.fillRect(0, img.height, canvas.width, footerHeight);
 
-      // Top border line on footer
-      ctx.fillStyle = "#C9A84C";
-      ctx.fillRect(0, img.height, canvas.width, 2);
+        // Gold border line
+        ctx.fillStyle = "#C9A84C";
+        ctx.fillRect(0, img.height, canvas.width, 2);
 
-      // Line 1
-      ctx.fillStyle = "#ffffff";
-      ctx.textAlign = "center";
-      ctx.font = "bold 18px Arial, sans-serif";
-      ctx.fillText("Mutual Fund investments are subject to market risks.", canvas.width / 2, img.height + 30);
+        // Line 1
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "center";
+        ctx.font = "bold 18px Arial, sans-serif";
+        ctx.fillText("Mutual Fund investments are subject to market risks.", canvas.width / 2, img.height + 28);
 
-      // Line 2
-      ctx.font = "16px Arial, sans-serif";
-      ctx.fillStyle = "#dddddd";
-      ctx.fillText("Read all scheme related documents carefully.", canvas.width / 2, img.height + 52);
+        // Line 2
+        ctx.font = "16px Arial, sans-serif";
+        ctx.fillStyle = "#dddddd";
+        ctx.fillText("Read all scheme related documents carefully.", canvas.width / 2, img.height + 52);
 
-      // Line 3
-      ctx.font = "14px Arial, sans-serif";
-      ctx.fillStyle = "#aaaaaa";
-      ctx.fillText("Past performance is not indicative of future returns. For educational purposes only.", canvas.width / 2, img.height + 74);
+        // Line 3
+        ctx.font = "14px Arial, sans-serif";
+        ctx.fillStyle = "#aaaaaa";
+        ctx.fillText("Past performance is not indicative of future returns. For educational purposes only.", canvas.width / 2, img.height + 74);
 
-      resolve(canvas.toDataURL("image/png").split(",")[1]);
+        resolve(canvas.toDataURL("image/png").split(",")[1]);
+      } catch (e) {
+        console.error("Canvas error:", e);
+        resolve(base64);
+      }
+    };
+    img.onerror = () => {
+      console.error("Image load error");
+      resolve(base64);
     };
     img.src = `data:image/png;base64,${base64}`;
   });
