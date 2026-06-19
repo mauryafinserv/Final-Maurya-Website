@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import ScrollToTop from "./components/ScrollToTop";
 import Samridhi from "./components/Samridhi";
@@ -37,6 +37,8 @@ import KYCForm from "./pages/KYCForm";
 import Disclosures from "./pages/Disclosures";
 import FinancialCalculators from "./pages/FinancialCalculators";
 import ContentToolPage from "./pages/ContentToolPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 // Calculators
 import SipGoalCalculator from "./components/calculators/SipGoalCalculator";
@@ -47,6 +49,13 @@ import SwpCalculator from "./components/calculators/SwpCalculator";
 import EmiCalculator from "./components/calculators/EmiCalculator";
 import RetirementCalculator from "./components/calculators/RetirementCalculator";
 import EducationCalculator from "./components/calculators/EducationCalculator";
+
+// Protected route — redirects to login if not authenticated
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("mf_token");
+  if (!token) return <Navigate to="/login" replace />;
+  return children;
+};
 
 function App() {
   const [showGiftModal, setShowGiftModal] = useState(false);
@@ -115,7 +124,17 @@ function App() {
         <Route path="/kyc" element={<KYCForm />} />
         <Route path="/disclosures" element={<Disclosures />} />
         <Route path="/financial-calculators" element={<FinancialCalculators />} />
-        <Route path="/content-tool" element={<ContentToolPage />} />
+
+        {/* Auth routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+
+        {/* Protected content tool */}
+        <Route path="/content-tool" element={
+          <ProtectedRoute>
+            <ContentToolPage />
+          </ProtectedRoute>
+        } />
 
         {/* Calculators */}
         <Route path="/calculators/sip-goal" element={<SipGoalCalculator />} />
