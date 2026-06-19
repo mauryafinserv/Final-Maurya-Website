@@ -10,6 +10,8 @@ const AdminPage = () => {
   const [updating, setUpdating] = useState(null);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [editLimits, setEditLimits] = useState({});
+  const [savingLimits, setSavingLimits] = useState(null);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -18,8 +20,18 @@ const AdminPage = () => {
         headers: { "x-admin-key": ADMIN_KEY },
       });
       const data = await res.json();
-      if (data.users) setUsers(data.users);
-      else setError("Failed to load users");
+      if (data.users) {
+        setUsers(data.users);
+        // Initialize edit limits state
+        const limits = {};
+        data.users.forEach(u => {
+          limits[u.arn] = {
+            posts_limit: u.posts_limit ?? 20,
+            images_limit: u.images_limit ?? 20,
+          };
+        });
+        setEditLimits(limits);
+      } else setError("Failed to load users");
     } catch {
       setError("Network error");
     }
@@ -49,9 +61,39 @@ const AdminPage = () => {
     setUpdating(null);
   };
 
+  const saveLimits = async (arn) => {
+    setSavingLimits(arn);
+    try {
+      const res = await fetch("/api/admin/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-key": ADMIN_KEY,
+        },
+        body: JSON.stringify({
+          arn,
+          posts_limit: parseInt(editLimits[arn].posts_limit),
+          images_limit: parseInt(editLimits[arn].images_limit),
+        }),
+      });
+      const data = await res.json();
+      if (data.user) {
+        setUsers(users.map(u => u.arn === arn ? {
+          ...u,
+          posts_limit: editLimits[arn].posts_limit,
+          images_limit: editLimits[arn].images_limit
+        } : u));
+        alert(`Limits updated for ${arn}`);
+      }
+    } catch {
+      alert("Failed to update limits");
+    }
+    setSavingLimits(null);
+  };
+
   const filtered = users.filter(u => {
     const matchFilter = filter === "all" || u.status === filter;
-    const matchSearch = !search || 
+    const matchSearch = !search ||
       u.arn.toLowerCase().includes(search.toLowerCase()) ||
       u.full_name.toLowerCase().includes(search.toLowerCase()) ||
       u.firm_name.toLowerCase().includes(search.toLowerCase()) ||
@@ -77,14 +119,12 @@ const AdminPage = () => {
     <section className="bg-black text-white min-h-screen pt-24 px-6 md:px-12 pb-20">
       <div className="max-w-7xl mx-auto">
 
-        {/* Header */}
         <div className="mb-10">
           <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-3">Admin</p>
           <h1 className="text-4xl font-black mb-2">User Dashboard</h1>
-          <p className="text-gray-500 text-sm">Manage all registered users — approve, block, or review.</p>
+          <p className="text-gray-500 text-sm">Manage all registered users — approve, block, or set custom limits.</p>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-4 gap-4 mb-8">
           {[
             { label: "Total Users", value: counts.all, color: "text-white" },
@@ -99,7 +139,6 @@ const AdminPage = () => {
           ))}
         </div>
 
-        {/* Filters + Search */}
         <div className="flex flex-wrap gap-3 mb-6 items-center justify-between">
           <div className="flex gap-2">
             {["all", "pending", "active", "blocked"].map(f => (
@@ -109,16 +148,11 @@ const AdminPage = () => {
               </button>
             ))}
           </div>
-          <input
-            type="text"
-            value={search}
-            onChange={e => setSearch(e.target.value)}
+          <input type="text" value={search} onChange={e => setSearch(e.target.value)}
             placeholder="Search ARN, name, firm, mobile..."
-            className="bg-gray-950 border border-gray-800 text-white text-sm px-4 py-2 focus:outline-none focus:border-primary placeholder-gray-700 w-72"
-          />
+            className="bg-gray-950 border border-gray-800 text-white text-sm px-4 py-2 focus:outline-none focus:border-primary placeholder-gray-700 w-72" />
         </div>
 
-        {/* Refresh button */}
         <div className="flex justify-end mb-4">
           <button onClick={fetchUsers}
             className="text-xs text-primary border border-primary px-4 py-2 hover:bg-primary hover:text-black transition">
@@ -126,7 +160,6 @@ const AdminPage = () => {
           </button>
         </div>
 
-        {/* Users table */}
         {loading ? (
           <div className="text-gray-600 text-sm py-20 text-center animate-pulse">Loading users...</div>
         ) : error ? (
@@ -134,11 +167,11 @@ const AdminPage = () => {
         ) : filtered.length === 0 ? (
           <div className="text-gray-600 text-sm py-20 text-center">No users found.</div>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-4">
             {filtered.map(user => (
               <div key={user.arn} className="bg-gray-950 border border-gray-800 p-5">
                 <div className="flex flex-wrap items-start justify-between gap-4">
-                  
+
                   {/* User info */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-2">
@@ -156,11 +189,51 @@ const AdminPage = () => {
                     </div>
                   </div>
 
-                  {/* Usage */}
-                  <div className="text-center px-6 border-l border-gray-800">
-                    <div className="text-xs text-gray-500 mb-2 uppercase tracking-widest">Usage</div>
-                    <div className="text-xs text-gray-400">Posts: <span className="text-white font-semibold">{user.posts_used}/20</span></div>
-                    <div className="text-xs text-gray-400 mt-1">Images: <span className="text-white font-semibold">{user.images_used}/20</span></div>
+                  {/* Usage + Limits */}
+                  <div className="px-6 border-l border-gray-800 min-w-[200px]">
+                    <div className="text-xs text-gray-500 mb-3 uppercase tracking-widest">Usage & Limits</div>
+                    
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-xs text-gray-400 w-14">Posts:</span>
+                      <span className="text-white font-semibold text-xs">{user.posts_used}</span>
+                      <span className="text-gray-600 text-xs">/</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="999"
+                        value={editLimits[user.arn]?.posts_limit ?? 20}
+                        onChange={e => setEditLimits({
+                          ...editLimits,
+                          [user.arn]: { ...editLimits[user.arn], posts_limit: e.target.value }
+                        })}
+                        className="w-14 bg-gray-900 border border-gray-700 text-white text-xs px-2 py-1 focus:outline-none focus:border-primary text-center"
+                      />
+                    </div>
+
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xs text-gray-400 w-14">Images:</span>
+                      <span className="text-white font-semibold text-xs">{user.images_used}</span>
+                      <span className="text-gray-600 text-xs">/</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="999"
+                        value={editLimits[user.arn]?.images_limit ?? 20}
+                        onChange={e => setEditLimits({
+                          ...editLimits,
+                          [user.arn]: { ...editLimits[user.arn], images_limit: e.target.value }
+                        })}
+                        className="w-14 bg-gray-900 border border-gray-700 text-white text-xs px-2 py-1 focus:outline-none focus:border-primary text-center"
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => saveLimits(user.arn)}
+                      disabled={savingLimits === user.arn}
+                      className="w-full px-3 py-1.5 text-xs font-bold bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-black transition">
+                      {savingLimits === user.arn ? "Saving..." : "Save Limits"}
+                    </button>
+
                     <div className="text-xs text-gray-600 mt-2">
                       Joined: {new Date(user.created_at).toLocaleDateString('en-IN')}
                     </div>
@@ -174,24 +247,21 @@ const AdminPage = () => {
                   {/* Actions */}
                   <div className="flex flex-col gap-2 min-w-[120px]">
                     {user.status !== "active" && (
-                      <button
-                        onClick={() => updateStatus(user.arn, "active")}
+                      <button onClick={() => updateStatus(user.arn, "active")}
                         disabled={updating === user.arn}
                         className="px-4 py-2 text-xs font-bold bg-green-500/10 text-green-400 border border-green-400/20 hover:bg-green-500 hover:text-black transition">
                         {updating === user.arn ? "..." : "✓ Approve"}
                       </button>
                     )}
                     {user.status !== "pending" && (
-                      <button
-                        onClick={() => updateStatus(user.arn, "pending")}
+                      <button onClick={() => updateStatus(user.arn, "pending")}
                         disabled={updating === user.arn}
                         className="px-4 py-2 text-xs font-bold bg-yellow-500/10 text-yellow-400 border border-yellow-400/20 hover:bg-yellow-500 hover:text-black transition">
                         {updating === user.arn ? "..." : "⏸ Pending"}
                       </button>
                     )}
                     {user.status !== "blocked" && (
-                      <button
-                        onClick={() => updateStatus(user.arn, "blocked")}
+                      <button onClick={() => updateStatus(user.arn, "blocked")}
                         disabled={updating === user.arn}
                         className="px-4 py-2 text-xs font-bold bg-red-500/10 text-red-400 border border-red-400/20 hover:bg-red-500 hover:text-black transition">
                         {updating === user.arn ? "..." : "✗ Block"}

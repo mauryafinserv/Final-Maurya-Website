@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { data, error } = await supabase
       .from('users')
-      .select('id, arn, full_name, firm_name, email, mobile, euin, status, posts_used, images_used, created_at, last_login')
+      .select('id, arn, full_name, firm_name, email, mobile, euin, status, posts_used, images_used, posts_limit, images_limit, created_at, last_login')
       .order('created_at', { ascending: false });
 
     if (error) return res.status(500).json({ error: error.message });
@@ -24,25 +24,33 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
-    const { arn, status } = req.body;
+    const { arn, status, posts_limit, images_limit } = req.body;
 
-    if (!arn || !status) {
-      return res.status(400).json({ error: 'ARN and status are required' });
+    if (!arn) {
+      return res.status(400).json({ error: 'ARN is required' });
     }
 
-    if (!['active', 'pending', 'blocked'].includes(status)) {
-      return res.status(400).json({ error: 'Invalid status' });
+    const updates = {};
+
+    if (status) {
+      if (!['active', 'pending', 'blocked'].includes(status)) {
+        return res.status(400).json({ error: 'Invalid status' });
+      }
+      updates.status = status;
     }
+
+    if (posts_limit !== undefined) updates.posts_limit = posts_limit;
+    if (images_limit !== undefined) updates.images_limit = images_limit;
 
     const { data, error } = await supabase
       .from('users')
-      .update({ status })
+      .update(updates)
       .eq('arn', arn)
-      .select('arn, full_name, status')
+      .select('arn, full_name, status, posts_limit, images_limit')
       .single();
 
     if (error) return res.status(500).json({ error: error.message });
-    return res.status(200).json({ message: `User ${arn} updated to ${status}`, user: data });
+    return res.status(200).json({ message: `User ${arn} updated`, user: data });
   }
 
   return res.status(405).json({ error: 'Method not allowed' });
