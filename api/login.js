@@ -29,7 +29,6 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: 'Invalid ARN or password' });
     }
 
-    // Check account status
     if (user.status === 'pending') {
       return res.status(403).json({ 
         error: 'Your account is under review. You will be notified on your mobile once approved. For faster activation contact us at +91 9876543210.' 
@@ -65,10 +64,13 @@ export default async function handler(req, res) {
         full_name: user.full_name,
         firm_name: user.firm_name,
         email: user.email,
+        plan: user.plan,
+        status: user.status,
         posts_used: user.posts_used,
         images_used: user.images_used,
+        posts_limit: user.posts_limit,
+        images_limit: user.images_limit,
         logo_url: user.logo_url,
-        status: user.status,
       }
     });
 
