@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { data, error } = await supabase
       .from('users')
-      .select('id, arn, full_name, firm_name, email, mobile, euin, status, posts_used, images_used, posts_limit, images_limit, created_at, last_login')
+      .select('id, arn, full_name, firm_name, email, mobile, euin, status, plan, posts_used, images_used, posts_limit, images_limit, created_at, last_login')
       .order('created_at', { ascending: false });
 
     if (error) return res.status(500).json({ error: error.message });
@@ -24,11 +24,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
-    const { arn, status, posts_limit, images_limit } = req.body;
+    const { arn, status, plan, posts_limit, images_limit } = req.body;
 
-    if (!arn) {
-      return res.status(400).json({ error: 'ARN is required' });
-    }
+    if (!arn) return res.status(400).json({ error: 'ARN is required' });
 
     const updates = {};
 
@@ -39,6 +37,21 @@ export default async function handler(req, res) {
       updates.status = status;
     }
 
+    if (plan) {
+      if (!['trial', 'pro'].includes(plan)) {
+        return res.status(400).json({ error: 'Invalid plan' });
+      }
+      updates.plan = plan;
+      // Auto-set limits when plan changes
+      if (plan === 'pro') {
+        updates.posts_limit = 20;
+        updates.images_limit = 20;
+      } else if (plan === 'trial') {
+        updates.posts_limit = 3;
+        updates.images_limit = 2;
+      }
+    }
+
     if (posts_limit !== undefined) updates.posts_limit = posts_limit;
     if (images_limit !== undefined) updates.images_limit = images_limit;
 
@@ -46,7 +59,7 @@ export default async function handler(req, res) {
       .from('users')
       .update(updates)
       .eq('arn', arn)
-      .select('arn, full_name, status, posts_limit, images_limit')
+      .select('arn, full_name, status, plan, posts_limit, images_limit')
       .single();
 
     if (error) return res.status(500).json({ error: error.message });
