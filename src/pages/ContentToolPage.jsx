@@ -1,5 +1,6 @@
 // src/pages/ContentToolPage.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CONTENT_TYPES = [
   { id: "sip", label: "SIP Awareness" },
@@ -25,9 +26,34 @@ const ContentToolPage = () => {
   const [loadingText, setLoadingText] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [user, setUser] = useState(null);
+  const [postsUsed, setPostsUsed] = useState(0);
+  const [imagesUsed, setImagesUsed] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const stored = localStorage.getItem("mf_user");
+    const token = localStorage.getItem("mf_token");
+    if (!stored || !token) {
+      navigate("/login");
+      return;
+    }
+    const u = JSON.parse(stored);
+    setUser(u);
+    setPostsUsed(u.posts_used || 0);
+    setImagesUsed(u.images_used || 0);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("mf_token");
+    localStorage.removeItem("mf_user");
+    navigate("/login");
+  };
 
   const handleGenerate = async () => {
     if (!prompt.trim()) return;
+
+    const token = localStorage.getItem("mf_token");
 
     setLoadingText(true);
     setLoadingImage(false);
@@ -39,22 +65,52 @@ const ContentToolPage = () => {
     try {
       const textRes = await fetch("/api/generate-content", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
         body: JSON.stringify({ contentType, platform, prompt }),
       });
       const textData = await textRes.json();
-      if (textData.content) setOutput(textData.content);
-      else setOutput("Something went wrong. Please try again.");
+      if (textData.limit_reached) {
+        setOutput(`⚠️ ${textData.error}`);
+        setLoadingText(false);
+        return;
+      }
+      if (textData.content) {
+        setOutput(textData.content);
+        if (textData.usage) setPostsUsed(textData.usage.posts_used);
+      } else {
+        setOutput("Something went wrong. Please try again.");
+      }
     } catch {
       setOutput("Error connecting to server. Please try again.");
     }
     setLoadingText(false);
 
-    // Step 2 — generate image via Cloudflare Worker
-    // Disclaimer is baked into image by Gemini — no Canvas needed
+    // Step 2 — check image limit then generate
     if (generateImage) {
       setLoadingImage(true);
       try {
+        // First check and increment image usage
+        const checkRes = await fetch("/api/use-image", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+        const checkData = await checkRes.json();
+
+        if (checkData.limit_reached) {
+          setOutput(prev => prev + `\n\n⚠️ ${checkData.error}`);
+          setLoadingImage(false);
+          return;
+        }
+
+        if (checkData.usage) setImagesUsed(checkData.usage.images_used);
+
+        // Now generate image via Cloudflare Worker
         const imgRes = await fetch("https://maurya-image-generator.adarshcharanpahari.workers.dev", {
           method: "POST",
           headers: {
@@ -89,23 +145,58 @@ const ContentToolPage = () => {
   };
 
   const loading = loadingText || loadingImage;
+  const postsLimit = user?.posts_limit || 3;
+  const imagesLimit = user?.images_limit || 2;
 
   return (
     <section className="bg-black text-white font-sans min-h-screen">
 
+      {/* Header */}
       <div className="px-6 md:px-16 pt-24 pb-12 border-b border-gray-900">
         <div className="max-w-4xl mx-auto">
-          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">Beta Tool</p>
-          <h1 className="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
-            MF Content <span className="text-primary">Generator</span>
-          </h1>
-          <p className="text-gray-400 text-base">
-            Generate SEBI-compliant social media content for mutual fund investors in seconds.
-            Disclaimers are added automatically.
-          </p>
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-2">
+                {user?.plan === 'pro' ? '⭐ Pro Account' : '🔹 Trial Account'} · {user?.arn}
+              </p>
+              <h1 className="text-4xl md:text-5xl font-black text-white leading-tight mb-2">
+                MF Content <span className="text-primary">Generator</span>
+              </h1>
+              <p className="text-gray-400 text-sm">{user?.firm_name}</p>
+            </div>
+            <button onClick={handleLogout}
+              className="text-xs text-gray-600 border border-gray-800 px-3 py-2 hover:text-white hover:border-gray-600 transition mt-2">
+              Logout
+            </button>
+          </div>
+
+          {/* Usage bar */}
+          <div className="flex gap-6 mt-4">
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Posts used</p>
+              <div className="flex items-center gap-2">
+                <div className="w-32 h-1.5 bg-gray-800 rounded-full">
+                  <div className="h-1.5 bg-primary rounded-full transition-all"
+                    style={{ width: `${Math.min((postsUsed / postsLimit) * 100, 100)}%` }} />
+                </div>
+                <span className="text-xs text-gray-400">{postsUsed}/{postsLimit}</span>
+              </div>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500 mb-1">Images used</p>
+              <div className="flex items-center gap-2">
+                <div className="w-32 h-1.5 bg-gray-800 rounded-full">
+                  <div className="h-1.5 bg-primary rounded-full transition-all"
+                    style={{ width: `${Math.min((imagesUsed / imagesLimit) * 100, 100)}%` }} />
+                </div>
+                <span className="text-xs text-gray-400">{imagesUsed}/{imagesLimit}</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
+      {/* Tool */}
       <div className="px-6 md:px-16 py-12">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
 
@@ -148,7 +239,7 @@ const ContentToolPage = () => {
               </button>
               <span className="text-sm text-gray-400">
                 Also generate an image
-                <span className="text-gray-600 text-xs ml-1">(~20 sec, ₹6 per image)</span>
+                <span className="text-gray-600 text-xs ml-1">(~30 sec)</span>
               </span>
             </div>
 
@@ -162,7 +253,7 @@ const ContentToolPage = () => {
             <div>
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Output</p>
-                {output && (
+                {output && !output.startsWith("⚠️") && (
                   <button onClick={handleCopy}
                     className="text-xs text-primary border border-primary px-3 py-1 hover:bg-primary hover:text-black transition">
                     {copied ? "Copied ✓" : "Copy"}
@@ -180,12 +271,14 @@ const ContentToolPage = () => {
                   <p className="text-gray-700 text-sm">Your generated content will appear here.</p>
                 )}
                 {!loadingText && output && (
-                  <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap">{output}</p>
+                  <p className={`text-sm leading-relaxed whitespace-pre-wrap ${output.startsWith("⚠️") ? "text-yellow-400" : "text-gray-300"}`}>
+                    {output}
+                  </p>
                 )}
               </div>
-              {output && (
+              {output && !output.startsWith("⚠️") && (
                 <p className="text-gray-700 text-xs mt-2">
-                  ✓ SEBI disclaimer auto-included · {platform.charAt(0).toUpperCase() + platform.slice(1)} format
+                  ✓ SEBI disclaimer included · {platform.charAt(0).toUpperCase() + platform.slice(1)} format
                 </p>
               )}
             </div>
@@ -194,7 +287,7 @@ const ContentToolPage = () => {
               <div className="bg-gray-950 border border-gray-800 p-6">
                 <div className="flex items-center gap-2 text-gray-600 text-sm">
                   <span className="animate-pulse">●</span>
-                  <span>Generating image... (~20 seconds)</span>
+                  <span>Generating image... (~30 seconds)</span>
                 </div>
               </div>
             )}
