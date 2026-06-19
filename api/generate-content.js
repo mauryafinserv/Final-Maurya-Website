@@ -128,7 +128,7 @@ Generate a complete ${platform} post. End with:
     const content = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!content) {
-      return res.status(500).json({ error: "Failed to generate content. Please try again." });
+      return res.status(500).json({ error: "Failed to generate content", debug: JSON.stringify(geminiData) });
     }
 
     // Increment posts_used
