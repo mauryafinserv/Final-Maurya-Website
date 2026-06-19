@@ -19,7 +19,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Find user by ARN
     const { data: user, error } = await supabase
       .from('users')
       .select('*')
@@ -30,24 +29,29 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: 'Invalid ARN or password' });
     }
 
-    // Check if account is active
-    if (!user.is_active) {
-      return res.status(401).json({ error: 'Account is disabled. Contact support.' });
+    // Check account status
+    if (user.status === 'pending') {
+      return res.status(403).json({ 
+        error: 'Your account is under review. You will be notified on your mobile once approved. For faster activation contact us at +91 9876543210.' 
+      });
     }
 
-    // Verify password
+    if (user.status === 'blocked') {
+      return res.status(403).json({ 
+        error: 'Your account has been suspended. Please contact support.' 
+      });
+    }
+
     const validPassword = await bcrypt.compare(password, user.password_hash);
     if (!validPassword) {
       return res.status(401).json({ error: 'Invalid ARN or password' });
     }
 
-    // Update last login
     await supabase
       .from('users')
       .update({ last_login: new Date().toISOString() })
       .eq('arn', arn);
 
-    // Generate JWT
     const token = jwt.sign(
       { arn: user.arn, id: user.id, firm_name: user.firm_name, full_name: user.full_name },
       process.env.JWT_SECRET,
@@ -64,6 +68,7 @@ export default async function handler(req, res) {
         posts_used: user.posts_used,
         images_used: user.images_used,
         logo_url: user.logo_url,
+        status: user.status,
       }
     });
 
