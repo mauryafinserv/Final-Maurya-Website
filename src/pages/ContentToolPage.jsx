@@ -16,6 +16,9 @@ const PLATFORMS = [
   { id: "linkedin", label: "LinkedIn" },
 ];
 
+const WORKER_URL = "https://maurya-image-generator.adarshcharanpahari.workers.dev";
+const WORKER_TOKEN = "maurya-mf-tool-2026-xK9pL3mN";
+
 const ContentToolPage = () => {
   const [contentType, setContentType] = useState("sip");
   const [platform, setPlatform] = useState("instagram");
@@ -61,25 +64,60 @@ const ContentToolPage = () => {
     setImageBase64(null);
     setCopied(false);
 
-    // Step 1 — generate text
+    // Step 1 — check post limit then generate text via Cloudflare
     try {
-      const textRes = await fetch("/api/generate-content", {
+      // Check limit first via Vercel
+      const limitRes = await fetch("/api/generate-content", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({ contentType, platform, prompt }),
+        body: JSON.stringify({ checkOnly: true }),
       });
-      const textData = await textRes.json();
-      if (textData.limit_reached) {
-        setOutput(`⚠️ ${textData.error}`);
+
+      const limitData = await limitRes.json();
+
+      if (limitData.limit_reached) {
+        setOutput(`⚠️ ${limitData.error}`);
         setLoadingText(false);
         return;
       }
+
+      // Generate text via Cloudflare Worker
+      const textRes = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": WORKER_TOKEN,
+        },
+        body: JSON.stringify({
+          type: "text",
+          prompt,
+          platform,
+          contentType,
+          firmName: user?.firm_name,
+          arn: user?.arn,
+        }),
+      });
+
+      const textData = await textRes.json();
+
       if (textData.content) {
         setOutput(textData.content);
-        if (textData.usage) setPostsUsed(textData.usage.posts_used);
+
+        // Increment post count via Vercel
+        const incrementRes = await fetch("/api/generate-content", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+          body: JSON.stringify({ incrementOnly: true }),
+        });
+        const incrementData = await incrementRes.json();
+        if (incrementData.usage) setPostsUsed(incrementData.usage.posts_used);
+
       } else {
         setOutput("Something went wrong. Please try again.");
       }
@@ -88,11 +126,10 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 2 — check image limit then generate
+    // Step 2 — check image limit then generate image via Cloudflare
     if (generateImage) {
       setLoadingImage(true);
       try {
-        // First check and increment image usage
         const checkRes = await fetch("/api/use-image", {
           method: "POST",
           headers: {
@@ -110,15 +147,22 @@ const ContentToolPage = () => {
 
         if (checkData.usage) setImagesUsed(checkData.usage.images_used);
 
-        // Now generate image via Cloudflare Worker
-        const imgRes = await fetch("https://maurya-image-generator.adarshcharanpahari.workers.dev", {
+        const imgRes = await fetch(WORKER_URL, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "X-Auth-Token": "maurya-mf-tool-2026-xK9pL3mN",
+            "X-Auth-Token": WORKER_TOKEN,
           },
-          body: JSON.stringify({ prompt, platform, contentType }),
+          body: JSON.stringify({
+            type: "image",
+            prompt,
+            platform,
+            contentType,
+            firmName: user?.firm_name,
+            arn: user?.arn,
+          }),
         });
+
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
           setImageBase64(imgData.imageBase64);
@@ -151,7 +195,6 @@ const ContentToolPage = () => {
   return (
     <section className="bg-black text-white font-sans min-h-screen">
 
-      {/* Header */}
       <div className="px-6 md:px-16 pt-24 pb-12 border-b border-gray-900">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-start justify-between mb-4">
@@ -170,7 +213,6 @@ const ContentToolPage = () => {
             </button>
           </div>
 
-          {/* Usage bar */}
           <div className="flex gap-6 mt-4">
             <div>
               <p className="text-xs text-gray-500 mb-1">Posts used</p>
@@ -196,7 +238,6 @@ const ContentToolPage = () => {
         </div>
       </div>
 
-      {/* Tool */}
       <div className="px-6 md:px-16 py-12">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
 
@@ -278,7 +319,7 @@ const ContentToolPage = () => {
               </div>
               {output && !output.startsWith("⚠️") && (
                 <p className="text-gray-700 text-xs mt-2">
-                  ✓ SEBI disclaimer included · {platform.charAt(0).toUpperCase() + platform.slice(1)} format
+                  ✓ SEBI compliant · {user?.firm_name} · {user?.arn}
                 </p>
               )}
             </div>
