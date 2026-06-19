@@ -39,6 +39,7 @@ import FinancialCalculators from "./pages/FinancialCalculators";
 import ContentToolPage from "./pages/ContentToolPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import AdminPage from "./pages/AdminPage";
 
 // Calculators
 import SipGoalCalculator from "./components/calculators/SipGoalCalculator";
@@ -128,6 +129,9 @@ function App() {
         {/* Auth routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
+        {/* Admin dashboard */}
+        <Route path="/admin" element={<AdminPage />} />
 
         {/* Protected content tool */}
         <Route path="/content-tool" element={
