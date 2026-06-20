@@ -16,12 +16,25 @@ const PLATFORMS = [
   { id: "linkedin", label: "LinkedIn" },
 ];
 
+const LANGUAGES = [
+  { id: "English", label: "English" },
+  { id: "Hindi", label: "हिंदी" },
+  { id: "Marathi", label: "मराठी" },
+  { id: "Tamil", label: "தமிழ்" },
+  { id: "Telugu", label: "తెలుగు" },
+  { id: "Gujarati", label: "ગુજરાતી" },
+  { id: "Bengali", label: "বাংলা" },
+  { id: "Kannada", label: "ಕನ್ನಡ" },
+  { id: "Malayalam", label: "മലയാളം" },
+];
+
 const WORKER_URL = "https://maurya-image-generator.adarshcharanpahari.workers.dev";
 const WORKER_TOKEN = "maurya-mf-tool-2026-xK9pL3mN";
 
 const ContentToolPage = () => {
   const [contentType, setContentType] = useState("sip");
   const [platform, setPlatform] = useState("instagram");
+  const [language, setLanguage] = useState("English");
   const [prompt, setPrompt] = useState("");
   const [generateImage, setGenerateImage] = useState(false);
   const [output, setOutput] = useState("");
@@ -64,9 +77,8 @@ const ContentToolPage = () => {
     setImageBase64(null);
     setCopied(false);
 
-    // Step 1 — check post limit then generate text via Cloudflare
+    // Step 1 — check post limit
     try {
-      // Check limit first via Vercel
       const limitRes = await fetch("/api/generate-content", {
         method: "POST",
         headers: {
@@ -75,16 +87,18 @@ const ContentToolPage = () => {
         },
         body: JSON.stringify({ checkOnly: true }),
       });
-
       const limitData = await limitRes.json();
-
       if (limitData.limit_reached) {
         setOutput(`⚠️ ${limitData.error}`);
         setLoadingText(false);
         return;
       }
+    } catch {
+      // continue even if limit check fails
+    }
 
-      // Generate text via Cloudflare Worker
+    // Step 2 — generate text via Cloudflare
+    try {
       const textRes = await fetch(WORKER_URL, {
         method: "POST",
         headers: {
@@ -96,6 +110,7 @@ const ContentToolPage = () => {
           prompt,
           platform,
           contentType,
+          language,
           firmName: user?.firm_name,
           arn: user?.arn,
         }),
@@ -106,18 +121,21 @@ const ContentToolPage = () => {
       if (textData.content) {
         setOutput(textData.content);
 
-        // Increment post count via Vercel
-        const incrementRes = await fetch("/api/generate-content", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-          body: JSON.stringify({ incrementOnly: true }),
-        });
-        const incrementData = await incrementRes.json();
-        if (incrementData.usage) setPostsUsed(incrementData.usage.posts_used);
-
+        // Increment post count
+        try {
+          const incrementRes = await fetch("/api/generate-content", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({ incrementOnly: true }),
+          });
+          const incrementData = await incrementRes.json();
+          if (incrementData.usage) setPostsUsed(incrementData.usage.posts_used);
+        } catch {
+          // silent fail on increment
+        }
       } else {
         setOutput("Something went wrong. Please try again.");
       }
@@ -126,7 +144,7 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 2 — check image limit then generate image via Cloudflare
+    // Step 3 — generate image
     if (generateImage) {
       setLoadingImage(true);
       try {
@@ -158,6 +176,7 @@ const ContentToolPage = () => {
             prompt,
             platform,
             contentType,
+            language,
             firmName: user?.firm_name,
             arn: user?.arn,
           }),
@@ -195,7 +214,7 @@ const ContentToolPage = () => {
   return (
     <section className="bg-black text-white font-sans min-h-screen">
 
-      <div className="px-6 md:px-16 pt-24 pb-12 border-b border-gray-900">
+      <div className="px-6 md:px-16 pt-24 pb-10 border-b border-gray-900">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-start justify-between mb-4">
             <div>
@@ -241,7 +260,9 @@ const ContentToolPage = () => {
       <div className="px-6 md:px-16 py-12">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
 
-          <div className="space-y-8">
+          <div className="space-y-7">
+
+            {/* Content Type */}
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Content Type</p>
               <div className="flex flex-wrap gap-2">
@@ -254,6 +275,7 @@ const ContentToolPage = () => {
               </div>
             </div>
 
+            {/* Platform */}
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Platform</p>
               <div className="flex gap-2">
@@ -266,18 +288,35 @@ const ContentToolPage = () => {
               </div>
             </div>
 
+            {/* Language */}
+            <div>
+              <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Language</p>
+              <div className="flex flex-wrap gap-2">
+                {LANGUAGES.map((l) => (
+                  <button key={l.id} onClick={() => setLanguage(l.id)}
+                    className={`px-4 py-2 text-xs font-semibold border transition ${language === l.id ? "bg-primary text-black border-primary" : "border-gray-700 text-gray-400 hover:border-primary hover:text-primary"}`}>
+                    {l.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Prompt */}
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">What do you want to say?</p>
               <textarea rows={5} value={prompt} onChange={(e) => setPrompt(e.target.value)}
                 placeholder="e.g. Why SIP is better than lump sum during volatile markets. Target first-time investors."
                 className="w-full bg-gray-950 border border-gray-800 text-white text-sm p-4 focus:outline-none focus:border-primary placeholder-gray-700 resize-none" />
+              <p className="text-gray-700 text-xs mt-1">You can type your prompt in any language too.</p>
             </div>
 
+            {/* Image toggle */}
             <div className="flex items-center gap-3">
-              <button onClick={() => setGenerateImage(!generateImage)}
-                className={`w-10 h-5 rounded-full transition-colors relative flex-shrink-0 ${generateImage ? "bg-primary" : "bg-gray-700"}`}>
-                <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${generateImage ? "translate-x-5" : "translate-x-0.5"}`} />
-              </button>
+              <div
+                onClick={() => setGenerateImage(!generateImage)}
+                className={`w-10 h-6 rounded-full transition-colors relative flex-shrink-0 cursor-pointer ${generateImage ? "bg-primary" : "bg-gray-700"}`}>
+                <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${generateImage ? "translate-x-5" : "translate-x-1"}`} />
+              </div>
               <span className="text-sm text-gray-400">
                 Also generate an image
                 <span className="text-gray-600 text-xs ml-1">(~30 sec)</span>
@@ -319,7 +358,7 @@ const ContentToolPage = () => {
               </div>
               {output && !output.startsWith("⚠️") && (
                 <p className="text-gray-700 text-xs mt-2">
-                  ✓ SEBI compliant · {user?.firm_name} · {user?.arn}
+                  ✓ SEBI compliant · {user?.firm_name} · {user?.arn} · {language}
                 </p>
               )}
             </div>
