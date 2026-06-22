@@ -31,6 +31,86 @@ const LANGUAGES = [
 const WORKER_URL = "https://maurya-image-generator.adarshcharanpahari.workers.dev";
 const WORKER_TOKEN = "maurya-mf-tool-2026-xK9pL3mN";
 
+// Add ARN + firm name overlay on image using Canvas
+const addOverlayToImage = (base64, firmName, arn) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement("canvas");
+        const brandingHeight = 44;
+        const footerHeight = 80;
+        canvas.width = img.width;
+        canvas.height = img.height + brandingHeight + footerHeight;
+        const ctx = canvas.getContext("2d");
+
+        // Draw original image
+        ctx.drawImage(img, 0, 0);
+
+        // ── Branding bar (firm name + ARN) ──
+        ctx.fillStyle = "#0a1628";
+        ctx.fillRect(0, img.height, canvas.width, brandingHeight);
+
+        // Gold top border
+        ctx.fillStyle = "#C9A84C";
+        ctx.fillRect(0, img.height, canvas.width, 2);
+
+        // Firm name
+        ctx.fillStyle = "#C9A84C";
+        ctx.textAlign = "center";
+        ctx.font = "bold 15px Arial, sans-serif";
+        ctx.fillText(
+          `${firmName || "Your Firm"} | ${arn || "ARN-XXXXXX"} | AMFI Registered Mutual Fund Distributor`,
+          canvas.width / 2,
+          img.height + 28
+        );
+
+        // ── Disclaimer footer ──
+        ctx.fillStyle = "#050d1a";
+        ctx.fillRect(0, img.height + brandingHeight, canvas.width, footerHeight);
+
+        // Gold border between branding and disclaimer
+        ctx.fillStyle = "#C9A84C";
+        ctx.fillRect(0, img.height + brandingHeight, canvas.width, 1);
+
+        // Disclaimer line 1
+        ctx.fillStyle = "#cccccc";
+        ctx.font = "13px Arial, sans-serif";
+        ctx.fillText(
+          "Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.",
+          canvas.width / 2,
+          img.height + brandingHeight + 24
+        );
+
+        // Disclaimer line 2
+        ctx.fillStyle = "#999999";
+        ctx.font = "12px Arial, sans-serif";
+        ctx.fillText(
+          "Past performance is not indicative of future returns. This content is for educational purposes only.",
+          canvas.width / 2,
+          img.height + brandingHeight + 46
+        );
+
+        // Disclaimer line 3
+        ctx.fillStyle = "#777777";
+        ctx.font = "11px Arial, sans-serif";
+        ctx.fillText(
+          "Not financial advice. Please read all scheme related documents carefully before investing.",
+          canvas.width / 2,
+          img.height + brandingHeight + 66
+        );
+
+        resolve(canvas.toDataURL("image/png").split(",")[1]);
+      } catch (e) {
+        console.error("Canvas overlay error:", e);
+        resolve(base64);
+      }
+    };
+    img.onerror = () => resolve(base64);
+    img.src = `data:image/png;base64,${base64}`;
+  });
+};
+
 const ContentToolPage = () => {
   const [contentType, setContentType] = useState("sip");
   const [platform, setPlatform] = useState("instagram");
@@ -144,7 +224,7 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 3 — generate image
+    // Step 3 — generate image with overlay
     if (generateImage) {
       setLoadingImage(true);
       try {
@@ -184,7 +264,13 @@ const ContentToolPage = () => {
 
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
-          setImageBase64(imgData.imageBase64);
+          // Add firm name + ARN + disclaimer overlay via Canvas
+          const withOverlay = await addOverlayToImage(
+            imgData.imageBase64,
+            user?.firm_name,
+            user?.arn
+          );
+          setImageBase64(withOverlay);
         }
       } catch (e) {
         console.error("Image generation failed:", e);
@@ -203,7 +289,7 @@ const ContentToolPage = () => {
     if (!imageBase64) return;
     const link = document.createElement("a");
     link.href = `data:image/png;base64,${imageBase64}`;
-    link.download = "maurya-content-image.png";
+    link.download = `${user?.arn || "content"}-image.png`;
     link.click();
   };
 
@@ -262,7 +348,6 @@ const ContentToolPage = () => {
 
           <div className="space-y-7">
 
-            {/* Content Type */}
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Content Type</p>
               <div className="flex flex-wrap gap-2">
@@ -275,7 +360,6 @@ const ContentToolPage = () => {
               </div>
             </div>
 
-            {/* Platform */}
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Platform</p>
               <div className="flex gap-2">
@@ -288,7 +372,6 @@ const ContentToolPage = () => {
               </div>
             </div>
 
-            {/* Language */}
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Language</p>
               <div className="flex flex-wrap gap-2">
@@ -301,7 +384,6 @@ const ContentToolPage = () => {
               </div>
             </div>
 
-            {/* Prompt */}
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">What do you want to say?</p>
               <textarea rows={5} value={prompt} onChange={(e) => setPrompt(e.target.value)}
@@ -310,7 +392,6 @@ const ContentToolPage = () => {
               <p className="text-gray-700 text-xs mt-1">You can type your prompt in any language too.</p>
             </div>
 
-            {/* Image toggle */}
             <div className="flex items-center gap-3">
               <div
                 onClick={() => setGenerateImage(!generateImage)}
@@ -382,7 +463,7 @@ const ContentToolPage = () => {
                   </button>
                 </div>
                 <img src={`data:image/png;base64,${imageBase64}`} alt="Generated content" className="w-full border border-gray-800" />
-                <p className="text-gray-700 text-xs mt-2">✓ SEBI disclaimer included · Ready to post</p>
+                <p className="text-gray-700 text-xs mt-2">✓ {user?.firm_name} · {user?.arn} · SEBI compliant · Ready to post</p>
               </div>
             )}
           </div>
