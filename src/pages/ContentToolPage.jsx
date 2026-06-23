@@ -179,7 +179,10 @@ const ContentToolPage = () => {
       });
       const limitData = await limitRes.json();
       if (limitData.limit_reached) {
-        setPostWarning(limitData.error); // ← show as warning banner, not in output
+        setPostWarning(limitData.error);
+        if (imagesUsed >= imagesLimit) {
+          setImageWarning(`You have used all ${imagesLimit} images this cycle.`);
+        }
         setLoadingText(false);
         return;
       }
