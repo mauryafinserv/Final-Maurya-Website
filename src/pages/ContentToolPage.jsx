@@ -31,7 +31,6 @@ const LANGUAGES = [
 const WORKER_URL = "https://maurya-image-generator.adarshcharanpahari.workers.dev";
 const WORKER_TOKEN = "maurya-mf-tool-2026-xK9pL3mN";
 
-// Add ARN + firm name overlay on image using Canvas
 const addOverlayToImage = (base64, firmName, arn) => {
   return new Promise((resolve) => {
     const img = new Image();
@@ -44,18 +43,12 @@ const addOverlayToImage = (base64, firmName, arn) => {
         canvas.height = img.height + brandingHeight + footerHeight;
         const ctx = canvas.getContext("2d");
 
-        // Draw original image
         ctx.drawImage(img, 0, 0);
 
-        // ── Branding bar (firm name + ARN) ──
         ctx.fillStyle = "#0a1628";
         ctx.fillRect(0, img.height, canvas.width, brandingHeight);
-
-        // Gold top border
         ctx.fillStyle = "#C9A84C";
         ctx.fillRect(0, img.height, canvas.width, 2);
-
-        // Firm name
         ctx.fillStyle = "#C9A84C";
         ctx.textAlign = "center";
         ctx.font = "bold 15px Arial, sans-serif";
@@ -65,15 +58,10 @@ const addOverlayToImage = (base64, firmName, arn) => {
           img.height + 28
         );
 
-        // ── Disclaimer footer ──
         ctx.fillStyle = "#050d1a";
         ctx.fillRect(0, img.height + brandingHeight, canvas.width, footerHeight);
-
-        // Gold border between branding and disclaimer
         ctx.fillStyle = "#C9A84C";
         ctx.fillRect(0, img.height + brandingHeight, canvas.width, 1);
-
-        // Disclaimer line 1
         ctx.fillStyle = "#cccccc";
         ctx.font = "13px Arial, sans-serif";
         ctx.fillText(
@@ -81,8 +69,6 @@ const addOverlayToImage = (base64, firmName, arn) => {
           canvas.width / 2,
           img.height + brandingHeight + 24
         );
-
-        // Disclaimer line 2
         ctx.fillStyle = "#999999";
         ctx.font = "12px Arial, sans-serif";
         ctx.fillText(
@@ -90,8 +76,6 @@ const addOverlayToImage = (base64, firmName, arn) => {
           canvas.width / 2,
           img.height + brandingHeight + 46
         );
-
-        // Disclaimer line 3
         ctx.fillStyle = "#777777";
         ctx.font = "11px Arial, sans-serif";
         ctx.fillText(
@@ -102,7 +86,6 @@ const addOverlayToImage = (base64, firmName, arn) => {
 
         resolve(canvas.toDataURL("image/png").split(",")[1]);
       } catch (e) {
-        console.error("Canvas overlay error:", e);
         resolve(base64);
       }
     };
@@ -134,11 +117,37 @@ const ContentToolPage = () => {
       navigate("/login");
       return;
     }
+
     const u = JSON.parse(stored);
     setUser(u);
     setPostsUsed(u.posts_used || 0);
     setImagesUsed(u.images_used || 0);
+
+    // Fetch fresh usage from server on every page load
+    fetch("/api/me", {
+      headers: { "Authorization": `Bearer ${token}` },
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.user) {
+          setPostsUsed(data.user.posts_used || 0);
+          setImagesUsed(data.user.images_used || 0);
+          // Update localStorage with fresh data
+          const updated = { ...u, ...data.user };
+          localStorage.setItem("mf_user", JSON.stringify(updated));
+          setUser(updated);
+        }
+      })
+      .catch(() => {
+        // silently fail — localStorage values already set above
+      });
   }, []);
+
+  const updateLocalStorage = (key, value) => {
+    const stored = JSON.parse(localStorage.getItem("mf_user") || "{}");
+    stored[key] = value;
+    localStorage.setItem("mf_user", JSON.stringify(stored));
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("mf_token");
@@ -174,7 +183,7 @@ const ContentToolPage = () => {
         return;
       }
     } catch {
-      // continue even if limit check fails
+      // continue
     }
 
     // Step 2 — generate text via Cloudflare
@@ -212,9 +221,12 @@ const ContentToolPage = () => {
             body: JSON.stringify({ incrementOnly: true }),
           });
           const incrementData = await incrementRes.json();
-          if (incrementData.usage) setPostsUsed(incrementData.usage.posts_used);
+          if (incrementData.usage) {
+            setPostsUsed(incrementData.usage.posts_used);
+            updateLocalStorage("posts_used", incrementData.usage.posts_used);
+          }
         } catch {
-          // silent fail on increment
+          // silent fail
         }
       } else {
         setOutput("Something went wrong. Please try again.");
@@ -224,7 +236,7 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 3 — generate image with overlay
+    // Step 3 — generate image
     if (generateImage) {
       setLoadingImage(true);
       try {
@@ -243,7 +255,10 @@ const ContentToolPage = () => {
           return;
         }
 
-        if (checkData.usage) setImagesUsed(checkData.usage.images_used);
+        if (checkData.usage) {
+          setImagesUsed(checkData.usage.images_used);
+          updateLocalStorage("images_used", checkData.usage.images_used);
+        }
 
         const imgRes = await fetch(WORKER_URL, {
           method: "POST",
@@ -264,7 +279,6 @@ const ContentToolPage = () => {
 
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
-          // Add firm name + ARN + disclaimer overlay via Canvas
           const withOverlay = await addOverlayToImage(
             imgData.imageBase64,
             user?.firm_name,
