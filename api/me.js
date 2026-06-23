@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
   const { data: user, error } = await supabase
     .from("users")
-    .select("arn, full_name, firm_name, email, plan, status, posts_used, images_used, posts_limit, images_limit, logo_url")
+    .select("arn, full_name, firm_name, email, plan, status, posts_used, images_used, posts_limit, images_limit, logo_url, cycle_start")
     .eq("arn", decoded.arn)
     .single();
 

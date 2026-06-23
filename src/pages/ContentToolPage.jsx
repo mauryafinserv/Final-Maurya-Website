@@ -42,9 +42,7 @@ const addOverlayToImage = (base64, firmName, arn) => {
         canvas.width = img.width;
         canvas.height = img.height + brandingHeight + footerHeight;
         const ctx = canvas.getContext("2d");
-
         ctx.drawImage(img, 0, 0);
-
         ctx.fillStyle = "#0a1628";
         ctx.fillRect(0, img.height, canvas.width, brandingHeight);
         ctx.fillStyle = "#C9A84C";
@@ -57,7 +55,6 @@ const addOverlayToImage = (base64, firmName, arn) => {
           canvas.width / 2,
           img.height + 28
         );
-
         ctx.fillStyle = "#050d1a";
         ctx.fillRect(0, img.height + brandingHeight, canvas.width, footerHeight);
         ctx.fillStyle = "#C9A84C";
@@ -83,7 +80,6 @@ const addOverlayToImage = (base64, firmName, arn) => {
           canvas.width / 2,
           img.height + brandingHeight + 66
         );
-
         resolve(canvas.toDataURL("image/png").split(",")[1]);
       } catch (e) {
         resolve(base64);
@@ -92,6 +88,16 @@ const addOverlayToImage = (base64, firmName, arn) => {
     img.onerror = () => resolve(base64);
     img.src = `data:image/png;base64,${base64}`;
   });
+};
+
+const getDaysLeft = (cycleStart) => {
+  if (!cycleStart) return null;
+  const start = new Date(cycleStart);
+  const reset = new Date(start);
+  reset.setDate(reset.getDate() + 30);
+  const today = new Date();
+  const diff = Math.ceil((reset - today) / (1000 * 60 * 60 * 24));
+  return Math.max(0, diff);
 };
 
 const ContentToolPage = () => {
@@ -108,8 +114,9 @@ const ContentToolPage = () => {
   const [user, setUser] = useState(null);
   const [postsUsed, setPostsUsed] = useState(0);
   const [imagesUsed, setImagesUsed] = useState(0);
-  const [postWarning, setPostWarning] = useState("");   // ← NEW: separate post limit warning
-  const [imageWarning, setImageWarning] = useState(""); // ← NEW: separate image limit warning
+  const [cycleStart, setCycleStart] = useState(null);
+  const [postWarning, setPostWarning] = useState("");
+  const [imageWarning, setImageWarning] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -119,13 +126,12 @@ const ContentToolPage = () => {
       navigate("/login");
       return;
     }
-
     const u = JSON.parse(stored);
     setUser(u);
     setPostsUsed(u.posts_used || 0);
     setImagesUsed(u.images_used || 0);
+    setCycleStart(u.cycle_start || null);
 
-    // Fetch fresh usage from server on every page load
     fetch("/api/me", {
       headers: { "Authorization": `Bearer ${token}` },
     })
@@ -134,6 +140,7 @@ const ContentToolPage = () => {
         if (data.user) {
           setPostsUsed(data.user.posts_used || 0);
           setImagesUsed(data.user.images_used || 0);
+          setCycleStart(data.user.cycle_start || null);
           const updated = { ...u, ...data.user };
           localStorage.setItem("mf_user", JSON.stringify(updated));
           setUser(updated);
@@ -156,25 +163,19 @@ const ContentToolPage = () => {
 
   const handleGenerate = async () => {
     if (!prompt.trim()) return;
-
     const token = localStorage.getItem("mf_token");
-
     setLoadingText(true);
     setLoadingImage(false);
     setOutput("");
     setImageBase64(null);
     setCopied(false);
-    setPostWarning("");   // ← clear warnings on each new generation
-    setImageWarning("");  // ← clear warnings on each new generation
+    setPostWarning("");
+    setImageWarning("");
 
-    // Step 1 — check post limit
     try {
       const limitRes = await fetch("/api/generate-content", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ checkOnly: true }),
       });
       const limitData = await limitRes.json();
@@ -186,42 +187,21 @@ const ContentToolPage = () => {
         setLoadingText(false);
         return;
       }
-    } catch {
-      // continue
-    }
+    } catch {}
 
-    // Step 2 — generate text via Cloudflare
     try {
       const textRes = await fetch(WORKER_URL, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Auth-Token": WORKER_TOKEN,
-        },
-        body: JSON.stringify({
-          type: "text",
-          prompt,
-          platform,
-          contentType,
-          language,
-          firmName: user?.firm_name,
-          arn: user?.arn,
-        }),
+        headers: { "Content-Type": "application/json", "X-Auth-Token": WORKER_TOKEN },
+        body: JSON.stringify({ type: "text", prompt, platform, contentType, language, firmName: user?.firm_name, arn: user?.arn }),
       });
-
       const textData = await textRes.json();
-
       if (textData.content) {
         setOutput(textData.content);
-
-        // Increment post count
         try {
           const incrementRes = await fetch("/api/generate-content", {
             method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": `Bearer ${token}`,
-            },
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
             body: JSON.stringify({ incrementOnly: true }),
           });
           const incrementData = await incrementRes.json();
@@ -229,9 +209,7 @@ const ContentToolPage = () => {
             setPostsUsed(incrementData.usage.posts_used);
             updateLocalStorage("posts_used", incrementData.usage.posts_used);
           }
-        } catch {
-          // silent fail
-        }
+        } catch {}
       } else {
         setOutput("Something went wrong. Please try again.");
       }
@@ -240,54 +218,31 @@ const ContentToolPage = () => {
     }
     setLoadingText(false);
 
-    // Step 3 — generate image
     if (generateImage) {
       setLoadingImage(true);
       try {
         const checkRes = await fetch("/api/use-image", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
+          headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         });
         const checkData = await checkRes.json();
-
         if (checkData.limit_reached) {
-          setImageWarning(checkData.error); // ← show as warning banner, not appended to output
+          setImageWarning(checkData.error);
           setLoadingImage(false);
           return;
         }
-
         if (checkData.usage) {
           setImagesUsed(checkData.usage.images_used);
           updateLocalStorage("images_used", checkData.usage.images_used);
         }
-
         const imgRes = await fetch(WORKER_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Auth-Token": WORKER_TOKEN,
-          },
-          body: JSON.stringify({
-            type: "image",
-            prompt,
-            platform,
-            contentType,
-            language,
-            firmName: user?.firm_name,
-            arn: user?.arn,
-          }),
+          headers: { "Content-Type": "application/json", "X-Auth-Token": WORKER_TOKEN },
+          body: JSON.stringify({ type: "image", prompt, platform, contentType, language, firmName: user?.firm_name, arn: user?.arn }),
         });
-
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
-          const withOverlay = await addOverlayToImage(
-            imgData.imageBase64,
-            user?.firm_name,
-            user?.arn
-          );
+          const withOverlay = await addOverlayToImage(imgData.imageBase64, user?.firm_name, user?.arn);
           setImageBase64(withOverlay);
         }
       } catch (e) {
@@ -314,6 +269,7 @@ const ContentToolPage = () => {
   const loading = loadingText || loadingImage;
   const postsLimit = user?.posts_limit || 3;
   const imagesLimit = user?.images_limit || 2;
+  const daysLeft = getDaysLeft(cycleStart);
 
   return (
     <section className="bg-black text-white font-sans min-h-screen">
@@ -336,7 +292,7 @@ const ContentToolPage = () => {
             </button>
           </div>
 
-          <div className="flex gap-6 mt-4">
+          <div className="flex flex-wrap gap-6 mt-4 items-end">
             <div>
               <p className="text-xs text-gray-500 mb-1">Posts used</p>
               <div className="flex items-center gap-2">
@@ -357,6 +313,14 @@ const ContentToolPage = () => {
                 <span className="text-xs text-gray-400">{imagesUsed}/{imagesLimit}</span>
               </div>
             </div>
+            {daysLeft !== null && (
+              <div>
+                <p className="text-xs text-gray-500 mb-1">Cycle resets in</p>
+                <span className={`text-xs font-semibold ${daysLeft <= 5 ? "text-yellow-400" : "text-gray-400"}`}>
+                  🔄 {daysLeft} day{daysLeft !== 1 ? "s" : ""}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -365,7 +329,6 @@ const ContentToolPage = () => {
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-10">
 
           <div className="space-y-7">
-
             <div>
               <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">Content Type</p>
               <div className="flex flex-wrap gap-2">
@@ -411,8 +374,7 @@ const ContentToolPage = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <div
-                onClick={() => setGenerateImage(!generateImage)}
+              <div onClick={() => setGenerateImage(!generateImage)}
                 className={`w-10 h-6 rounded-full transition-colors relative flex-shrink-0 cursor-pointer ${generateImage ? "bg-primary" : "bg-gray-700"}`}>
                 <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-transform ${generateImage ? "translate-x-5" : "translate-x-1"}`} />
               </div>
@@ -427,7 +389,6 @@ const ContentToolPage = () => {
               {loadingText ? "Writing content..." : loadingImage ? "Generating image..." : "Generate Content →"}
             </button>
 
-            {/* ── Post limit warning banner ── */}
             {postWarning && (
               <div className="border border-yellow-600 bg-yellow-950 px-4 py-3 rounded">
                 <p className="text-yellow-400 text-xs font-semibold">⚠️ Post Limit Reached</p>
@@ -459,9 +420,7 @@ const ContentToolPage = () => {
                   <p className="text-gray-700 text-sm">Your generated content will appear here.</p>
                 )}
                 {!loadingText && output && (
-                  <p className="text-sm leading-relaxed whitespace-pre-wrap text-gray-300">
-                    {output}
-                  </p>
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap text-gray-300">{output}</p>
                 )}
               </div>
               {output && (
@@ -471,7 +430,6 @@ const ContentToolPage = () => {
               )}
             </div>
 
-            {/* ── Image limit warning banner ── */}
             {imageWarning && (
               <div className="border border-yellow-600 bg-yellow-950 px-4 py-3 rounded">
                 <p className="text-yellow-400 text-xs font-semibold">⚠️ Image Limit Reached</p>

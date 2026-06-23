@@ -12,6 +12,7 @@ const AdminPage = () => {
   const [search, setSearch] = useState("");
   const [editLimits, setEditLimits] = useState({});
   const [savingLimits, setSavingLimits] = useState(null);
+  const [resettingCycle, setResettingCycle] = useState(null); // ← NEW
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -103,6 +104,41 @@ const AdminPage = () => {
       }
     } catch { alert("Failed to save limits"); }
     setSavingLimits(null);
+  };
+
+  // ── Reset Cycle ────────────────────────────────────────────────────
+  const resetCycle = async (arn) => {
+    if (!window.confirm(`Reset cycle for ${arn}? This will set posts and images used back to 0.`)) return;
+    setResettingCycle(arn);
+    try {
+      const res = await fetch("/api/admin/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-admin-key": ADMIN_KEY },
+        body: JSON.stringify({ arn, reset_cycle: true }),
+      });
+      const data = await res.json();
+      if (data.user) {
+        setUsers(users.map(u => u.arn === arn ? {
+          ...u,
+          posts_used: 0,
+          images_used: 0,
+          cycle_start: data.user.cycle_start,
+        } : u));
+      } else {
+        alert("Failed to reset cycle");
+      }
+    } catch { alert("Failed to reset cycle"); }
+    setResettingCycle(null);
+  };
+
+  const daysLeftInCycle = (cycle_start) => {
+    if (!cycle_start) return null;
+    const start = new Date(cycle_start);
+    const reset = new Date(start);
+    reset.setDate(reset.getDate() + 30);
+    const today = new Date();
+    const diff = Math.ceil((reset - today) / (1000 * 60 * 60 * 24));
+    return Math.max(0, diff);
   };
 
   const filtered = users.filter(u => {
@@ -207,7 +243,7 @@ const AdminPage = () => {
 
                   {/* Plan toggle + Usage + Limits */}
                   <div className="px-6 border-l border-gray-800 min-w-[220px]">
-                    
+
                     {/* Trial / Pro toggle */}
                     <div className="mb-4">
                       <p className="text-xs text-gray-500 uppercase tracking-widest mb-2">Plan</p>
@@ -250,10 +286,24 @@ const AdminPage = () => {
                         onChange={e => setEditLimits({ ...editLimits, [user.arn]: { ...editLimits[user.arn], images_limit: e.target.value } })}
                         className="w-14 bg-gray-900 border border-gray-700 text-white text-xs px-2 py-1 focus:outline-none focus:border-primary text-center" />
                     </div>
-                    <button onClick={() => saveLimits(user.arn)} disabled={savingLimits === user.arn}
-                      className="w-full px-3 py-1.5 text-xs font-bold bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-black transition">
-                      {savingLimits === user.arn ? "Saving..." : "Save Limits"}
-                    </button>
+
+                    {/* Cycle info */}
+                    {user.cycle_start && (
+                      <div className="text-xs text-gray-600 mb-2">
+                        🔄 {daysLeftInCycle(user.cycle_start)} days left in cycle
+                      </div>
+                    )}
+
+                    <div className="flex gap-2">
+                      <button onClick={() => saveLimits(user.arn)} disabled={savingLimits === user.arn}
+                        className="flex-1 px-3 py-1.5 text-xs font-bold bg-primary/10 text-primary border border-primary/20 hover:bg-primary hover:text-black transition">
+                        {savingLimits === user.arn ? "Saving..." : "Save Limits"}
+                      </button>
+                      <button onClick={() => resetCycle(user.arn)} disabled={resettingCycle === user.arn}
+                        className="flex-1 px-3 py-1.5 text-xs font-bold bg-blue-500/10 text-blue-400 border border-blue-400/20 hover:bg-blue-500 hover:text-black transition">
+                        {resettingCycle === user.arn ? "Resetting..." : "↺ Reset Cycle"}
+                      </button>
+                    </div>
 
                     <div className="text-xs text-gray-600 mt-2">Joined: {new Date(user.created_at).toLocaleDateString('en-IN')}</div>
                     {user.last_login && <div className="text-xs text-gray-700 mt-1">Last: {new Date(user.last_login).toLocaleDateString('en-IN')}</div>}
