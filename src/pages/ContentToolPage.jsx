@@ -108,6 +108,8 @@ const ContentToolPage = () => {
   const [user, setUser] = useState(null);
   const [postsUsed, setPostsUsed] = useState(0);
   const [imagesUsed, setImagesUsed] = useState(0);
+  const [postWarning, setPostWarning] = useState("");   // ← NEW: separate post limit warning
+  const [imageWarning, setImageWarning] = useState(""); // ← NEW: separate image limit warning
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -132,15 +134,12 @@ const ContentToolPage = () => {
         if (data.user) {
           setPostsUsed(data.user.posts_used || 0);
           setImagesUsed(data.user.images_used || 0);
-          // Update localStorage with fresh data
           const updated = { ...u, ...data.user };
           localStorage.setItem("mf_user", JSON.stringify(updated));
           setUser(updated);
         }
       })
-      .catch(() => {
-        // silently fail — localStorage values already set above
-      });
+      .catch(() => {});
   }, []);
 
   const updateLocalStorage = (key, value) => {
@@ -165,6 +164,8 @@ const ContentToolPage = () => {
     setOutput("");
     setImageBase64(null);
     setCopied(false);
+    setPostWarning("");   // ← clear warnings on each new generation
+    setImageWarning("");  // ← clear warnings on each new generation
 
     // Step 1 — check post limit
     try {
@@ -178,7 +179,7 @@ const ContentToolPage = () => {
       });
       const limitData = await limitRes.json();
       if (limitData.limit_reached) {
-        setOutput(`⚠️ ${limitData.error}`);
+        setPostWarning(limitData.error); // ← show as warning banner, not in output
         setLoadingText(false);
         return;
       }
@@ -250,7 +251,7 @@ const ContentToolPage = () => {
         const checkData = await checkRes.json();
 
         if (checkData.limit_reached) {
-          setOutput(prev => prev + `\n\n⚠️ ${checkData.error}`);
+          setImageWarning(checkData.error); // ← show as warning banner, not appended to output
           setLoadingImage(false);
           return;
         }
@@ -422,13 +423,22 @@ const ContentToolPage = () => {
               className={`w-full py-4 text-sm font-bold tracking-wide transition ${loading || !prompt.trim() ? "bg-gray-800 text-gray-600 cursor-not-allowed" : "bg-primary text-black hover:bg-white"}`}>
               {loadingText ? "Writing content..." : loadingImage ? "Generating image..." : "Generate Content →"}
             </button>
+
+            {/* ── Post limit warning banner ── */}
+            {postWarning && (
+              <div className="border border-yellow-600 bg-yellow-950 px-4 py-3 rounded">
+                <p className="text-yellow-400 text-xs font-semibold">⚠️ Post Limit Reached</p>
+                <p className="text-yellow-300 text-xs mt-1">{postWarning}</p>
+                <p className="text-yellow-600 text-xs mt-1">Contact us to upgrade your plan or increase your limit.</p>
+              </div>
+            )}
           </div>
 
           <div className="space-y-6">
             <div>
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase">Output</p>
-                {output && !output.startsWith("⚠️") && (
+                {output && (
                   <button onClick={handleCopy}
                     className="text-xs text-primary border border-primary px-3 py-1 hover:bg-primary hover:text-black transition">
                     {copied ? "Copied ✓" : "Copy"}
@@ -446,17 +456,26 @@ const ContentToolPage = () => {
                   <p className="text-gray-700 text-sm">Your generated content will appear here.</p>
                 )}
                 {!loadingText && output && (
-                  <p className={`text-sm leading-relaxed whitespace-pre-wrap ${output.startsWith("⚠️") ? "text-yellow-400" : "text-gray-300"}`}>
+                  <p className="text-sm leading-relaxed whitespace-pre-wrap text-gray-300">
                     {output}
                   </p>
                 )}
               </div>
-              {output && !output.startsWith("⚠️") && (
+              {output && (
                 <p className="text-gray-700 text-xs mt-2">
                   ✓ SEBI compliant · {user?.firm_name} · {user?.arn} · {language}
                 </p>
               )}
             </div>
+
+            {/* ── Image limit warning banner ── */}
+            {imageWarning && (
+              <div className="border border-yellow-600 bg-yellow-950 px-4 py-3 rounded">
+                <p className="text-yellow-400 text-xs font-semibold">⚠️ Image Limit Reached</p>
+                <p className="text-yellow-300 text-xs mt-1">{imageWarning}</p>
+                <p className="text-yellow-600 text-xs mt-1">Contact us to upgrade your plan or increase your limit.</p>
+              </div>
+            )}
 
             {loadingImage && (
               <div className="bg-gray-950 border border-gray-800 p-6">
