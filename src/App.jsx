@@ -134,6 +134,13 @@ function App() {
         {/* Admin dashboard */}
         <Route path="/admin" element={<AdminPage />} />
 
+        {/* Settings page */}
+        <Route path="/settings" element={
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        } />
+
         {/* Protected content tool */}
         <Route path="/content-tool" element={
           <ProtectedRoute>
