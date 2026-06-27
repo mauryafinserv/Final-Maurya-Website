@@ -40,6 +40,7 @@ import ContentToolPage from "./pages/ContentToolPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AdminPage from "./pages/AdminPage";
+import SettingsPage from "./pages/SettingsPage";
 
 // Calculators
 import SipGoalCalculator from "./components/calculators/SipGoalCalculator";

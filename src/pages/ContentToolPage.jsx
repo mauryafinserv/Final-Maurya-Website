@@ -31,56 +31,78 @@ const LANGUAGES = [
 const WORKER_URL = "https://maurya-image-generator.adarshcharanpahari.workers.dev";
 const WORKER_TOKEN = "maurya-mf-tool-2026-xK9pL3mN";
 
-const addOverlayToImage = (base64, firmName, arn) => {
+const addOverlayToImage = (base64, firmName, arn, logoUrl, brandColour) => {
   return new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {
       try {
         const canvas = document.createElement("canvas");
-        const brandingHeight = 44;
+        const brandingHeight = 54;
         const footerHeight = 80;
         canvas.width = img.width;
         canvas.height = img.height + brandingHeight + footerHeight;
         const ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0);
+
+        // Branding bar
         ctx.fillStyle = "#0a1628";
         ctx.fillRect(0, img.height, canvas.width, brandingHeight);
-        ctx.fillStyle = "#C9A84C";
+        ctx.fillStyle = brandColour || "#C9A84C";
         ctx.fillRect(0, img.height, canvas.width, 2);
-        ctx.fillStyle = "#C9A84C";
-        ctx.textAlign = "center";
-        ctx.font = "bold 15px Arial, sans-serif";
-        ctx.fillText(
-          `${firmName || "Your Firm"} | ${arn || "ARN-XXXXXX"} | AMFI Registered Mutual Fund Distributor`,
-          canvas.width / 2,
-          img.height + 28
-        );
-        ctx.fillStyle = "#050d1a";
-        ctx.fillRect(0, img.height + brandingHeight, canvas.width, footerHeight);
-        ctx.fillStyle = "#C9A84C";
-        ctx.fillRect(0, img.height + brandingHeight, canvas.width, 1);
-        ctx.fillStyle = "#cccccc";
-        ctx.font = "13px Arial, sans-serif";
-        ctx.fillText(
-          "Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.",
-          canvas.width / 2,
-          img.height + brandingHeight + 24
-        );
-        ctx.fillStyle = "#999999";
-        ctx.font = "12px Arial, sans-serif";
-        ctx.fillText(
-          "Past performance is not indicative of future returns. This content is for educational purposes only.",
-          canvas.width / 2,
-          img.height + brandingHeight + 46
-        );
-        ctx.fillStyle = "#777777";
-        ctx.font = "11px Arial, sans-serif";
-        ctx.fillText(
-          "Not financial advice. Please read all scheme related documents carefully before investing.",
-          canvas.width / 2,
-          img.height + brandingHeight + 66
-        );
-        resolve(canvas.toDataURL("image/png").split(",")[1]);
+
+        const drawText = () => {
+          ctx.fillStyle = brandColour || "#C9A84C";
+          ctx.textAlign = logoUrl ? "right" : "center";
+          ctx.font = "bold 15px Arial, sans-serif";
+          ctx.fillText(
+            `${firmName || "Your Firm"} | ${arn || "ARN-XXXXXX"} | AMFI Registered Mutual Fund Distributor`,
+            logoUrl ? canvas.width - 10 : canvas.width / 2,
+            img.height + 32
+          );
+
+          // Footer
+          ctx.fillStyle = "#050d1a";
+          ctx.fillRect(0, img.height + brandingHeight, canvas.width, footerHeight);
+          ctx.fillStyle = brandColour || "#C9A84C";
+          ctx.fillRect(0, img.height + brandingHeight, canvas.width, 1);
+          ctx.fillStyle = "#cccccc";
+          ctx.textAlign = "center";
+          ctx.font = "13px Arial, sans-serif";
+          ctx.fillText(
+            "Mutual Fund investments are subject to market risks. Read all scheme related documents carefully.",
+            canvas.width / 2, img.height + brandingHeight + 24
+          );
+          ctx.fillStyle = "#999999";
+          ctx.font = "12px Arial, sans-serif";
+          ctx.fillText(
+            "Past performance is not indicative of future returns. This content is for educational purposes only.",
+            canvas.width / 2, img.height + brandingHeight + 46
+          );
+          ctx.fillStyle = "#777777";
+          ctx.font = "11px Arial, sans-serif";
+          ctx.fillText(
+            "Not financial advice. Please read all scheme related documents carefully before investing.",
+            canvas.width / 2, img.height + brandingHeight + 66
+          );
+
+          resolve(canvas.toDataURL("image/png").split(",")[1]);
+        };
+
+        // Draw logo if available
+        if (logoUrl) {
+          const logo = new Image();
+          logo.crossOrigin = "anonymous";
+          logo.onload = () => {
+            const logoH = brandingHeight - 10;
+            const logoW = logo.width * (logoH / logo.height);
+            ctx.drawImage(logo, 8, img.height + 5, logoW, logoH);
+            drawText();
+          };
+          logo.onerror = () => drawText();
+          logo.src = logoUrl;
+        } else {
+          drawText();
+        }
       } catch (e) {
         resolve(base64);
       }
@@ -122,19 +144,14 @@ const ContentToolPage = () => {
   useEffect(() => {
     const stored = localStorage.getItem("mf_user");
     const token = localStorage.getItem("mf_token");
-    if (!stored || !token) {
-      navigate("/login");
-      return;
-    }
+    if (!stored || !token) { navigate("/login"); return; }
     const u = JSON.parse(stored);
     setUser(u);
     setPostsUsed(u.posts_used || 0);
     setImagesUsed(u.images_used || 0);
     setCycleStart(u.cycle_start || null);
 
-    fetch("/api/me", {
-      headers: { "Authorization": `Bearer ${token}` },
-    })
+    fetch("/api/me", { headers: { "Authorization": `Bearer ${token}` } })
       .then(r => r.json())
       .then(data => {
         if (data.user) {
@@ -242,7 +259,13 @@ const ContentToolPage = () => {
         });
         const imgData = await imgRes.json();
         if (imgData.imageBase64) {
-          const withOverlay = await addOverlayToImage(imgData.imageBase64, user?.firm_name, user?.arn);
+          const withOverlay = await addOverlayToImage(
+            imgData.imageBase64,
+            user?.firm_name,
+            user?.arn,
+            user?.logo_url || null,
+            user?.brand_colour || "#C9A84C"
+          );
           setImageBase64(withOverlay);
         }
       } catch (e) {
@@ -286,10 +309,16 @@ const ContentToolPage = () => {
               </h1>
               <p className="text-gray-400 text-sm">{user?.firm_name}</p>
             </div>
-            <button onClick={handleLogout}
-              className="text-xs text-gray-600 border border-gray-800 px-3 py-2 hover:text-white hover:border-gray-600 transition mt-2">
-              Logout
-            </button>
+            <div className="flex gap-2 mt-2">
+              <button onClick={() => navigate("/settings")}
+                className="text-xs text-gray-400 border border-gray-800 px-3 py-2 hover:text-primary hover:border-primary transition">
+                ⚙️ Settings
+              </button>
+              <button onClick={handleLogout}
+                className="text-xs text-gray-600 border border-gray-800 px-3 py-2 hover:text-white hover:border-gray-600 transition">
+                Logout
+              </button>
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-6 mt-4 items-end">
