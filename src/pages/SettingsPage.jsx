@@ -92,20 +92,28 @@ const SettingsPage = () => {
 
     try {
       const token = localStorage.getItem("mf_token");
-      const formData = new FormData();
-      formData.append("logo", logoFile);
+
+      // Convert file to base64
+      const base64 = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(",")[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(logoFile);
+      });
 
       const res = await fetch("/api/settings", {
         method: "POST",
-        headers: { "Authorization": `Bearer ${token}` },
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ logo_base64: base64, mime_type: logoFile.type }),
       });
 
       const data = await res.json();
       if (data.logo_url) {
         setLogoSuccess("Logo saved successfully!");
         setLogoFile(null);
-        // Update localStorage
         const stored = JSON.parse(localStorage.getItem("mf_user") || "{}");
         stored.logo_url = data.logo_url;
         localStorage.setItem("mf_user", JSON.stringify(stored));
