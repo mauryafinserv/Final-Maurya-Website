@@ -12,6 +12,7 @@ import Services from "./components/Services";
 import OurEdge from "./components/OurEdge";
 import ContactBanner from "./components/ContactBanner";
 import NriSection from "./components/NriSection";
+import SamridhiSection from "./components/SamridhiSection";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
@@ -75,6 +76,7 @@ function App() {
             <Services />
             <OurEdge />
             <NriSection />
+            <SamridhiSection />
             <Testimonials />
             <ContactBanner />
           </>

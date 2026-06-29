@@ -101,6 +101,24 @@ const NeedHighlightCarousel = () => {
             >
               {h.cta} <ArrowRight className="h-4 w-4" />
             </Link>
+
+            {/* Arrow navigation */}
+            <div className="flex items-center gap-6 mt-10 pt-8 border-t border-gray-900">
+              <button
+                onClick={() => setCurrent((current - 1 + highlights.length) % highlights.length)}
+                className="text-gray-600 hover:text-primary transition text-2xl font-light"
+                aria-label="Previous"
+              >
+                ←
+              </button>
+              <button
+                onClick={() => setCurrent((current + 1) % highlights.length)}
+                className="text-gray-600 hover:text-primary transition text-2xl font-light"
+                aria-label="Next"
+              >
+                →
+              </button>
+            </div>
           </div>
 
           {/* Right — Progress + Navigation */}

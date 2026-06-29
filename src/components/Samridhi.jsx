@@ -23,6 +23,18 @@ const Samridhi = () => {
     }
   }, [messages, loading]);
 
+  // Listen for openSamridhi event from SamridhiSection
+  useEffect(() => {
+    const handleOpen = (e) => {
+      setIsOpen(true);
+      if (e.detail?.question) {
+        setInput(e.detail.question);
+      }
+    };
+    window.addEventListener("openSamridhi", handleOpen);
+    return () => window.removeEventListener("openSamridhi", handleOpen);
+  }, []);
+
   const sendMessage = async () => {
     const trimmed = input.trim();
     if (!trimmed || loading) return;
