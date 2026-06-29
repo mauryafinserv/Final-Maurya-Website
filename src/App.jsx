@@ -11,7 +11,7 @@ import NeedHighlightCarousel from "./components/NeedHighlightCarousel";
 import Services from "./components/Services";
 import OurEdge from "./components/OurEdge";
 import ContactBanner from "./components/ContactBanner";
-import Stats from "./components/Stats";
+import NriSection from "./components/NriSection";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 
@@ -60,92 +60,63 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
-  const [showGiftModal, setShowGiftModal] = useState(false);
-  const [giftFormData, setGiftFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    message: "",
-  });
-
-  const handleGiftChange = (e) => {
-    const { name, value } = e.target;
-    setGiftFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleGiftSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("https://formspree.io/f/xovezbow", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(giftFormData),
-      });
-
-      const result = await response.json();
-      if (result.ok || result.success || response.status === 200) {
-        alert("Thank you! Your details have been submitted.");
-        setGiftFormData({ name: "", email: "", mobile: "", message: "" });
-        setShowGiftModal(false);
-      } else {
-        alert("Something went wrong. Please try again.");
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("There was a problem submitting the form.");
-    }
-  };
-
   return (
     <div className="bg-background text-text min-h-screen font-sans flex flex-col">
       <Header />
       <ScrollToTop />
 
       <Routes>
-        <Route path="/" element={<><SmartTicker /><Hero /><NeedHighlightCarousel /><Services /><OurEdge /><Testimonials /><ContactBanner /></>} />
+        {/* Homepage */}
+        <Route path="/" element={
+          <>
+            <SmartTicker />
+            <Hero />
+            <NeedHighlightCarousel />
+            <Services />
+            <OurEdge />
+            <NriSection />
+            <Testimonials />
+            <ContactBanner />
+          </>
+        } />
+
+        {/* Main pages */}
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
+        <Route path="/downloads" element={<Downloads />} />
+        <Route path="/kyc" element={<KYCForm />} />
+        <Route path="/disclosures" element={<Disclosures />} />
+        <Route path="/financial-calculators" element={<FinancialCalculators />} />
+        <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
+
+        {/* Service pages */}
         <Route path="/mutual-funds" element={<MutualFundPage />} />
         <Route path="/pms" element={<PMSPage />} />
         <Route path="/equity-broking" element={<EquityBrokingPage />} />
         <Route path="/aif" element={<AIFPage />} />
         <Route path="/tax-planning" element={<TaxPlanningPage />} />
         <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />
-        <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
+        <Route path="/nri-investments" element={<NriInvestmentPage />} />
+        <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
+        <Route path="/nps" element={<NpsPage />} />
+
+        {/* Education pages */}
         <Route path="/mutual-fund-basics" element={<MutualFundBasics />} />
         <Route path="/pms-types" element={<PMSBasics />} />
         <Route path="/aif-explained" element={<AIFBasics />} />
         <Route path="/fundamental-analysis" element={<FundamentalAnalysis />} />
-        <Route path="/nri-investments" element={<NriInvestmentPage />} />
-        <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
-        <Route path="/nps" element={<NpsPage />} />
-        <Route path="/downloads" element={<Downloads />} />
-        <Route path="/kyc" element={<KYCForm />} />
-        <Route path="/disclosures" element={<Disclosures />} />
-        <Route path="/financial-calculators" element={<FinancialCalculators />} />
 
         {/* Auth routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-
-        {/* Admin dashboard */}
         <Route path="/admin" element={<AdminPage />} />
 
-        {/* Settings page */}
+        {/* Protected routes */}
         <Route path="/settings" element={
-          <ProtectedRoute>
-            <SettingsPage />
-          </ProtectedRoute>
+          <ProtectedRoute><SettingsPage /></ProtectedRoute>
         } />
-
-        {/* Protected content tool */}
         <Route path="/content-tool" element={
-          <ProtectedRoute>
-            <ContentToolPage />
-          </ProtectedRoute>
+          <ProtectedRoute><ContentToolPage /></ProtectedRoute>
         } />
 
         {/* Calculators */}
