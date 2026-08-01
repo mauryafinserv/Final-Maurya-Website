@@ -36,6 +36,7 @@ import ContactUsPage from "./pages/ContactUsPage";
 import Downloads from "./pages/Downloads";
 import KYCForm from "./pages/KYCForm";
 import Disclosures from "./pages/Disclosures";
+import CommissionDisclosure from "./pages/CommissionDisclosure";
 import FinancialCalculators from "./pages/FinancialCalculators";
 import ContentToolPage from "./pages/ContentToolPage";
 import LoginPage from "./pages/LoginPage";
@@ -88,6 +89,7 @@ function App() {
         <Route path="/downloads" element={<Downloads />} />
         <Route path="/kyc" element={<KYCForm />} />
         <Route path="/disclosures" element={<Disclosures />} />
+        <Route path="/commission-disclosure" element={<CommissionDisclosure />} />
         <Route path="/financial-calculators" element={<FinancialCalculators />} />
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
 
