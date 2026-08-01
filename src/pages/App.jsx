@@ -1,0 +1,143 @@
+// src/App.jsx
+import React, { useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import ScrollToTop from "./components/ScrollToTop";
+import Samridhi from "./components/Samridhi";
+import Header from "./components/Header";
+import SmartTicker from "./components/SmartTicker";
+import Hero from "./components/Hero";
+import NeedHighlightCarousel from "./components/NeedHighlightCarousel";
+import Services from "./components/Services";
+import OurEdge from "./components/OurEdge";
+import ContactBanner from "./components/ContactBanner";
+import NriSection from "./components/NriSection";
+import SamridhiSection from "./components/SamridhiSection";
+import Testimonials from "./components/Testimonials";
+import Footer from "./components/Footer";
+
+// Pages
+import MutualFundPage from "./pages/MutualFundPage";
+import PMSPage from "./pages/PMSPage";
+import KnowledgeCorner from "./pages/KnowledgeCorner";
+import EquityBrokingPage from "./pages/EquityBrokingPage";
+import AIFPage from "./pages/AIFPage";
+import TaxPlanningPage from "./pages/TaxPlanningPage";
+import InsuranceAdvisoryPage from "./pages/InsuranceAdvisoryPage";
+import MutualFundBasics from "./pages/MutualFundBasics";
+import PMSBasics from "./pages/PMSBasics";
+import AIFBasics from "./pages/AIFBasics";
+import FundamentalAnalysis from "./pages/FundamentalAnalysis";
+import NriInvestmentPage from "./pages/NriInvestmentPage";
+import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
+import NpsPage from "./pages/NpsPage";
+import AboutUsPage from "./pages/AboutUsPage";
+import ContactUsPage from "./pages/ContactUsPage";
+import Downloads from "./pages/Downloads";
+import KYCForm from "./pages/KYCForm";
+import Disclosures from "./pages/Disclosures";
+import CommissionDisclosure from "./pages/CommissionDisclosure";
+import FinancialCalculators from "./pages/FinancialCalculators";
+import ContentToolPage from "./pages/ContentToolPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import AdminPage from "./pages/AdminPage";
+import SettingsPage from "./pages/SettingsPage";
+
+// Calculators
+import SipGoalCalculator from "./components/calculators/SipGoalCalculator";
+import StepUpSipCalculator from "./components/calculators/StepUpSipCalculator";
+import SipFutureValueCalculator from "./components/calculators/SipFutureValueCalculator";
+import LumpsumCalculator from "./components/calculators/LumpsumCalculator";
+import SwpCalculator from "./components/calculators/SwpCalculator";
+import EmiCalculator from "./components/calculators/EmiCalculator";
+import RetirementCalculator from "./components/calculators/RetirementCalculator";
+import EducationCalculator from "./components/calculators/EducationCalculator";
+
+// Protected route — redirects to login if not authenticated
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("mf_token");
+  if (!token) return <Navigate to="/login" replace />;
+  return children;
+};
+
+function App() {
+  return (
+    <div className="bg-background text-text min-h-screen font-sans flex flex-col">
+      <Header />
+      <ScrollToTop />
+
+      <Routes>
+        {/* Homepage */}
+        <Route path="/" element={
+          <>
+            <SmartTicker />
+            <Hero />
+            <NeedHighlightCarousel />
+            <Services />
+            <OurEdge />
+            <NriSection />
+            <SamridhiSection />
+            <Testimonials />
+            <ContactBanner />
+          </>
+        } />
+
+        {/* Main pages */}
+        <Route path="/about-us" element={<AboutUsPage />} />
+        <Route path="/contact-us" element={<ContactUsPage />} />
+        <Route path="/downloads" element={<Downloads />} />
+        <Route path="/kyc" element={<KYCForm />} />
+        <Route path="/disclosures" element={<Disclosures />} />
+        <Route path="/commission-disclosure" element={<CommissionDisclosure />} />
+        <Route path="/financial-calculators" element={<FinancialCalculators />} />
+        <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
+
+        {/* Service pages */}
+        <Route path="/mutual-funds" element={<MutualFundPage />} />
+        <Route path="/pms" element={<PMSPage />} />
+        <Route path="/equity-broking" element={<EquityBrokingPage />} />
+        <Route path="/aif" element={<AIFPage />} />
+        <Route path="/tax-planning" element={<TaxPlanningPage />} />
+        <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />
+        <Route path="/nri-investments" element={<NriInvestmentPage />} />
+        <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
+        <Route path="/nps" element={<NpsPage />} />
+
+        {/* Education pages */}
+        <Route path="/mutual-fund-basics" element={<MutualFundBasics />} />
+        <Route path="/pms-types" element={<PMSBasics />} />
+        <Route path="/aif-explained" element={<AIFBasics />} />
+        <Route path="/fundamental-analysis" element={<FundamentalAnalysis />} />
+
+        {/* Auth routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+
+        {/* Protected routes */}
+        <Route path="/settings" element={
+          <ProtectedRoute><SettingsPage /></ProtectedRoute>
+        } />
+        <Route path="/content-tool" element={
+          <ProtectedRoute><ContentToolPage /></ProtectedRoute>
+        } />
+
+        {/* Calculators */}
+        <Route path="/calculators/sip-goal" element={<SipGoalCalculator />} />
+        <Route path="/calculators/step-up-sip" element={<StepUpSipCalculator />} />
+        <Route path="/calculators/sip-fv" element={<SipFutureValueCalculator />} />
+        <Route path="/calculators/lumpsum-fv" element={<LumpsumCalculator />} />
+        <Route path="/calculators/swp" element={<SwpCalculator />} />
+        <Route path="/calculators/emi" element={<EmiCalculator />} />
+        <Route path="/calculators/retirement" element={<RetirementCalculator />} />
+        <Route path="/calculators/education" element={<EducationCalculator />} />
+      </Routes>
+
+      <Samridhi />
+      <Footer />
+    </div>
+  );
+}
+
+export default App;

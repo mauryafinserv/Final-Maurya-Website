@@ -55,6 +55,7 @@ const Footer = () => {
               ["KYC Form", "/kyc"],
               ["Downloads", "/downloads"],
               ["Regulatory Disclosures", "/disclosures"],
+              ["Commission Disclosure", "/commission-disclosure"],
               ["About Us", "/about-us"],
               ["Contact Us", "/contact-us"],
             ].map(([name, link]) => (

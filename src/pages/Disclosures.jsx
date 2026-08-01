@@ -175,6 +175,23 @@ const Disclosures = () => {
           </p>
         </section>
 
+        {/* Commission Disclosure */}
+        <section className="mb-10 border border-primary rounded-xl p-6">
+          <h2 className="text-xl font-semibold text-primary mb-3">Commission Disclosure</h2>
+          <p className="text-sm text-gray-400 mb-4">
+            All mutual fund investments facilitated through Maurya Shares and Stock Brokers Pvt. Ltd. are 
+            processed under <span className="text-white font-medium">Regular Plan</span>, which involves 
+            payment of trail commission by the respective AMC to the distributor. No upfront commission or 
+            incentive in any form other than trail commission is received, as per SEBI regulations.
+          </p>
+          <Link
+            to="/commission-disclosure"
+            className="inline-block bg-primary text-black font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-darkGold transition"
+          >
+            View AMC-wise Commission Details →
+          </Link>
+        </section>
+
         {/* Disclaimer */}
         <section className="text-xs text-gray-500 border-t border-gray-700 pt-6">
           <p>
