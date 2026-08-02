@@ -54,7 +54,6 @@ const Header = () => {
           )}
         </div>
         <Link to="/downloads" className="hover:text-primary transition whitespace-nowrap hidden md:inline">Downloads</Link>
-        <Link to="/kyc" className="text-primary font-semibold hover:text-white transition whitespace-nowrap">KYC Form</Link>
         <Link to="/contact-us" className="hover:text-primary transition whitespace-nowrap">Contact Us</Link>
       </div>
 
@@ -154,7 +153,6 @@ const Header = () => {
                 </div>
               </details>
 
-              <Link to="/kyc" onClick={closeAll} className="py-3 text-primary font-semibold border-b border-gray-900">KYC Form</Link>
               <Link to="/contact-us" onClick={closeAll} className="py-3 border-b border-gray-900 hover:text-primary transition">Contact Us</Link>
             </nav>
           </div>

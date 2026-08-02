@@ -52,7 +52,6 @@ const Footer = () => {
             {[
               ["Knowledge Corner", "/knowledge-corner"],
               ["Financial Calculators", "/financial-calculators"],
-              ["KYC Form", "/kyc"],
               ["Downloads", "/downloads"],
               ["Regulatory Disclosures", "/disclosures"],
               ["Commission Disclosure", "/commission-disclosure"],
