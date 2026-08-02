@@ -120,7 +120,7 @@ const Disclosures = () => {
 
         {/* Grievance Redressal */}
         <section className="mb-10 border border-primary rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-primary mb-2">Grievance Redressal</h2>
+          <h2 className="text-xl font-semibold text-primary mb-2">Equity Broking — Grievance Redressal</h2>
           <p className="text-sm text-gray-400 mb-4">
             If not satisfied with the response from Kotak Securities Limited, you may contact the concerned 
             Stock Exchange / Depository:
@@ -147,9 +147,9 @@ const Disclosures = () => {
                 ].map((row) => (
                   <tr key={row.name} className="border-b border-gray-700 hover:bg-gray-900">
                     <td className="py-3 px-4 font-medium text-white">{row.name}</td>
-                    <td className="py-3 px-4">{row.web}</td>
+                    <td className="py-3 px-4"><a href={`https://${row.web}`} target="_blank" rel="noopener noreferrer" className="text-primary underline">{row.web}</a></td>
                     <td className="py-3 px-4">{row.phone}</td>
-                    <td className="py-3 px-4">{row.email}</td>
+                    <td className="py-3 px-4"><a href={`mailto:${row.email}`} className="hover:text-primary">{row.email}</a></td>
                   </tr>
                 ))}
               </tbody>
@@ -159,6 +159,70 @@ const Disclosures = () => {
             <p>📋 File complaints with SEBI via SCORES: <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary underline">scores.sebi.gov.in</a></p>
             <p>📋 Initiate dispute resolution via SMART ODR Portal: <a href="https://smartodr.in/login" target="_blank" rel="noopener noreferrer" className="text-primary underline">smartodr.in</a></p>
             <p>📋 For cyber-related complaints, write to: ks.ccd@kotak.com or call 18002099595 (9am–6pm, all trading days)</p>
+          </div>
+        </section>
+
+        {/* Mutual Fund — Grievance Redressal */}
+        <section className="mb-10 border border-primary rounded-xl p-6">
+          <h2 className="text-xl font-semibold text-primary mb-2">Mutual Fund — Grievance Redressal</h2>
+          <p className="text-sm text-gray-400 mb-5">
+            If you have any grievance or complaint related to mutual fund investments made through
+            Maurya Shares and Stock Brokers Pvt. Ltd., please follow the escalation path below:
+          </p>
+          <div className="space-y-4">
+            {[
+              {
+                level: "Level 1",
+                title: "Contact Maurya Shares and Stock Brokers Pvt. Ltd.",
+                detail: (
+                  <>
+                    <span className="block">Email: <a href="mailto:mssbpatna@gmail.com" className="text-primary underline">mssbpatna@gmail.com</a></span>
+                    <span className="block">Phone: <a href="tel:9304817121" className="text-primary">+91 9304817121</a></span>
+                  </>
+                ),
+              },
+              {
+                level: "Level 2",
+                title: "Contact the respective AMC directly",
+                detail: (
+                  <span>Visit the AMC's website to register your grievance. <Link to="/amc-links" className="text-primary underline">View AMC websites →</Link></span>
+                ),
+              },
+              {
+                level: "Level 3",
+                title: "Contact AMFI",
+                detail: (
+                  <>
+                    <span className="block">AMFI Toll Free: 1800-22-2-3000</span>
+                    <span className="block">Website: <a href="https://www.amfiindia.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">www.amfiindia.com</a></span>
+                  </>
+                ),
+              },
+              {
+                level: "Level 4",
+                title: "File complaint with SEBI via SCORES",
+                detail: (
+                  <a href="https://scores.sebi.gov.in" target="_blank" rel="noopener noreferrer" className="text-primary underline">scores.sebi.gov.in</a>
+                ),
+              },
+              {
+                level: "Level 5",
+                title: "Initiate dispute resolution via SMART ODR Portal",
+                detail: (
+                  <a href="https://smartodr.in" target="_blank" rel="noopener noreferrer" className="text-primary underline">smartodr.in</a>
+                ),
+              },
+            ].map((step) => (
+              <div key={step.level} className="flex gap-4 items-start">
+                <span className="bg-primary text-black text-xs font-bold px-2.5 py-1 rounded-full whitespace-nowrap mt-0.5">
+                  {step.level}
+                </span>
+                <div className="text-sm">
+                  <p className="text-white font-medium">{step.title}</p>
+                  <div className="text-gray-400 mt-0.5">{step.detail}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -175,21 +239,123 @@ const Disclosures = () => {
           </p>
         </section>
 
-        {/* Commission Disclosure */}
+        {/* AMFI Code of Conduct */}
         <section className="mb-10 border border-primary rounded-xl p-6">
-          <h2 className="text-xl font-semibold text-primary mb-3">Commission Disclosure</h2>
-          <p className="text-sm text-gray-400 mb-4">
-            All mutual fund investments facilitated through Maurya Shares and Stock Brokers Pvt. Ltd. are 
-            processed under <span className="text-white font-medium">Regular Plan</span>, which involves 
-            payment of trail commission by the respective AMC to the distributor. No upfront commission or 
-            incentive in any form other than trail commission is received, as per SEBI regulations.
+          <h2 className="text-xl font-semibold text-primary mb-3">AMFI Code of Conduct</h2>
+          <p className="text-sm text-gray-400 mb-3">
+            Maurya Shares and Stock Brokers Pvt. Ltd. abides by the AMFI Code of Conduct for Mutual Fund
+            Distributors, which establishes professional standards of integrity, transparency, competency,
+            and fairness in dealings with investors, AMCs, and other distributors.
           </p>
-          <Link
-            to="/commission-disclosure"
-            className="inline-block bg-primary text-black font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-darkGold transition"
+          <a
+            href="https://www.amfiindia.com/distributor-corner/distributor/code-of-conduct"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline text-sm"
           >
-            View AMC-wise Commission Details →
-          </Link>
+            Read the full AMFI Code of Conduct →
+          </a>
+        </section>
+
+        {/* Scheme Documents */}
+        <section className="mb-10 border border-primary rounded-xl p-6">
+          <h2 className="text-xl font-semibold text-primary mb-3">Scheme Documents (SID / KIM / Forms)</h2>
+          <p className="text-sm text-gray-400 mb-3">
+            Investors are advised to read the Scheme Information Document (SID), Key Information
+            Memorandum (KIM), and Statement of Additional Information (SAI) of the respective mutual fund
+            schemes before investing. These documents are available on the official websites of the AMCs.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/amc-links"
+              className="inline-block bg-primary text-black font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-darkGold transition"
+            >
+              Visit AMC Websites →
+            </Link>
+            <a
+              href="https://www.amfiindia.com/net-asset-value/mutual-fund-scheme-documents"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block border border-primary text-primary font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-primary hover:text-black transition"
+            >
+              AMFI Scheme Documents →
+            </a>
+          </div>
+        </section>
+
+        {/* Key Regulatory References */}
+        <section className="mb-10 border border-primary rounded-xl p-6">
+          <h2 className="text-xl font-semibold text-primary mb-4">Key Regulatory References</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm text-gray-300 border-collapse">
+              <thead>
+                <tr className="bg-darkGold/20 text-white">
+                  <th className="py-3 px-4 text-left">Circular / Regulation</th>
+                  <th className="py-3 px-4 text-left">Date</th>
+                  <th className="py-3 px-4 text-left">Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  {
+                    name: "SEBI (Mutual Funds) Regulations, 2026",
+                    date: "—",
+                    url: "https://www.sebi.gov.in/legal/regulations/jul-2026/securities-and-exchange-board-of-india-mutual-funds-regulations-2026_87961.html",
+                  },
+                  {
+                    name: "SEBI Master Circular for Mutual Funds",
+                    date: "March 20, 2026",
+                    url: "https://www.sebi.gov.in/legal/master-circulars/mar-2026/master-circular-for-mutual-funds_93966.html",
+                  },
+                  {
+                    name: "SEBI EoDI Circular — HO/(79)2026-MIRSD-PODMMC",
+                    date: "Feb 26, 2026",
+                    url: "https://www.sebi.gov.in/legal/circulars/feb-2026/ease-of-doing-investment-eodi-disclosure-of-registered-name-and-registration-number_92392.html",
+                  },
+                  {
+                    name: "SEBI Commission Disclosure Circular — SEBI/IMD/CIR No. 4/168230/09",
+                    date: "June 30, 2009",
+                    url: "https://www.sebi.gov.in/legal/circulars/jun-2009/no-entry-load-for-mutual-fund-schemes_9657.html",
+                  },
+                  {
+                    name: "AMFI Master Circular for Mutual Fund Distributors",
+                    date: "January 2026",
+                    url: "https://www.amfiindia.com/Themes/Theme1/downloads/AMFI-Master-Cicular-for-MF-Ds.pdf",
+                  },
+                  {
+                    name: "AMFI Code of Conduct for Mutual Fund Distributors",
+                    date: "—",
+                    url: "https://www.amfiindia.com/distributor-corner/distributor/code-of-conduct",
+                  },
+                  {
+                    name: "AMFI Commission Disclosure Portal",
+                    date: "—",
+                    url: "https://www.amfiindia.com/commission-disclosure",
+                  },
+                  {
+                    name: "SEBI SCORES — Investor Complaint Portal",
+                    date: "—",
+                    url: "https://scores.sebi.gov.in",
+                  },
+                  {
+                    name: "SMART ODR — Online Dispute Resolution",
+                    date: "—",
+                    url: "https://smartodr.in",
+                  },
+                ].map((row) => (
+                  <tr key={row.name} className="border-b border-gray-700 hover:bg-gray-900">
+                    <td className="py-3 px-4 text-white">{row.name}</td>
+                    <td className="py-3 px-4 text-gray-400 whitespace-nowrap">{row.date}</td>
+                    <td className="py-3 px-4">
+                      <a href={row.url} target="_blank" rel="noopener noreferrer" className="text-primary underline">
+                        Visit →
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         {/* Disclaimer */}

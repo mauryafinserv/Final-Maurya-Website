@@ -37,6 +37,7 @@ import Downloads from "./pages/Downloads";
 import KYCForm from "./pages/KYCForm";
 import Disclosures from "./pages/Disclosures";
 import CommissionDisclosure from "./pages/CommissionDisclosure";
+import AmcLinks from "./pages/AmcLinks";
 import FinancialCalculators from "./pages/FinancialCalculators";
 import ContentToolPage from "./pages/ContentToolPage";
 import LoginPage from "./pages/LoginPage";
@@ -90,6 +91,7 @@ function App() {
         <Route path="/kyc" element={<KYCForm />} />
         <Route path="/disclosures" element={<Disclosures />} />
         <Route path="/commission-disclosure" element={<CommissionDisclosure />} />
+        <Route path="/amc-links" element={<AmcLinks />} />
         <Route path="/financial-calculators" element={<FinancialCalculators />} />
         <Route path="/knowledge-corner" element={<KnowledgeCorner />} />
 

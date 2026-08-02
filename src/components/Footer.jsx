@@ -56,6 +56,7 @@ const Footer = () => {
               ["Downloads", "/downloads"],
               ["Regulatory Disclosures", "/disclosures"],
               ["Commission Disclosure", "/commission-disclosure"],
+              ["AMC Websites", "/amc-links"],
               ["About Us", "/about-us"],
               ["Contact Us", "/contact-us"],
             ].map(([name, link]) => (
