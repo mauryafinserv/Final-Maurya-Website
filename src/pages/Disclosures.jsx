@@ -248,7 +248,7 @@ const Disclosures = () => {
             and fairness in dealings with investors, AMCs, and other distributors.
           </p>
           <a
-            href="https://www.amfiindia.com/distributor-corner/distributor/code-of-conduct"
+            href="https://www.amfiindia.com/distributor/mutual-funds-introduction?zoneName=CodeOfConduct"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary underline text-sm"
@@ -300,37 +300,37 @@ const Disclosures = () => {
                   {
                     name: "SEBI (Mutual Funds) Regulations, 2026",
                     date: "—",
-                    url: "https://www.sebi.gov.in/legal/regulations/jul-2026/securities-and-exchange-board-of-india-mutual-funds-regulations-2026_87961.html",
+                    url: "https://www.sebi.gov.in/legal/regulations/jan-2026/securities-and-exchange-board-of-india-mutual-funds-regulations-2026_99173.html",
                   },
                   {
                     name: "SEBI Master Circular for Mutual Funds",
                     date: "March 20, 2026",
-                    url: "https://www.sebi.gov.in/legal/master-circulars/mar-2026/master-circular-for-mutual-funds_93966.html",
+                    url: "https://www.sebi.gov.in/legal/master-circulars/mar-2026/master-circular-for-mutual-funds_100491.html",
                   },
                   {
                     name: "SEBI EoDI Circular — HO/(79)2026-MIRSD-PODMMC",
                     date: "Feb 26, 2026",
-                    url: "https://www.sebi.gov.in/legal/circulars/feb-2026/ease-of-doing-investment-eodi-disclosure-of-registered-name-and-registration-number_92392.html",
+                    url: "https://www.sebi.gov.in/legal/circulars/feb-2026/ease-of-doing-investment-eodi-disclosure-of-registered-name-and-registration-number-by-sebi-regulated-entities-and-their-agents-on-social-media-platforms-smps-_100005.html",
                   },
                   {
                     name: "SEBI Commission Disclosure Circular — SEBI/IMD/CIR No. 4/168230/09",
                     date: "June 30, 2009",
-                    url: "https://www.sebi.gov.in/legal/circulars/jun-2009/no-entry-load-for-mutual-fund-schemes_9657.html",
+                    url: "https://www.sebi.gov.in/legal/circulars/jun-2009/mutual-funds-empowering-investors-through-transparency-in-payment-of-commission-and-load-structure_4626.html",
                   },
                   {
                     name: "AMFI Master Circular for Mutual Fund Distributors",
                     date: "January 2026",
-                    url: "https://www.amfiindia.com/Themes/Theme1/downloads/AMFI-Master-Cicular-for-MF-Ds.pdf",
+                    url: "https://www.amfiindia.com/uploads/AMFI_Master_Cicular_for_MF_Ds_3c7f5ee44f.pdf",
                   },
                   {
                     name: "AMFI Code of Conduct for Mutual Fund Distributors",
                     date: "—",
-                    url: "https://www.amfiindia.com/distributor-corner/distributor/code-of-conduct",
+                    url: "https://www.amfiindia.com/distributor/mutual-funds-introduction?zoneName=CodeOfConduct",
                   },
                   {
                     name: "AMFI Commission Disclosure Portal",
                     date: "—",
-                    url: "https://www.amfiindia.com/commission-disclosure",
+                    url: "https://www.amfiindia.com/research-information/commission-disclosure",
                   },
                   {
                     name: "SEBI SCORES — Investor Complaint Portal",
