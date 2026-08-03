@@ -5,7 +5,13 @@ const Downloads = () => {
   return (
     <section className="py-20 px-6 md:px-12 text-gray-800">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold text-primary mb-8">Downloads</h1>
+        <h1 className="text-4xl font-bold text-primary mb-4">Downloads</h1>
+        <p className="text-gray-400 text-base mb-8">
+          For downloading mutual fund application forms, Scheme Information Documents (SID), 
+          Key Information Memorandums (KIM), and factsheets, please visit the official website 
+          of the respective AMC.{" "}
+          <a href="/amc-links" className="text-primary underline">Visit AMC Websites →</a>
+        </p>
 
         <div className="space-y-8">
           {/* MyWealth */}

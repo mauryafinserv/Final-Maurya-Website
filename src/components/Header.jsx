@@ -35,6 +35,7 @@ const Header = () => {
       {/* Top utility bar */}
       <div className="border-b border-gray-800 text-xs py-2 px-6 md:px-16 flex justify-center md:justify-end items-center gap-6 text-gray-400">
         <Link to="/financial-calculators" className="hover:text-primary transition whitespace-nowrap">Financial Calculators</Link>
+        <Link to="/disclosures" className="hover:text-primary transition whitespace-nowrap hidden md:inline">Disclosures</Link>
         <div ref={loginDropdownRef} className="relative">
           <button
             onClick={() => setMobileMenu((prev) => ({ ...prev, loginTop: !prev.loginTop }))}

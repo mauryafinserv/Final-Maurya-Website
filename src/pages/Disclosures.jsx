@@ -36,6 +36,10 @@ const Disclosures = () => {
                 <td className="py-3 pr-6 text-gray-400">Type of Entity</td>
                 <td className="py-3">Private Limited Company</td>
               </tr>
+              <tr className="border-t border-gray-700">
+                <td className="py-3 pr-6 text-gray-400">CIN</td>
+                <td className="py-3 font-mono text-primary">U67120BR1997PTC007775</td>
+              </tr>
             </tbody>
           </table>
         </section>
@@ -177,7 +181,7 @@ const Disclosures = () => {
                 detail: (
                   <>
                     <span className="block">Email: <a href="mailto:mssbpatna@gmail.com" className="text-primary underline">mssbpatna@gmail.com</a></span>
-                    <span className="block">Phone: <a href="tel:9304817121" className="text-primary">+91 9304817121</a></span>
+                    <span className="block">Phone: <a href="tel:9334152915" className="text-primary">+91 9334152915</a></span>
                   </>
                 ),
               },
