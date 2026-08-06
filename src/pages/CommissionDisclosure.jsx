@@ -42,12 +42,23 @@ const CommissionDisclosure = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-primary mb-3">
           Commission Disclosure
         </h1>
-        <p className="text-gray-400 text-base leading-relaxed mb-10 max-w-3xl">
+        <p className="text-gray-400 text-base leading-relaxed mb-6 max-w-3xl">
           The firm receives trail commission from mutual fund AMCs for business sourced under its ARN code.
           The commission varies from fund house to fund house and from scheme to scheme. As per SEBI
           guidelines, following are the details of commission applicable to Maurya Shares and Stock Brokers
           Pvt. Ltd. from various AMCs whose products are distributed:
         </p>
+
+        <div className="mb-10">
+          <a
+            href="https://docs.google.com/spreadsheets/d/1Ck4rJHPuDQjCOorHbwDUApOWHdtzYOLPjHgGihybT8c/edit?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-primary text-black font-semibold text-sm px-5 py-2.5 rounded-full hover:bg-darkGold transition"
+          >
+            View Exact Scheme-wise Commission Rates →
+          </a>
+        </div>
 
         {/* Search */}
         <div className="mb-4">
