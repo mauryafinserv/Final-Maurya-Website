@@ -43,11 +43,10 @@ const MutualFundPage = () => {
 
   const features = [
     { no: "01", title: "Paperless & Seamless", desc: "100% digital onboarding and transaction processing — no paperwork, no hassle." },
-    { no: "02", title: "Goal-Based Planning", desc: "We build portfolios around your life goals — retirement, education, home, or wealth creation." },
-    { no: "03", title: "All AMCs, One Platform", desc: "Access funds from all leading AMCs — HDFC, SBI, Nippon, Mirae, PPFAS and more." },
-    { no: "04", title: "No Hidden Charges", desc: "Full transparency on all transactions. Zero advisory fees — we earn only from AMC commission." },
-    { no: "05", title: "Regular Portfolio Review", desc: "Periodic reviews to keep your portfolio aligned with your goals and market conditions." },
-    { no: "06", title: "AI-Powered Research", desc: "Our recommendations are backed by Claude AI and NGen market intelligence." },
+    { no: "02", title: "All AMCs, One Platform", desc: "Access funds from all leading AMCs — HDFC, SBI, Nippon, Mirae, PPFAS and more." },
+    { no: "03", title: "No Hidden Charges", desc: "Full transparency on all transactions. Zero advisory fees — we earn only from AMC commission." },
+    { no: "04", title: "Regular Portfolio Review", desc: "Periodic reviews to keep your portfolio aligned with your risks and goals." },
+    { no: "05", title: "AI-Powered Research", desc: "Our recommendations are backed by Claude AI and NGen market intelligence." },
   ];
 
   const inputClass = "w-full bg-gray-900 border-b border-gray-700 px-0 py-3 text-white text-sm focus:outline-none focus:border-primary placeholder-gray-600";

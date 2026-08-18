@@ -30,7 +30,7 @@ const features = [
   {
     icon: <Handshake className="h-8 w-8 text-blue-400 mb-4" />,
     title: "Strong Presence",
-    desc: "Offices in Mumbai, Patna, Kolkata — expanding soon to Bengaluru and Pune."
+    desc: "Offices in Mumbai and Patna — expanding soon to more cities."
   }
 ];
 
