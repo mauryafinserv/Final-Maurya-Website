@@ -30,6 +30,9 @@ const Footer = () => {
             <li><Link to="/mutual-funds" className="hover:underline">Mutual Fund Distribution</Link></li>
             <li><Link to="/equity-broking" className="hover:underline">Equity Broking</Link></li>
             <li><Link to="/knowledge-corner" className="hover:underline">Knowledge Corner</Link></li>
+            <li><Link to="/disclosures" className="hover:underline">Regulatory Disclosures</Link></li>
+            <li><Link to="/commission-disclosure" className="hover:underline">Commission Disclosure</Link></li>
+            <li><Link to="/amc-links" className="hover:underline">AMC Websites</Link></li>
             <li><a href="#partner" className="hover:underline">Partner with Us</a></li>
             {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
             <li><Link to="/aif" className="hover:underline">AIF</Link></li>

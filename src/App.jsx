@@ -22,6 +22,9 @@ import NriInvestmentPage from "./pages/NriInvestmentPage";
 import AboutUsPage from "./pages/AboutUsPage";
 import ContactUsPage from "./pages/ContactUsPage";
 import Downloads from "./pages/Downloads";
+import Disclosures from "./pages/Disclosures";
+import CommissionDisclosure from "./pages/CommissionDisclosure";
+import AmcLinks from "./pages/AmcLinks";
 import FinancialCalculators from "./pages/FinancialCalculators";
 
 /* ── TEMPORARILY HIDDEN FOR AUDIT ──
@@ -98,6 +101,9 @@ function App() {
         <Route path="/mutual-fund-basics" element={<MutualFundBasics />} />
         <Route path="/nri-investments" element={<NriInvestmentPage />} />
         <Route path="/downloads" element={<Downloads />} />
+        <Route path="/disclosures" element={<Disclosures />} />
+        <Route path="/commission-disclosure" element={<CommissionDisclosure />} />
+        <Route path="/amc-links" element={<AmcLinks />} />
         <Route path="/financial-calculators" element={<FinancialCalculators />} />
 
         {/* ── TEMPORARILY HIDDEN FOR AUDIT ──

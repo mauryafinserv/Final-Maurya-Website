@@ -35,6 +35,10 @@ const Header = () => {
     <header className="sticky top-0 z-50 w-full">
       {/* 🔷 Top Black Bar */}
       <div className="bg-black text-gold-500 text-sm py-2 px-4 flex justify-end items-center gap-6 relative">
+        <Link to="/disclosures" className="hover:text-yellow-500">
+          DISCLOSURES
+        </Link>
+
         <Link to="/financial-calculators" className="hover:text-yellow-500">
           FINANCIAL CALCULATORS
         </Link>
