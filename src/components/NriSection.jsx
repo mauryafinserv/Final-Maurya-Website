@@ -27,7 +27,7 @@ const NriSection = () => {
             India's growth story.<br />Your <span className="text-primary">global</span> opportunity.
           </h2>
           <p className="text-gray-400 leading-relaxed mb-8">
-            Whether you're in the US, UAE, UK, or anywhere in the world — we help you invest in India seamlessly. GIFT City, NRE/NRO accounts, mutual funds, PMS, AIFs — all from the comfort of your home abroad.
+            Whether you're in the US, UAE, UK, or anywhere in the world — we help you invest in India seamlessly. Mutual funds via NRE/NRO accounts and equities via PIS — all from the comfort of your home abroad.
           </p>
           <div className="flex flex-wrap gap-4">
             <a
@@ -67,7 +67,7 @@ const NriSection = () => {
 
       </div>
 
-      {/* GIFT City strip */}
+      {/* ── TEMPORARILY HIDDEN FOR AUDIT — GIFT City strip ──
       <div className="mt-16 pt-12 border-t border-gray-800 max-w-7xl mx-auto fade-item opacity-0 translate-y-8 transition-all duration-700" style={{ transitionDelay: "300ms" }}>
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
@@ -79,6 +79,7 @@ const NriSection = () => {
           </Link>
         </div>
       </div>
+      ── END HIDDEN ── */}
     </section>
   );
 };

@@ -15,7 +15,7 @@ const features = [
   {
     icon: <Handshake className="h-8 w-8 text-blue-400 mb-4" />,
     title: "One-Stop Financial Partner",
-    desc: "From mutual funds to insurance — everything under one roof."
+    desc: "Mutual funds and equities — your wealth journey, one trusted partner."
   },
   {
     icon: <ShieldCheck className="h-8 w-8 text-blue-400 mb-4" />,
