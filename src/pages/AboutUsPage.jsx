@@ -52,16 +52,21 @@ const AboutUsPage = () => {
           <ul className="list-disc pl-6 space-y-3">
             <li>Distribution of Mutual Funds across all leading AMCs</li>
             <li>Execution support for Equity Broking through Kotak Securities Limited</li>
+            <li>NRI investment facilitation via NRE/NRO accounts</li>
+            {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
             <li>Facilitation of investments into PMS Distribution and Alternative Investment Funds (AIFs)</li>
             <li>Loan Against Securities (Mutual Funds and Stocks), NPS (National Pension System), and Company Fixed Deposits</li>
             <li>Insurance across Life, Health, and General</li>
             <li>Tax Planning and Structuring Support (in collaboration with qualified tax professionals)</li>
             <li>Estate Planning Facilitation through trusted legal and wealth partners to secure your legacy</li>
+            ── END HIDDEN ── */}
           </ul>
 
+          {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
           <p>
             We also enable access to new frontiers through GIFT City — India's first international financial center. NRIs and global investors can now invest into India through GIFT City structures, offering dollar-denominated investments, tax-efficiency, and global portfolio diversification, without the need for a PAN card or Indian bank account.
           </p>
+          ── END HIDDEN ── */}
 
           <h2 className="text-primary text-2xl font-bold mt-10 mb-4">Our Strengths:</h2>
           <ul className="list-disc pl-6 space-y-3">
@@ -101,12 +106,14 @@ const AboutUsPage = () => {
                 Through our partnership with NGen, we access institutional-grade market intelligence and research tools — the same quality that powers top wealth firms globally.
               </p>
             </div>
+            {/* ── TEMPORARILY HIDDEN FOR AUDIT — Samridhi is offline ──
             <div className="border border-gray-800 rounded-xl p-5 bg-black">
               <p className="text-primary font-semibold mb-2">Samridhi — Your AI Wealth Assistant</p>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Our AI-powered wealth assistant Samridhi is available 24/7 to answer your investment queries and connect you with our team when needed.
               </p>
             </div>
+            ── END HIDDEN ── */}
           </div>
           <p className="text-gray-400 text-sm italic">
             Technology does not replace the human touch — it sharpens it.
