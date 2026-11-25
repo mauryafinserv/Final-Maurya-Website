@@ -15,7 +15,7 @@ const features = [
   {
     icon: <Handshake className="h-8 w-8 text-blue-400 mb-4" />,
     title: "One-Stop Financial Partner",
-    desc: "Mutual funds and equities — your wealth journey, one trusted partner."
+    desc: "From mutual funds to insurance — everything under one roof."
   },
   {
     icon: <ShieldCheck className="h-8 w-8 text-blue-400 mb-4" />,
@@ -30,7 +30,7 @@ const features = [
   {
     icon: <Handshake className="h-8 w-8 text-blue-400 mb-4" />,
     title: "Strong Presence",
-    desc: "Offices in Mumbai and Patna — expanding soon to more cities."
+    desc: "Offices in Mumbai, Patna, Kolkata — expanding soon to Bengaluru and Pune."
   }
 ];
 

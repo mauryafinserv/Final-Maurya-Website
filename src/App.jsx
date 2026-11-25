@@ -12,6 +12,8 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import ContactBanner from "./components/ContactBanner";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
+import Samridhi from "./components/Samridhi";
+import SamridhiSection from "./components/SamridhiSection";
 
 // Pages
 import MutualFundPage from "./pages/MutualFundPage";
@@ -26,15 +28,12 @@ import Disclosures from "./pages/Disclosures";
 import CommissionDisclosure from "./pages/CommissionDisclosure";
 import AmcLinks from "./pages/AmcLinks";
 import FinancialCalculators from "./pages/FinancialCalculators";
-
-/* ── TEMPORARILY HIDDEN FOR AUDIT ──
 import PMSPage from "./pages/PMSPage";
 import AIFPage from "./pages/AIFPage";
 import TaxPlanningPage from "./pages/TaxPlanningPage";
 import InsuranceAdvisoryPage from "./pages/InsuranceAdvisoryPage";
 import LoanAgainstMfPage from "./pages/LoanAgainstMfPage";
 import NpsPage from "./pages/NpsPage";
-── END HIDDEN ── */
 
 // Calculators
 import SipGoalCalculator from "./components/calculators/SipGoalCalculator";
@@ -92,7 +91,7 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-        <Route path="/" element={<><SmartTicker /><Hero /><NeedHighlightCarousel /><Services /><WhyChooseUs /><Testimonials /><ContactBanner /></>} />
+        <Route path="/" element={<><SmartTicker /><Hero /><NeedHighlightCarousel /><Services /><WhyChooseUs /><SamridhiSection /><Testimonials /><ContactBanner /></>} />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/contact-us" element={<ContactUsPage />} />
         <Route path="/mutual-funds" element={<MutualFundPage />} />
@@ -105,15 +104,12 @@ function App() {
         <Route path="/commission-disclosure" element={<CommissionDisclosure />} />
         <Route path="/amc-links" element={<AmcLinks />} />
         <Route path="/financial-calculators" element={<FinancialCalculators />} />
-
-        {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
         <Route path="/pms" element={<PMSPage />} />
         <Route path="/aif" element={<AIFPage />} />
         <Route path="/tax-planning" element={<TaxPlanningPage />} />
         <Route path="/insurance-advisory" element={<InsuranceAdvisoryPage />} />
         <Route path="/loan-against-mf" element={<LoanAgainstMfPage />} />
         <Route path="/nps" element={<NpsPage />} />
-        ── END HIDDEN ── */}
 
         {/* Calculators */}
         <Route path="/calculators/sip-goal" element={<SipGoalCalculator />} />
@@ -127,6 +123,7 @@ function App() {
       </Routes>
 
       <Footer />
+      <Samridhi />
     </div>
   );
 }

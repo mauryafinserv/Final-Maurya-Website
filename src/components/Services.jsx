@@ -6,8 +6,6 @@ const services = [
   { name: "Mutual Fund Distribution", link: "/mutual-funds" },
   { name: "Equity Broking", link: "/equity-broking" },
   { name: "NRI Investments", link: "/nri-investments" },
-
-  /* ── TEMPORARILY HIDDEN FOR AUDIT ──
   { name: "AIF (Alternative Investment Fund)", link: "/aif" },
   { name: "PMS (Portfolio Management Services)", link: "/pms" },
   { name: "Loan Against Mutual Funds", link: "#" },
@@ -15,7 +13,6 @@ const services = [
   { name: "Company Fixed Deposits", link: "#" },
   { name: "Tax Consultation & Planning", link: "/tax-planning" },
   { name: "Insurance Advisory", link: "/insurance-advisory" },
-  ── END HIDDEN ── */
 ];
 
 const Services = () => {

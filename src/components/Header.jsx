@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full">
-      {/* 🔷 Top Black Bar */}
+      {/* Top Black Bar */}
       <div className="bg-black text-gold-500 text-sm py-2 px-4 flex justify-end items-center gap-6 relative">
         <Link to="/disclosures" className="hover:text-yellow-500">
           DISCLOSURES
@@ -78,7 +78,6 @@ const Header = () => {
               Stock Investing Platform
             </a>
           </li>
-          {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
           <li>
             <a href="https://apps.iciciprupms.com/wealthspectrum/portal/sign-in" target="_blank" rel="noopener noreferrer" className="block px-4 py-2 hover:bg-gray-100">
               ICICI Alternate Investments
@@ -89,11 +88,10 @@ const Header = () => {
               ABSL Alternate Investments
             </a>
           </li>
-          ── END HIDDEN ── */}
         </ul>
       </div>
 
-      {/* 🔷 Main Navigation */}
+      {/* Main Navigation */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex justify-between items-center h-16">
           {/* Logo */}
@@ -118,14 +116,12 @@ const Header = () => {
                 <ul className="py-2 text-sm text-gray-700">
                   <li><Link to="/mutual-funds" className="block px-4 py-2 hover:bg-gray-100">Mutual Fund Distribution</Link></li>
                   <li><Link to="/equity-broking" className="block px-4 py-2 hover:bg-gray-100">Equity Broking</Link></li>
-                  {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
                   <li><Link to="/pms" className="block px-4 py-2 hover:bg-gray-100">PMS Distribution</Link></li>
                   <li><Link to="/aif" className="block px-4 py-2 hover:bg-gray-100">AIF Distribution</Link></li>
                   <li><Link to="/tax-planning" className="block px-4 py-2 hover:bg-gray-100">Tax Planning</Link></li>
                   <li><Link to="/insurance-advisory" className="block px-4 py-2 hover:bg-gray-100">Insurance Advisory</Link></li>
                   <li><Link to="/loan-against-mf" className="block px-4 py-2 hover:bg-gray-100">Loan Against MF</Link></li>
                   <li><Link to="/nps" className="block px-4 py-2 hover:bg-gray-100">NPS</Link></li>
-                  ── END HIDDEN ── */}
                 </ul>
               </div>
             </div>
@@ -141,7 +137,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* 🔷 Side Drawer (Mobile Menu) */}
+      {/* Side Drawer (Mobile Menu) */}
       {mobileMenu.menu && (
         <div className="fixed inset-0 bg-black bg-opacity-40 z-40">
           <div className="fixed top-0 right-0 h-full w-4/5 bg-white shadow-lg p-6 overflow-y-auto">
@@ -162,14 +158,12 @@ const Header = () => {
                 <ul className="ml-4 mt-2 flex flex-col gap-2 text-sm">
                   <li><Link to="/mutual-funds" onClick={closeAll}>Mutual Fund Distribution</Link></li>
                   <li><Link to="/equity-broking" onClick={closeAll}>Equity Broking</Link></li>
-                  {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
                   <li><Link to="/pms" onClick={closeAll}>PMS Distribution</Link></li>
                   <li><Link to="/aif" onClick={closeAll}>AIF Distribution</Link></li>
                   <li><Link to="/tax-planning" onClick={closeAll}>Tax Planning</Link></li>
                   <li><Link to="/insurance-advisory" onClick={closeAll}>Insurance Advisory</Link></li>
                   <li><Link to="/loan-against-mf" onClick={closeAll}>Loan Against MF</Link></li>
                   <li><Link to="/nps" onClick={closeAll}>NPS</Link></li>
-                  ── END HIDDEN ── */}
                 </ul>
               </details>
 

@@ -29,15 +29,14 @@ const NriInvestmentPage = () => {
   };
 
   const countries = [
-    { name: "United States", flag: "🇺🇸", note: "FBAR & FATCA compliance. NRE/NRO accounts. MF investments allowed." },
-    { name: "United Arab Emirates", flag: "🇦🇪", note: "No income tax in UAE. India-UAE DTAA benefit. NRE/NRO route available." },
-    { name: "United Kingdom", flag: "🇬🇧", note: "India-UK DTAA. NRE interest tax-free in India." },
-    { name: "Canada", flag: "🇨🇦", note: "India-Canada DTAA. MF investments via NRE/NRO accounts." },
-    { name: "Australia", flag: "🇦🇺", note: "India-Australia DTAA. MF investments via NRE/NRO accounts." },
-    { name: "Singapore", flag: "🇸🇬", note: "India-Singapore DTAA. NRE/NRO route available." },
+    { name: "United States", flag: "🇺🇸", note: "FBAR & FATCA compliance. NRE/NRO accounts. MF investments allowed. GIFT City route available." },
+    { name: "United Arab Emirates", flag: "🇦🇪", note: "No income tax in UAE. India-UAE DTAA benefit. NRE/NRO route available. GIFT City AIF eligible." },
+    { name: "United Kingdom", flag: "🇬🇧", note: "India-UK DTAA. NRE interest tax-free in India. GIFT City investments in GBP possible." },
+    { name: "Canada", flag: "🇨🇦", note: "India-Canada DTAA. MF investments via NRE/NRO accounts. GIFT City route available." },
+    { name: "Australia", flag: "🇦🇺", note: "India-Australia DTAA. MF investments via NRE/NRO accounts. GIFT City AIF eligible." },
+    { name: "Singapore", flag: "🇸🇬", note: "India-Singapore DTAA. NRE/NRO route available. GIFT City in SGD possible." },
   ];
 
-  /* ── TEMPORARILY HIDDEN FOR AUDIT ──
   const giftCityBenefits = [
     { title: "No Indian PAN Required", desc: "Invest without needing an Indian PAN card — a major barrier removed for NRIs." },
     { title: "No Indian Bank Account", desc: "Invest directly from your overseas bank account in USD, GBP, EUR, AUD or other currencies." },
@@ -46,18 +45,14 @@ const NriInvestmentPage = () => {
     { title: "Free Repatriation", desc: "Move profits back to your overseas account freely — no restrictions." },
     { title: "Global Regulatory Standards", desc: "IFSCA follows international norms — compliance is straightforward for global investors." },
   ];
-  ── END HIDDEN ── */
 
   const investmentOptions = [
     { no: "01", title: "Mutual Funds via NRE/NRO", desc: "Invest in all leading AMCs — equity, debt, hybrid, and international funds. Repatriable from NRE accounts.", tag: "Most Popular" },
     { no: "02", title: "Equity via PIS Account", desc: "Invest directly in NSE/BSE listed stocks through a Portfolio Investment Scheme account via Kotak Securities.", tag: "Direct Equity" },
-
-    /* ── TEMPORARILY HIDDEN FOR AUDIT ──
     { no: "03", title: "GIFT City AIFs", desc: "Access India's private equity and alternative investment markets without PAN, in USD, with zero capital gains tax.", tag: "Premium" },
     { no: "04", title: "PMS Distribution", desc: "High-conviction, personalised portfolios managed by professional fund managers. Min ₹50 lakhs.", tag: "HNI" },
     { no: "05", title: "NRE Fixed Deposits", desc: "Tax-free interest in India, fully repatriable. Safe, stable returns for conservative NRI investors.", tag: "Low Risk" },
     { no: "06", title: "NPS for NRIs", desc: "Build a retirement corpus in India. Tax-efficient, government-regulated, long-term wealth building.", tag: "Retirement" },
-    ── END HIDDEN ── */
   ];
 
   const accounts = [
@@ -67,8 +62,8 @@ const NriInvestmentPage = () => {
   ];
 
   const steps = [
-    { no: "01", title: "Connect with Our NRI Desk", desc: "Reach us on WhatsApp or email. We understand your country-specific requirements and DTAA benefits." },
-    { no: "02", title: "Choose Your Investment Route", desc: "NRE/NRO for mutual funds, PIS for equities via Kotak Securities. We guide you to the right structure." },
+    { no: "01", title: "Connect with Our NRI Desk", desc: "Reach us on WhatsApp or email. We understand your country-specific requirements, DTAA benefits, and GIFT City eligibility." },
+    { no: "02", title: "Choose Your Investment Route", desc: "NRE/NRO for mutual funds, PIS for equities via Kotak Securities, or GIFT City for dollar-denominated AIFs. We guide you to the right structure." },
     { no: "03", title: "Complete KYC", desc: "Digital KYC with passport, visa/OCI, overseas address proof. Fully paperless and quick." },
     { no: "04", title: "Start Investing", desc: "Begin your investment journey from anywhere in the world. We handle everything on the ground." },
   ];
@@ -85,7 +80,7 @@ const NriInvestmentPage = () => {
               India's growth.<br />Your <span className="text-primary">wealth.</span><br />From anywhere.
             </h1>
             <p className="text-gray-400 text-lg leading-relaxed mb-8">
-              Whether you're in the US, UAE, UK, or anywhere in the world — we help you invest in India's growth story through mutual funds and equities in the most tax-efficient, compliant, and seamless way possible.
+              Whether you're in the US, UAE, UK, or anywhere in the world — we help you invest in India's growth story through mutual funds, equities, GIFT City AIFs, and more — in the most tax-efficient, compliant, and seamless way possible.
             </p>
             <div className="flex flex-wrap gap-4">
               <a
@@ -135,11 +130,25 @@ const NriInvestmentPage = () => {
         </div>
       </div>
 
-      {/* ── TEMPORARILY HIDDEN FOR AUDIT — ENTIRE GIFT CITY SECTION ──
+      {/* GIFT City Section */}
       <div className="px-6 md:px-16 py-20 border-b border-gray-900 bg-gray-950">
-        ... GIFT City section ...
+        <div className="max-w-7xl mx-auto">
+          <p className="text-primary text-xs font-semibold tracking-[0.3em] uppercase mb-4">GIFT City — India's IFSC</p>
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">Invest in India.<br />Without the barriers.</h2>
+          <p className="text-gray-400 text-lg leading-relaxed mb-16 max-w-3xl">
+            GIFT City (Gujarat International Finance Tec-City) is India's first International Financial Services Centre. It allows NRIs and global investors to invest into India through dollar-denominated structures — without needing a PAN card, Indian bank account, or facing Indian capital gains tax.
+          </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {giftCityBenefits.map((b, i) => (
+              <div key={i} className="border-t border-gray-800 pt-6">
+                <p className="text-primary text-xs font-bold mb-3">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="text-white font-bold text-lg mb-2">{b.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-      ── END HIDDEN ── */}
 
       {/* Investment Options */}
       <div className="px-6 md:px-16 py-20 border-b border-gray-900">
@@ -214,9 +223,7 @@ const NriInvestmentPage = () => {
               { label: "Equity LTCG above ₹1.25L (held > 1 year)", value: "12.5%" },
               { label: "NRE FD Interest", value: "Tax Free in India" },
               { label: "DTAA Benefit", value: "Available in 90+ countries" },
-              /* ── TEMPORARILY HIDDEN FOR AUDIT ──
               { label: "GIFT City Capital Gains", value: "Zero in India" },
-              ── END HIDDEN ── */
             ].map((t) => (
               <div key={t.label} className="flex justify-between items-center border-b border-gray-800 pb-4">
                 <p className="text-gray-400 text-sm">{t.label}</p>

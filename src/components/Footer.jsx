@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-black text-gray-300 pt-12 px-6 md:px-16 border-t border-darkGold">
       <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-10 pb-10">
-        
+
         {/* Company Info */}
         <div>
           <Link to="/" className="flex items-center mb-4">
@@ -29,16 +29,14 @@ const Footer = () => {
             <li><Link to="/" className="hover:underline">Home</Link></li>
             <li><Link to="/mutual-funds" className="hover:underline">Mutual Fund Distribution</Link></li>
             <li><Link to="/equity-broking" className="hover:underline">Equity Broking</Link></li>
+            <li><Link to="/aif" className="hover:underline">AIF</Link></li>
+            <li><Link to="/pms" className="hover:underline">PMS</Link></li>
+            <li><Link to="/insurance-advisory" className="hover:underline">Insurance Advisory</Link></li>
             <li><Link to="/knowledge-corner" className="hover:underline">Knowledge Corner</Link></li>
             <li><Link to="/disclosures" className="hover:underline">Regulatory Disclosures</Link></li>
             <li><Link to="/commission-disclosure" className="hover:underline">Commission Disclosure</Link></li>
             <li><Link to="/amc-links" className="hover:underline">AMC Websites</Link></li>
             <li><a href="#partner" className="hover:underline">Partner with Us</a></li>
-            {/* ── TEMPORARILY HIDDEN FOR AUDIT ──
-            <li><Link to="/aif" className="hover:underline">AIF</Link></li>
-            <li><Link to="/pms" className="hover:underline">PMS</Link></li>
-            <li><Link to="/insurance-advisory" className="hover:underline">Insurance Advisory</Link></li>
-            ── END HIDDEN ── */}
           </ul>
         </div>
 
@@ -75,7 +73,7 @@ const Footer = () => {
       {/* Bottom Disclaimer */}
       <div className="border-t border-darkGold pt-6 pb-4 text-xs text-center text-gray-500">
         <p>
-          Disclaimer: Investment in securities market are subject to market risks. Read all scheme related documents carefully. 
+          Disclaimer: Investment in securities market are subject to market risks. Read all scheme related documents carefully.
           Maurya Shares & Stock Brokers Pvt Ltd is a SEBI-registered Mutual Fund Distributor (ARN-112272).
         </p>
         <p className="mt-2">&copy; {new Date().getFullYear()} Maurya Shares & Stock Brokers Pvt Ltd. All rights reserved.</p>

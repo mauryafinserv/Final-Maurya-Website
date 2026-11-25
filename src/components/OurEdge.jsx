@@ -6,7 +6,7 @@ const pillars = [
   { icon: <ShieldCheck className="h-6 w-6" />, title: "Transparency & Ethics", subtitle: "Zero Conflict. Pure Trust.", desc: "No hidden charges, no conflict of interest. Your trust is our most valuable asset.", tag: "Zero Conflict" },
   { icon: <Building2 className="h-6 w-6" />, title: "30 Years of Legacy", subtitle: "Trusted Across Generations", desc: "Three decades of partnering with HNI families, NRIs, and corporates to build enduring wealth.", tag: "Est. 1990s" },
   { icon: <BrainCircuit className="h-6 w-6" />, title: "AI-Powered Intelligence", subtitle: "Research Meets Technology", desc: "Claude AI and NGen market intelligence — institutional-grade insights for every client.", tag: "Powered by AI" },
-  { icon: <Briefcase className="h-6 w-6" />, title: "One-Stop Financial Partner", subtitle: "Everything Under One Roof", desc: "Mutual funds, equities, and NRI investments — your wealth journey, one trusted relationship.", tag: "Complete Solutions" },
+  { icon: <Briefcase className="h-6 w-6" />, title: "One-Stop Financial Partner", subtitle: "Everything Under One Roof", desc: "MF, PMS, AIF, equity, insurance, NPS — your entire financial life, one trusted relationship.", tag: "Complete Solutions" },
   { icon: <SlidersHorizontal className="h-6 w-6" />, title: "Personalised Planning", subtitle: "Your Goals. Your Strategy.", desc: "Bespoke strategies tailored to your life stage, risk appetite, and long-term aspirations.", tag: "Tailored for You" },
   { icon: <Users className="h-6 w-6" />, title: "HNI & NRI Focused", subtitle: "Built for Those Who Think Beyond Ordinary", desc: "Curated solutions for high-net-worth individuals, NRI investors, and family offices.", tag: "Exclusive Access" },
 ];

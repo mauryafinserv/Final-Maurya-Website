@@ -32,7 +32,6 @@ const highlights = [
     cta: "See what your SIP can grow into",
     link: "/calculators/sip-fv",
   },
-  /* ── TEMPORARILY HIDDEN FOR AUDIT ──
   {
     tag: "Insurance",
     title: "75% of Indian families have inadequate health or life insurance.",
@@ -40,12 +39,11 @@ const highlights = [
     cta: "Talk to our insurance team",
     link: "/insurance-advisory",
   },
-  ── END HIDDEN ── */
   {
     tag: "NRI",
-    title: "NRIs can invest in India's growth through mutual funds and equities.",
-    hook: "Invest in India the smarter way — tax-efficient, compliant, and seamless via NRE/NRO accounts.",
-    cta: "Explore NRI investment options",
+    title: "Most NRIs miss out on tax-free, digital options like GIFT City.",
+    hook: "Invest in India the smarter way — lower tax, better compliance, in your currency.",
+    cta: "Explore GIFT City opportunities",
     link: "/nri-investments",
   },
   {
